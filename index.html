@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>HeartLink | Premium Experience</title>
+
+    <!-- ✅ SEO + OG (Preview Card for WhatsApp/Facebook/Telegram) -->
+    <meta name="description" content="أول منصة للهدايا الرقمية في مصر">
+
+    <meta property="og:title" content="أول منصة للهدايا الرقمية في مصر">
+    <meta property="og:description" content="أول منصة للهدايا الرقمية في مصر">
+    <meta property="og:image" content="https://files.catbox.moe/kopp31.png">
+    <meta property="og:url" content="https://heartlink-eg.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_EG">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="أول منصة للهدايا الرقمية في مصر">
+    <meta name="twitter:description" content="أول منصة للهدايا الرقمية في مصر">
+    <meta name="twitter:image" content="https://files.catbox.moe/kopp31.png">
+    <!-- ✅ نهاية SEO + OG -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
@@ -194,7 +211,7 @@
             margin-top: -40px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             animation: scrollBounce 2s infinite ease-in-out;
-            
+
             /* تأثير الاختفاء التدريجي */
             opacity: 0;
             visibility: hidden;
@@ -562,7 +579,7 @@
             const selectedSection = document.getElementById(tabName);
             selectedSection.classList.add('active');
             evt.currentTarget.classList.add('active');
-            
+
             const card = selectedSection.querySelector('.glass-card');
             if(card) {
                 card.scrollTop = 0;
@@ -574,11 +591,11 @@
         function handleScroll(element) {
             const indicator = element.querySelector('.scroll-indicator');
             if (!indicator) return;
-            
+
             const isScrollable = element.scrollHeight > element.clientHeight;
             // الحسبة بتخلي السهم يختفي تدريجياً قبل النهاية بـ 50 بكسل عشان يكون شكله أشيك
             const isAtBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 50;
-            
+
             if (isScrollable && !isAtBottom) {
                 indicator.classList.add('visible');
             } else {
