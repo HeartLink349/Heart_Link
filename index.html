@@ -1,621 +1,601 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>HeartLink | Premium Experience</title>
-
-    <!-- ✅ SEO + OG (Preview Card for WhatsApp/Facebook/Telegram) -->
-    <meta name="description" content="أول منصة للهدايا الرقمية في مصر">
-
-    <meta property="og:title" content="أول منصة للهدايا الرقمية في مصر">
-    <meta property="og:description" content="أول منصة للهدايا الرقمية في مصر">
-    <meta property="og:image" content="https://files.catbox.moe/kopp31.png">
-    <meta property="og:url" content="https://heartlink-eg.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ar_EG">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="أول منصة للهدايا الرقمية في مصر">
-    <meta name="twitter:description" content="أول منصة للهدايا الرقمية في مصر">
-    <meta name="twitter:image" content="https://files.catbox.moe/kopp31.png">
-    <!-- ✅ نهاية SEO + OG -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <style>
-        :root {
-            --primary: #6366f1; 
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
-            --bg: #030712; 
-            --glass: rgba(15, 23, 42, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text: #f8fafc;
-            --text-dim: #94a3b8;
-        }
-
-        .light-mode {
-            --bg: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(0, 0, 0, 0.05);
-            --text: #0f172a;
-            --text-dim: #64748b;
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            margin: 0;
-            height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .bg-glow {
-            position: fixed;
-            width: 450px; height: 450px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            filter: blur(120px);
-            opacity: 0.15;
-            z-index: -1;
-            animation: floating 15s infinite alternate ease-in-out;
-        }
-
-        @keyframes floating {
-            0% { transform: translate(-15%, -15%); }
-            100% { transform: translate(35%, 25%); }
-        }
-
-        header {
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            height: 90px;
-            animation: fadeInDown 0.8s ease;
-        }
-
-        .header-tagline {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 2px;
-            flex: 1;
-        }
-
-        .tagline-main {
-            font-size: 15px;
-            font-weight: 800;
-            white-space: nowrap;
-            letter-spacing: 0.2px;
-            color: #ffffff; 
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tagline-main i {
-            color: #ffd700;
-            font-size: 13px;
-            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.4));
-            animation: crownPulse 2s infinite ease-in-out;
-        }
-
-        .tagline-sub {
-            font-size: 9px;
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            opacity: 0.8;
-            text-transform: uppercase;
-        }
-
-        @keyframes crownPulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(10deg); }
-        }
-
-        .theme-toggle {
-            width: 42px; height: 42px;
-            border-radius: 14px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text);
-            cursor: pointer;
-            backdrop-filter: blur(15px);
-            display: flex; align-items: center; justify-content: center;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .theme-toggle:active { transform: scale(0.9); }
-
-        main {
-            flex: 1;
-            padding: 0 20px;
-            position: relative;
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin-bottom: 110px; 
-        }
-
-        .content-section {
-            position: absolute;
-            width: 100%;
-            max-width: 450px;
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-
-        .content-section.active {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid var(--glass-border);
-            padding: 25px 20px;
-            border-radius: 35px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-            height: auto; 
-            max-height: 100%; 
-            width: 100%;
-            overflow-y: auto;
-            scrollbar-width: none;
-            display: block;
-            position: relative;
-        }
-
-        .glass-card::-webkit-scrollbar { display: none; }
-
-        /* --- تعديل السهم الاحترافي للاختفاء الناعم --- */
-        .scroll-indicator {
-            position: sticky;
-            bottom: 15px;
-            left: 15px;
-            width: 40px;
-            height: 40px;
-            background: rgba(99, 102, 241, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            display: flex; /* خليناه flex دايماً عشان الأنيميشن يشتغل */
-            align-items: center;
-            justify-content: center;
-            z-index: 99;
-            pointer-events: none;
-            margin-right: auto;
-            margin-top: -40px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            animation: scrollBounce 2s infinite ease-in-out;
-
-            /* تأثير الاختفاء التدريجي */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
-        }
-
-        /* كلاس التحكم في الظهور */
-        .scroll-indicator.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-indicator::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            animation: pulseRing 2s infinite;
-        }
-
-        @keyframes scrollBounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-8px); }
-            60% { transform: translateY(-4px); }
-        }
-
-        @keyframes pulseRing {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.6); opacity: 0; }
-        }
-
-        h2 { text-align: center; font-size: 22px; margin-bottom: 20px; line-height: 1.4; margin-top: 0; font-weight: 800; }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .feature-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--glass-border);
-            padding: 20px 15px;
-            border-radius: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feature-box:active {
-            transform: scale(0.95);
-            background: rgba(99, 102, 241, 0.1);
-            border-color: var(--primary);
-        }
-
-        .feature-box i {
-            font-size: 24px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .feature-box span {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .step-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .step-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            padding: 18px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: 0.3s;
-        }
-
-        .step-card:active { transform: scale(0.98); background: rgba(99, 102, 241, 0.05); }
-
-        .step-number {
-            width: 35px; height: 35px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 900; color: white; flex-shrink: 0;
-            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
-        }
-
-        .step-text { flex: 1; }
-        .step-text b { display: block; font-size: 15px; color: var(--text); margin-bottom: 3px; }
-        .step-text p { margin: 0; font-size: 11px; color: var(--text-dim); line-height: 1.4; }
-
-        .demo-card {
-            background: linear-gradient(165deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid var(--glass-border);
-            border-radius: 22px;
-            padding: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.4s;
-            cursor: pointer;
-        }
-
-        .demo-icon {
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 16px;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-        }
-
-        .demo-info { flex: 1; }
-        .demo-title { display: block; font-weight: 800; font-size: 15px; }
-        .demo-pass { display: block; font-size: 10px; color: var(--text-dim); }
-
-        .feature-row {
-            display: flex; align-items: center; gap: 12px;
-            padding: 15px; background: rgba(255,255,255,0.01);
-            border-radius: 22px; margin-bottom: 12px;
-            border: 1px solid var(--glass-border);
-            transition: 0.3s;
-        }
-
-        .icon-circle {
-            min-width: 42px; height: 42px;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--primary); font-size: 18px;
-        }
-
-        .badge-separator {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            margin: 20px 0; font-size: 11px; font-weight: 800; color: var(--primary);
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        .badge-separator::before, .badge-separator::after {
-            content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
-        }
-
-        .order-btn {
-            color: #ffffff; padding: 18px; border-radius: 22px;
-            text-decoration: none; display: flex; align-items: center;
-            justify-content: center; gap: 12px; font-weight: 900;
-            margin-top: 10px;
-            transition: 0.3s;
-            border: none;
-            width: 100%;
-        }
-
-        .order-btn:active { transform: scale(0.97); }
-
-        nav {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 450px;
-            background: rgba(8, 10, 24, 0.8);
-            backdrop-filter: blur(25px); border: 1px solid var(--glass-border);
-            padding: 8px; border-radius: 25px; display: flex; z-index: 1000;
-            animation: fadeInUp 1s ease;
-        }
-
-        .nav-item {
-            flex: 1; display: flex; flex-direction: column; align-items: center;
-            gap: 4px; color: var(--text-dim); background: none; border: none;
-            padding: 10px 0; border-radius: 18px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-item.active { color: var(--text); background: rgba(99, 102, 241, 0.15); transform: translateY(-3px); }
-        .nav-item i { font-size: 1.1rem; }
-        .nav-item.active i { color: var(--primary); }
-        .nav-item span { font-size: 10px; font-weight: 700; }
-
-        .footer-copyright-tag {
-            position: fixed; bottom: 8px; left: 0; width: 100%; text-align: center;
-            font-size: 8px; color: var(--text-dim); opacity: 0.5; z-index: 999;
-            pointer-events: none; letter-spacing: 1px;
-        }
-
-        #preview-modal { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: none; }
-        #preview-modal.active { display: flex; flex-direction: column; animation: zoomIn 0.3s ease; }
-        .close-btn { position: absolute; top: 25px; left: 25px; width: 45px; height: 45px; background: #fff; color: #000; border: none; border-radius: 50%; z-index: 10001; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translate(-50%, 20px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-    </style>
-</head>
-<body>
-
-    <div class="bg-glow"></div>
-
-    <div id="preview-modal">
-        <button class="close-btn" onclick="closePreview()">✕</button>
-        <iframe id="preview-frame" style="width:100%; height:100%; border:none;"></iframe>
-    </div>
-
-    <header>
-        <div class="header-tagline">
-            <div class="tagline-main">
-                <i class="fa-solid fa-crown"></i>
-                أول منصة للهدايا الرقمية في مصر
-            </div>
-            <div class="tagline-sub">HeartLink Experience</div>
-        </div>
-        <button class="theme-toggle" onclick="toggleTheme()">
-            <i id="theme-icon" class="fa-solid fa-moon"></i>
-        </button>
-    </header>
-
-    <main>
-        <div id="home" class="content-section active">
-            <div class="glass-card animate__animated animate__fadeIn" onscroll="handleScroll(this)">
-                <h2>حكايتكم تستاهل <br><span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ذكرى تعيش للأبد.. ✨</span></h2>
-                <div class="feature-grid">
-                    <div class="feature-box"><i class="fa-solid fa-cake-candles"></i><span>أعياد ميلاد</span></div>
-                    <div class="feature-box"><i class="fa-solid fa-user-group"></i><span>أصحاب</span></div>
-                    <div class="feature-box"><i class="fa-solid fa-calendar-check"></i><span>سنة جديدة</span></div>
-                    <div class="feature-box"><i class="fa-solid fa-infinity"></i><span>ذكرى بينكم</span></div>
-                </div>
-                <div class="badge-separator">تنفع لجميع المناسبات 🌟</div>
-                <div class="feature-row" style="background: rgba(99, 102, 241, 0.05); border: 1px dashed var(--primary);">
-                    <div class="icon-circle" style="background: #fff; color: var(--primary);"><i class="fa-solid fa-heart"></i></div>
-                    <span style="font-weight: 800;">حتى لو عايز تصالح حبيبتك</span>
-                </div>
-                <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-            </div>
-        </div>
-
-        <div id="demo" class="content-section">
-            <div class="glass-card" onscroll="handleScroll(this)">
-                <h2>نماذج من أعمالنا 📁</h2>
-                <div onclick="openPreview('https://h-sooty-nine.vercel.app/')" class="demo-card">
-                    <div class="demo-icon"><i class="fa-solid fa-eye"></i></div>
-                    <div class="demo-info"><span class="demo-title">تجربة 1</span><span class="demo-pass">باسورد الويب: 20/1/2002</span></div>
-                </div>
-                <div onclick="openPreview('https://page-beta-jet.vercel.app/')" class="demo-card">
-                    <div class="demo-icon" style="background: linear-gradient(135deg, var(--accent), var(--primary));"><i class="fa-solid fa-eye"></i></div>
-                    <div class="demo-info"><span class="demo-title">تجربة 2</span><span class="demo-pass">باسورد: ملاك</span></div>
-                </div>
-                <div onclick="openPreview('https://heart-link-qq.vercel.app/')" class="demo-card">
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #ffd700, #ffa500);"><i class="fa-solid fa-eye"></i></div>
-                    <div class="demo-info"><span class="demo-title">تجربة 3</span><span class="demo-pass">باسورد: 27/9/2025</span></div>
-                </div>
-                <div onclick="openPreview('https://lk-ivory.vercel.app/')" class="demo-card">
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #ff0050, #00f2ea);"><i class="fa-solid fa-eye"></i></div>
-                    <div class="demo-info"><span class="demo-title">تجربة 4</span><span class="demo-pass">باسورد: 1</span></div>
-                </div>
-                <div onclick="openPreview('https://ramadan-eg.vercel.app/')" class="demo-card">
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #22c55e, #10b981);"><i class="fa-solid fa-moon"></i></div>
-                    <div class="demo-info"><span class="demo-title">هدية رمضان</span><span class="demo-pass">باسورد: 19/2</span></div>
-                </div>
-                <div class="badge-separator">الدقة هي لعبتنا! 🎨</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <div class="feature-box" style="padding: 15px;"><i class="fa-solid fa-wand-magic-sparkles"></i><span style="font-size: 11px;">تصميم احترافي</span></div>
-                    <div class="feature-box" style="padding: 15px;"><i class="fa-solid fa-check-double"></i><span style="font-size: 11px;">مناسب لجميع المناسبات</span></div>
-                </div>
-                <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-            </div>
-        </div>
-
-        <div id="details" class="content-section">
-            <div class="glass-card" onscroll="handleScroll(this)">
-                <h2>ليه تختار HeartLink؟ ⭐</h2>
-                <div class="feature-row">
-                    <div class="icon-circle"><i class="fa-solid fa-lock"></i></div>
-                    <div><b style="display:block; font-size:14px;">خصوصية تامة</b><small style="color:var(--text-dim); font-size: 10px;">موقعكم محمي بكلمة سر، إنتو بس اللي تقدروا تشوفوه.</small></div>
-                </div>
-                <div class="feature-row">
-                    <div class="icon-circle" style="color: #ffd700;"><i class="fa-solid fa-link"></i></div>
-                    <div><b style="display:block; font-size:14px;">رابط خاص بيكم</b><small style="color:var(--text-dim); font-size: 10px;">لينك دائم ومميز ليكم لوحدكم.</small></div>
-                </div>
-                <div class="feature-row" style="background: rgba(6, 182, 212, 0.05); border: 1px dashed var(--accent);">
-                    <div class="icon-circle" style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div><b style="display:block; font-size:14px;">تنفيذ أي فكرة</b><small style="color:var(--text-dim); font-size: 10px;">عندك فكرة معينة؟ بنصممهالك من الصفر.</small></div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0;">
-                    <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-gift" style="font-size: 18px;"></i><span style="font-size: 9px;">هدية رقمية مختلفة</span></div>
-                    <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-stopwatch" style="font-size: 18px;"></i><span style="font-size: 9px;">استلام سريع ⏱️</span></div>
-                    <div class="feature-box" style="padding: 12px; grid-column: span 2;"><i class="fa-solid fa-share-nodes" style="font-size: 18px; color: var(--accent);"></i><span style="font-size: 9px;">ينفع تبعتو تطبيق او لينك حسب اختيارك</span></div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 10px;">
-                    <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-award" style="font-size: 18px;"></i><span style="font-size: 9px;">ضمان جودة</span></div>
-                    <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-bolt" style="font-size: 18px; -webkit-text-fill-color: #ffd700;"></i><span style="font-size: 9px;">رد سريع</span></div>
-                    <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-pen-nib" style="font-size: 18px; -webkit-text-fill-color: var(--accent);"></i><span style="font-size: 9px;">تعديل حر</span></div>
-                </div>
-                <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-            </div>
-        </div>
-
-        <div id="steps" class="content-section">
-            <div class="glass-card" onscroll="handleScroll(this)">
-                <h2>اعمل هديتك في 3 خطوات 🪄</h2>
-                <div class="step-container">
-                    <div class="step-card"><div class="step-number">1</div><div class="step-text"><b>اختار فكرتك</b><p>سواء من النماذج الجاهزة أو فكرة جديدة في دماغك، نساعدك تطلعها بأحلى شكل.</p></div><i class="fa-solid fa-lightbulb" style="color: #ffd700; opacity: 0.5;"></i></div>
-                    <div class="step-card"><div class="step-number">2</div><div class="step-text"><b>ابعت فكرتك</b><p>هنصممها في أسرع وقت ممكن وبأعلى جودة تنفيذ.</p></div><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary); opacity: 0.5;"></i></div>
-                    <div class="step-card"><div class="step-number">3</div><div class="step-text"><b>استلم هديتك</b><p>هنبعتلك رابط الهديّة أو التطبيق الخاص بيك جاهز للمشاركة.</p></div><i class="fa-solid fa-gift" style="color: var(--accent); opacity: 0.5;"></i></div>
-                </div>
-                <div class="badge-separator">بكل سهولة وبأعلى جودة ✨</div>
-                <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-            </div>
-        </div>
-
-        <div id="order" class="content-section">
-            <div class="glass-card" style="text-align: center;">
-                <div class="animate__animated animate__pulse animate__infinite">
-                    <div style="width: 80px; height: 80px; background: rgba(99, 102, 241, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
-                        <i class="fa-solid fa-paper-plane" style="font-size: 2.5rem; color: var(--primary);"></i>
-                    </div>
-                </div>
-                <h2>جاهز تبهرهم؟ 🚀</h2>
-                <p style="font-size: 14px; color: var(--text); font-weight: 700; margin-bottom: 20px;">🎁 اطلب هديتك الرقمية دلوقتي <br>وسيب الباقي علينا ❤️</p>
-                <a href="https://wa.me/201125674359" class="order-btn" style="background: #25D366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);"><i class="fa-brands fa-whatsapp" style="font-size: 1.5rem;"></i><span>اطلب عبر الواتساب</span></a>
-                <a href="https://www.tiktok.com/@ba7bak.28" target="_blank" class="order-btn" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.3);"><i class="fa-brands fa-tiktok" style="font-size: 1.3rem; color: #ff0050; filter: drop-shadow(2px 0 0 #00f2ea);"></i><span>شاهد باقي أعمالنا</span></a>
-                <div class="badge-separator" style="margin-top: 30px;">HeartLink Experience</div>
-                <div style="margin-top: 10px; font-size: 10px; opacity: 0.5; letter-spacing: 1px;">© 2026 ALL RIGHTS RESERVED</div>
-            </div>
-        </div>
-    </main>
-
-    <nav>
-        <button class="nav-item active" onclick="openTab(event, 'home')"><i class="fa-solid fa-house"></i><span>الرئيسية</span></button>
-        <button class="nav-item" onclick="openTab(event, 'demo')"><i class="fa-solid fa-circle-play"></i><span>مثال حي</span></button>
-        <button class="nav-item" onclick="openTab(event, 'details')"><i class="fa-solid fa-gem"></i><span>المميزات</span></button>
-        <button class="nav-item" onclick="openTab(event, 'steps')"><i class="fa-solid fa-list-check"></i><span>الخطوات</span></button>
-        <button class="nav-item" onclick="openTab(event, 'order')"><i class="fa-solid fa-rocket"></i><span>اطلب</span></button>
-    </nav>
-
-    <div class="footer-copyright-tag">© 2026 HEARTLINK EXPERIENCE - ALL RIGHTS RESERVED</div>
-
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const icon = document.getElementById('theme-icon');
-            icon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-        }
-
-        function openTab(evt, tabName) {
-            const sections = document.querySelectorAll('.content-section');
-            const navItems = document.querySelectorAll('.nav-item');
-            sections.forEach(s => s.classList.remove('active'));
-            navItems.forEach(n => n.classList.remove('active'));
-            const selectedSection = document.getElementById(tabName);
-            selectedSection.classList.add('active');
-            evt.currentTarget.classList.add('active');
-
-            const card = selectedSection.querySelector('.glass-card');
-            if(card) {
-                card.scrollTop = 0;
-                setTimeout(() => handleScroll(card), 100);
-            }
-        }
-
-        /* --- تعديل وظيفة السكرول للاختفاء الناعم --- */
-        function handleScroll(element) {
-            const indicator = element.querySelector('.scroll-indicator');
-            if (!indicator) return;
-
-            const isScrollable = element.scrollHeight > element.clientHeight;
-            // الحسبة بتخلي السهم يختفي تدريجياً قبل النهاية بـ 50 بكسل عشان يكون شكله أشيك
-            const isAtBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 50;
-
-            if (isScrollable && !isAtBottom) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
-            }
-        }
-
-        window.onload = () => {
-            document.querySelectorAll('.glass-card').forEach(card => handleScroll(card));
-        };
-
-        function openPreview(url) {
-            document.getElementById('preview-frame').src = url;
-            document.getElementById('preview-modal').classList.add('active');
-        }
-
-        function closePreview() {
-            document.getElementById('preview-modal').classList.remove('active');
-            document.getElementById('preview-frame').src = "";
-        }
-    </script>
-</body>
+<!DOCTYPE html>  <html lang="ar" dir="rtl">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">  
+    <title>HeartLink | Premium Experience</title>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>  
+    <style>  
+        :root {  
+            --primary: #6366f1;   
+            --secondary: #8b5cf6;  
+            --accent: #06b6d4;  
+            --bg: #030712;   
+            --glass: rgba(15, 23, 42, 0.6);  
+            --glass-border: rgba(255, 255, 255, 0.08);  
+            --text: #f8fafc;  
+            --text-dim: #94a3b8;  
+        }  .light-mode {  
+        --bg: #f8fafc;  
+        --glass: rgba(255, 255, 255, 0.8);  
+        --glass-border: rgba(0, 0, 0, 0.05);  
+        --text: #0f172a;  
+        --text-dim: #64748b;  
+    }  
+
+    * {  
+        box-sizing: border-box;  
+        -webkit-tap-highlight-color: transparent;  
+        font-family: 'Segoe UI', system-ui, sans-serif;  
+    }  
+
+    body {  
+        background: var(--bg);  
+        color: var(--text);  
+        margin: 0;  
+        height: 100dvh;  
+        display: flex;  
+        flex-direction: column;  
+        overflow: hidden;  
+        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);  
+    }  
+
+    .bg-glow {  
+        position: fixed;  
+        width: 450px; height: 450px;  
+        background: radial-gradient(circle, var(--primary) 0%, transparent 70%);  
+        filter: blur(120px);  
+        opacity: 0.15;  
+        z-index: -1;  
+        animation: floating 15s infinite alternate ease-in-out;  
+    }  
+
+    @keyframes floating {  
+        0% { transform: translate(-15%, -15%); }  
+        100% { transform: translate(35%, 25%); }  
+    }  
+
+    header {  
+        padding: 15px 20px;  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        z-index: 100;  
+        height: 90px;  
+        animation: fadeInDown 0.8s ease;  
+    }  
+
+    .header-tagline {  
+        display: flex;  
+        flex-direction: column;  
+        align-items: flex-start;  
+        gap: 2px;  
+        flex: 1;  
+    }  
+
+    .tagline-main {  
+        font-size: 15px;  
+        font-weight: 800;  
+        white-space: nowrap;  
+        letter-spacing: 0.2px;  
+        color: #ffffff;   
+        display: flex;  
+        align-items: center;  
+        gap: 6px;  
+    }  
+
+    .tagline-main i {  
+        color: #ffd700;  
+        font-size: 13px;  
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.4));  
+        animation: crownPulse 2s infinite ease-in-out;  
+    }  
+
+    .tagline-sub {  
+        font-size: 9px;  
+        color: var(--primary);  
+        font-weight: 700;  
+        letter-spacing: 1.5px;  
+        opacity: 0.8;  
+        text-transform: uppercase;  
+    }  
+
+    @keyframes crownPulse {  
+        0%, 100% { transform: scale(1) rotate(0deg); }  
+        50% { transform: scale(1.2) rotate(10deg); }  
+    }  
+
+    .theme-toggle {  
+        width: 42px; height: 42px;  
+        border-radius: 14px;  
+        background: var(--glass);  
+        border: 1px solid var(--glass-border);  
+        color: var(--text);  
+        cursor: pointer;  
+        backdrop-filter: blur(15px);  
+        display: flex; align-items: center; justify-content: center;  
+        transition: 0.3s;  
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);  
+    }  
+
+    .theme-toggle:active { transform: scale(0.9); }  
+
+    main {  
+        flex: 1;  
+        padding: 0 20px;  
+        position: relative;  
+        display: flex;   
+        justify-content: center;  
+        align-items: center;  
+        overflow: hidden;  
+        margin-bottom: 110px;   
+    }  
+
+    .content-section {  
+        position: absolute;  
+        width: 100%;  
+        max-width: 450px;  
+        visibility: hidden;  
+        opacity: 0;  
+        transform: translateY(20px);  
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        height: 100%;  
+    }  
+
+    .content-section.active {  
+        visibility: visible;  
+        opacity: 1;  
+        transform: translateY(0);  
+    }  
+
+    .glass-card {  
+        background: var(--glass);  
+        backdrop-filter: blur(40px);  
+        -webkit-backdrop-filter: blur(40px);  
+        border: 1px solid var(--glass-border);  
+        padding: 25px 20px;  
+        border-radius: 35px;  
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);  
+        height: auto;   
+        max-height: 100%;   
+        width: 100%;  
+        overflow-y: auto;  
+        scrollbar-width: none;  
+        display: block;  
+        position: relative;  
+    }  
+
+    .glass-card::-webkit-scrollbar { display: none; }  
+
+    /* --- تعديل السهم الاحترافي للاختفاء الناعم --- */  
+    .scroll-indicator {  
+        position: sticky;  
+        bottom: 15px;  
+        left: 15px;  
+        width: 40px;  
+        height: 40px;  
+        background: rgba(99, 102, 241, 0.3);  
+        backdrop-filter: blur(12px);  
+        -webkit-backdrop-filter: blur(12px);  
+        border: 1px solid rgba(255, 255, 255, 0.15);  
+        border-radius: 50%;  
+        display: flex; /* خليناه flex دايماً عشان الأنيميشن يشتغل */  
+        align-items: center;  
+        justify-content: center;  
+        z-index: 99;  
+        pointer-events: none;  
+        margin-right: auto;  
+        margin-top: -40px;  
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);  
+        animation: scrollBounce 2s infinite ease-in-out;  
+          
+        /* تأثير الاختفاء التدريجي */  
+        opacity: 0;  
+        visibility: hidden;  
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;  
+    }  
+
+    /* كلاس التحكم في الظهور */  
+    .scroll-indicator.visible {  
+        opacity: 1;  
+        visibility: visible;  
+    }  
+
+    .scroll-indicator::after {  
+        content: '';  
+        position: absolute;  
+        width: 100%;  
+        height: 100%;  
+        border-radius: 50%;  
+        border: 2px solid var(--primary);  
+        animation: pulseRing 2s infinite;  
+    }  
+
+    @keyframes scrollBounce {  
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }  
+        40% { transform: translateY(-8px); }  
+        60% { transform: translateY(-4px); }  
+    }  
+
+    @keyframes pulseRing {  
+        0% { transform: scale(1); opacity: 0.8; }  
+        100% { transform: scale(1.6); opacity: 0; }  
+    }  
+
+    h2 { text-align: center; font-size: 22px; margin-bottom: 20px; line-height: 1.4; margin-top: 0; font-weight: 800; }  
+
+    .feature-grid {  
+        display: grid;  
+        grid-template-columns: 1fr 1fr;  
+        gap: 15px;  
+        margin-bottom: 20px;  
+    }  
+
+    .feature-box {  
+        background: rgba(255, 255, 255, 0.02);  
+        border: 1px solid var(--glass-border);  
+        padding: 20px 15px;  
+        border-radius: 25px;  
+        text-align: center;  
+        transition: all 0.3s ease;  
+        display: flex;  
+        flex-direction: column;  
+        align-items: center;  
+        gap: 10px;  
+    }  
+
+    .feature-box:active {  
+        transform: scale(0.95);  
+        background: rgba(99, 102, 241, 0.1);  
+        border-color: var(--primary);  
+    }  
+
+    .feature-box i {  
+        font-size: 24px;  
+        background: linear-gradient(135deg, var(--primary), var(--secondary));  
+        -webkit-background-clip: text;  
+        -webkit-text-fill-color: transparent;  
+    }  
+
+    .feature-box span {  
+        font-size: 13px;  
+        font-weight: 700;  
+        color: var(--text);  
+    }  
+
+    .step-container {  
+        display: flex;  
+        flex-direction: column;  
+        gap: 15px;  
+    }  
+
+    .step-card {  
+        background: rgba(255, 255, 255, 0.03);  
+        border: 1px solid var(--glass-border);  
+        padding: 18px;  
+        border-radius: 25px;  
+        display: flex;  
+        align-items: center;  
+        gap: 15px;  
+        transition: 0.3s;  
+    }  
+
+    .step-card:active { transform: scale(0.98); background: rgba(99, 102, 241, 0.05); }  
+
+    .step-number {  
+        width: 35px; height: 35px;  
+        background: linear-gradient(135deg, var(--primary), var(--secondary));  
+        border-radius: 50%;  
+        display: flex; align-items: center; justify-content: center;  
+        font-weight: 900; color: white; flex-shrink: 0;  
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);  
+    }  
+
+    .step-text { flex: 1; }  
+    .step-text b { display: block; font-size: 15px; color: var(--text); margin-bottom: 3px; }  
+    .step-text p { margin: 0; font-size: 11px; color: var(--text-dim); line-height: 1.4; }  
+
+    .demo-card {  
+        background: linear-gradient(165deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);  
+        border: 1px solid var(--glass-border);  
+        border-radius: 22px;  
+        padding: 15px;  
+        margin-bottom: 12px;  
+        display: flex;  
+        align-items: center;  
+        gap: 12px;  
+        transition: 0.4s;  
+        cursor: pointer;  
+    }  
+
+    .demo-icon {  
+        width: 40px; height: 40px;  
+        background: linear-gradient(135deg, var(--primary), var(--secondary));  
+        border-radius: 12px;  
+        display: flex; align-items: center; justify-content: center;  
+        color: white; font-size: 16px;  
+        box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);  
+    }  
+
+    .demo-info { flex: 1; }  
+    .demo-title { display: block; font-weight: 800; font-size: 15px; }  
+    .demo-pass { display: block; font-size: 10px; color: var(--text-dim); }  
+
+    .feature-row {  
+        display: flex; align-items: center; gap: 12px;  
+        padding: 15px; background: rgba(255,255,255,0.01);  
+        border-radius: 22px; margin-bottom: 12px;  
+        border: 1px solid var(--glass-border);  
+        transition: 0.3s;  
+    }  
+
+    .icon-circle {  
+        min-width: 42px; height: 42px;  
+        background: rgba(99, 102, 241, 0.1);  
+        border-radius: 50%;  
+        display: flex; align-items: center; justify-content: center;  
+        color: var(--primary); font-size: 18px;  
+    }  
+
+    .badge-separator {  
+        display: flex; align-items: center; justify-content: center; gap: 10px;  
+        margin: 20px 0; font-size: 11px; font-weight: 800; color: var(--primary);  
+        text-transform: uppercase; letter-spacing: 1px;  
+    }  
+    .badge-separator::before, .badge-separator::after {  
+        content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent);  
+    }  
+
+    .order-btn {  
+        color: #ffffff; padding: 18px; border-radius: 22px;  
+        text-decoration: none; display: flex; align-items: center;  
+        justify-content: center; gap: 12px; font-weight: 900;  
+        margin-top: 10px;  
+        transition: 0.3s;  
+        border: none;  
+        width: 100%;  
+    }  
+
+    .order-btn:active { transform: scale(0.97); }  
+
+    nav {  
+        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);  
+        width: 90%; max-width: 450px;  
+        background: rgba(8, 10, 24, 0.8);  
+        backdrop-filter: blur(25px); border: 1px solid var(--glass-border);  
+        padding: 8px; border-radius: 25px; display: flex; z-index: 1000;  
+        animation: fadeInUp 1s ease;  
+    }  
+
+    .nav-item {  
+        flex: 1; display: flex; flex-direction: column; align-items: center;  
+        gap: 4px; color: var(--text-dim); background: none; border: none;  
+        padding: 10px 0; border-radius: 18px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);  
+    }  
+
+    .nav-item.active { color: var(--text); background: rgba(99, 102, 241, 0.15); transform: translateY(-3px); }  
+    .nav-item i { font-size: 1.1rem; }  
+    .nav-item.active i { color: var(--primary); }  
+    .nav-item span { font-size: 10px; font-weight: 700; }  
+
+    .footer-copyright-tag {  
+        position: fixed; bottom: 8px; left: 0; width: 100%; text-align: center;  
+        font-size: 8px; color: var(--text-dim); opacity: 0.5; z-index: 999;  
+        pointer-events: none; letter-spacing: 1px;  
+    }  
+
+    #preview-modal { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: none; }  
+    #preview-modal.active { display: flex; flex-direction: column; animation: zoomIn 0.3s ease; }  
+    .close-btn { position: absolute; top: 25px; left: 25px; width: 45px; height: 45px; background: #fff; color: #000; border: none; border-radius: 50%; z-index: 10001; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }  
+
+    @keyframes fadeInDown {  
+        from { opacity: 0; transform: translateY(-20px); }  
+        to { opacity: 1; transform: translateY(0); }  
+    }  
+    @keyframes fadeInUp {  
+        from { opacity: 0; transform: translate(-50%, 20px); }  
+        to { opacity: 1; transform: translate(-50%, 0); }  
+    }  
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }  
+</style>
+
+</head>  
+<body>  <div class="bg-glow"></div>  
+
+<div id="preview-modal">  
+    <button class="close-btn" onclick="closePreview()">✕</button>  
+    <iframe id="preview-frame" style="width:100%; height:100%; border:none;"></iframe>  
+</div>  
+
+<header>  
+    <div class="header-tagline">  
+        <div class="tagline-main">  
+            <i class="fa-solid fa-crown"></i>  
+            أول منصة للهدايا الرقمية في مصر  
+        </div>  
+        <div class="tagline-sub">HeartLink Experience</div>  
+    </div>  
+    <button class="theme-toggle" onclick="toggleTheme()">  
+        <i id="theme-icon" class="fa-solid fa-moon"></i>  
+    </button>  
+</header>  
+
+<main>  
+    <div id="home" class="content-section active">  
+        <div class="glass-card animate__animated animate__fadeIn" onscroll="handleScroll(this)">  
+            <h2>حكايتكم تستاهل <br><span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ذكرى تعيش للأبد.. ✨</span></h2>  
+            <div class="feature-grid">  
+                <div class="feature-box"><i class="fa-solid fa-cake-candles"></i><span>أعياد ميلاد</span></div>  
+                <div class="feature-box"><i class="fa-solid fa-user-group"></i><span>أصحاب</span></div>  
+                <div class="feature-box"><i class="fa-solid fa-calendar-check"></i><span>سنة جديدة</span></div>  
+                <div class="feature-box"><i class="fa-solid fa-infinity"></i><span>ذكرى بينكم</span></div>  
+            </div>  
+            <div class="badge-separator">تنفع لجميع المناسبات 🌟</div>  
+            <div class="feature-row" style="background: rgba(99, 102, 241, 0.05); border: 1px dashed var(--primary);">  
+                <div class="icon-circle" style="background: #fff; color: var(--primary);"><i class="fa-solid fa-heart"></i></div>  
+                <span style="font-weight: 800;">حتى لو عايز تصالح حبيبتك</span>  
+            </div>  
+            <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>  
+        </div>  
+    </div>  
+
+    <div id="demo" class="content-section">  
+        <div class="glass-card" onscroll="handleScroll(this)">  
+            <h2>نماذج من أعمالنا 📁</h2>  
+            <div onclick="openPreview('https://h-sooty-nine.vercel.app/')" class="demo-card">  
+                <div class="demo-icon"><i class="fa-solid fa-eye"></i></div>  
+                <div class="demo-info"><span class="demo-title">تجربة 1</span><span class="demo-pass">باسورد الويب: 20/1/2002</span></div>  
+            </div>  
+            <div onclick="openPreview('https://page-beta-jet.vercel.app/')" class="demo-card">  
+                <div class="demo-icon" style="background: linear-gradient(135deg, var(--accent), var(--primary));"><i class="fa-solid fa-eye"></i></div>  
+                <div class="demo-info"><span class="demo-title">تجربة 2</span><span class="demo-pass">باسورد: ملاك</span></div>  
+            </div>  
+            <div onclick="openPreview('https://heart-link-qq.vercel.app/')" class="demo-card">  
+                <div class="demo-icon" style="background: linear-gradient(135deg, #ffd700, #ffa500);"><i class="fa-solid fa-eye"></i></div>  
+                <div class="demo-info"><span class="demo-title">تجربة 3</span><span class="demo-pass">باسورد: 27/9/2025</span></div>  
+            </div>  
+            <div onclick="openPreview('https://lk-ivory.vercel.app/')" class="demo-card">  
+                <div class="demo-icon" style="background: linear-gradient(135deg, #ff0050, #00f2ea);"><i class="fa-solid fa-eye"></i></div>  
+                <div class="demo-info"><span class="demo-title">تجربة 4</span><span class="demo-pass">باسورد: 1</span></div>  
+            </div>  
+            <div onclick="openPreview('https://ramadan-eg.vercel.app/')" class="demo-card">  
+                <div class="demo-icon" style="background: linear-gradient(135deg, #22c55e, #10b981);"><i class="fa-solid fa-moon"></i></div>  
+                <div class="demo-info"><span class="demo-title">هدية رمضان</span><span class="demo-pass">باسورد: 19/2</span></div>  
+            </div>  
+            <div class="badge-separator">الدقة هي لعبتنا! 🎨</div>  
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">  
+                <div class="feature-box" style="padding: 15px;"><i class="fa-solid fa-wand-magic-sparkles"></i><span style="font-size: 11px;">تصميم احترافي</span></div>  
+                <div class="feature-box" style="padding: 15px;"><i class="fa-solid fa-check-double"></i><span style="font-size: 11px;">مناسب لجميع المناسبات</span></div>  
+            </div>  
+            <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>  
+        </div>  
+    </div>  
+
+    <div id="details" class="content-section">  
+        <div class="glass-card" onscroll="handleScroll(this)">  
+            <h2>ليه تختار HeartLink؟ ⭐</h2>  
+            <div class="feature-row">  
+                <div class="icon-circle"><i class="fa-solid fa-lock"></i></div>  
+                <div><b style="display:block; font-size:14px;">خصوصية تامة</b><small style="color:var(--text-dim); font-size: 10px;">موقعكم محمي بكلمة سر، إنتو بس اللي تقدروا تشوفوه.</small></div>  
+            </div>  
+            <div class="feature-row">  
+                <div class="icon-circle" style="color: #ffd700;"><i class="fa-solid fa-link"></i></div>  
+                <div><b style="display:block; font-size:14px;">رابط خاص بيكم</b><small style="color:var(--text-dim); font-size: 10px;">لينك دائم ومميز ليكم لوحدكم.</small></div>  
+            </div>  
+            <div class="feature-row" style="background: rgba(6, 182, 212, 0.05); border: 1px dashed var(--accent);">  
+                <div class="icon-circle" style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i></div>  
+                <div><b style="display:block; font-size:14px;">تنفيذ أي فكرة</b><small style="color:var(--text-dim); font-size: 10px;">عندك فكرة معينة؟ بنصممهالك من الصفر.</small></div>  
+            </div>  
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0;">  
+                <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-gift" style="font-size: 18px;"></i><span style="font-size: 9px;">هدية رقمية مختلفة</span></div>  
+                <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-stopwatch" style="font-size: 18px;"></i><span style="font-size: 9px;">استلام سريع ⏱️</span></div>  
+                <div class="feature-box" style="padding: 12px; grid-column: span 2;"><i class="fa-solid fa-share-nodes" style="font-size: 18px; color: var(--accent);"></i><span style="font-size: 9px;">ينفع تبعتو تطبيق او لينك حسب اختيارك</span></div>  
+            </div>  
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 10px;">  
+                <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-award" style="font-size: 18px;"></i><span style="font-size: 9px;">ضمان جودة</span></div>  
+                <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-bolt" style="font-size: 18px; -webkit-text-fill-color: #ffd700;"></i><span style="font-size: 9px;">رد سريع</span></div>  
+                <div class="feature-box" style="padding: 12px;"><i class="fa-solid fa-pen-nib" style="font-size: 18px; -webkit-text-fill-color: var(--accent);"></i><span style="font-size: 9px;">تعديل حر</span></div>  
+            </div>  
+            <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>  
+        </div>  
+    </div>  
+
+    <div id="steps" class="content-section">  
+        <div class="glass-card" onscroll="handleScroll(this)">  
+            <h2>اعمل هديتك في 3 خطوات 🪄</h2>  
+            <div class="step-container">  
+                <div class="step-card"><div class="step-number">1</div><div class="step-text"><b>اختار فكرتك</b><p>سواء من النماذج الجاهزة أو فكرة جديدة في دماغك، نساعدك تطلعها بأحلى شكل.</p></div><i class="fa-solid fa-lightbulb" style="color: #ffd700; opacity: 0.5;"></i></div>  
+                <div class="step-card"><div class="step-number">2</div><div class="step-text"><b>ابعت فكرتك</b><p>هنصممها في أسرع وقت ممكن وبأعلى جودة تنفيذ.</p></div><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary); opacity: 0.5;"></i></div>  
+                <div class="step-card"><div class="step-number">3</div><div class="step-text"><b>استلم هديتك</b><p>هنبعتلك رابط الهديّة أو التطبيق الخاص بيك جاهز للمشاركة.</p></div><i class="fa-solid fa-gift" style="color: var(--accent); opacity: 0.5;"></i></div>  
+            </div>  
+            <div class="badge-separator">بكل سهولة وبأعلى جودة ✨</div>  
+            <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>  
+        </div>  
+    </div>  
+
+    <div id="order" class="content-section">  
+        <div class="glass-card" style="text-align: center;">  
+            <div class="animate__animated animate__pulse animate__infinite">  
+                <div style="width: 80px; height: 80px; background: rgba(99, 102, 241, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">  
+                    <i class="fa-solid fa-paper-plane" style="font-size: 2.5rem; color: var(--primary);"></i>  
+                </div>  
+            </div>  
+            <h2>جاهز تبهرهم؟ 🚀</h2>  
+            <p style="font-size: 14px; color: var(--text); font-weight: 700; margin-bottom: 20px;">🎁 اطلب هديتك الرقمية دلوقتي <br>وسيب الباقي علينا ❤️</p>  
+            <a href="https://wa.me/201125674359" class="order-btn" style="background: #25D366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);"><i class="fa-brands fa-whatsapp" style="font-size: 1.5rem;"></i><span>اطلب عبر الواتساب</span></a>  
+            <a href="https://www.tiktok.com/@ba7bak.28" target="_blank" class="order-btn" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.3);"><i class="fa-brands fa-tiktok" style="font-size: 1.3rem; color: #ff0050; filter: drop-shadow(2px 0 0 #00f2ea);"></i><span>شاهد باقي أعمالنا</span></a>  
+            <div class="badge-separator" style="margin-top: 30px;">HeartLink Experience</div>  
+            <div style="margin-top: 10px; font-size: 10px; opacity: 0.5; letter-spacing: 1px;">© 2026 ALL RIGHTS RESERVED</div>  
+        </div>  
+    </div>  
+</main>  
+
+<nav>  
+    <button class="nav-item active" onclick="openTab(event, 'home')"><i class="fa-solid fa-house"></i><span>الرئيسية</span></button>  
+    <button class="nav-item" onclick="openTab(event, 'demo')"><i class="fa-solid fa-circle-play"></i><span>مثال حي</span></button>  
+    <button class="nav-item" onclick="openTab(event, 'details')"><i class="fa-solid fa-gem"></i><span>المميزات</span></button>  
+    <button class="nav-item" onclick="openTab(event, 'steps')"><i class="fa-solid fa-list-check"></i><span>الخطوات</span></button>  
+    <button class="nav-item" onclick="openTab(event, 'order')"><i class="fa-solid fa-rocket"></i><span>اطلب</span></button>  
+</nav>  
+
+<div class="footer-copyright-tag">© 2026 HEARTLINK EXPERIENCE - ALL RIGHTS RESERVED</div>  
+
+<script>  
+    function toggleTheme() {  
+        document.body.classList.toggle('light-mode');  
+        const icon = document.getElementById('theme-icon');  
+        icon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';  
+    }  
+
+    function openTab(evt, tabName) {  
+        const sections = document.querySelectorAll('.content-section');  
+        const navItems = document.querySelectorAll('.nav-item');  
+        sections.forEach(s => s.classList.remove('active'));  
+        navItems.forEach(n => n.classList.remove('active'));  
+        const selectedSection = document.getElementById(tabName);  
+        selectedSection.classList.add('active');  
+        evt.currentTarget.classList.add('active');  
+          
+        const card = selectedSection.querySelector('.glass-card');  
+        if(card) {  
+            card.scrollTop = 0;  
+            setTimeout(() => handleScroll(card), 100);  
+        }  
+    }  
+
+    /* --- تعديل وظيفة السكرول للاختفاء الناعم --- */  
+    function handleScroll(element) {  
+        const indicator = element.querySelector('.scroll-indicator');  
+        if (!indicator) return;  
+          
+        const isScrollable = element.scrollHeight > element.clientHeight;  
+        // الحسبة بتخلي السهم يختفي تدريجياً قبل النهاية بـ 50 بكسل عشان يكون شكله أشيك  
+        const isAtBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 50;  
+          
+        if (isScrollable && !isAtBottom) {  
+            indicator.classList.add('visible');  
+        } else {  
+            indicator.classList.remove('visible');  
+        }  
+    }  
+
+    window.onload = () => {  
+        document.querySelectorAll('.glass-card').forEach(card => handleScroll(card));  
+    };  
+
+    function openPreview(url) {  
+        document.getElementById('preview-frame').src = url;  
+        document.getElementById('preview-modal').classList.add('active');  
+    }  
+
+    function closePreview() {  
+        document.getElementById('preview-modal').classList.remove('active');  
+        document.getElementById('preview-frame').src = "";  
+    }  
+</script>
+
+</body>  
 </html>
