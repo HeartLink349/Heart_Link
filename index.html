@@ -14,7 +14,8 @@
             --glass: rgba(15, 23, 42, 0.6);  
             --glass-border: rgba(255, 255, 255, 0.08);  
             --text: #f8fafc;  
-            --text-dim: #94a3b8;  
+            --text-dim: #94a3b8;
+            --gold: #ffd700; /* إضافة للمربع الذهبي */
         }  .light-mode {  
         --bg: #f8fafc;  
         --glass: rgba(255, 255, 255, 0.8);  
@@ -39,6 +40,37 @@
         overflow: hidden;  
         transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);  
     }  
+
+    /* --- تنسيق الشريط الرمضاني الشفاف (تم تعديله) --- */
+    .ramadan-bar {
+        width: 100%;
+        background: transparent; /* شيلنا اللون الأحمر هنا */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: none;
+        padding: 5px 0;
+        z-index: 101;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        white-space: nowrap;
+        padding-right: 100%;
+        animation: marqueeScroll 25s linear infinite;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* توهج خفيف بدل الأحمر */
+    }
+
+    @keyframes marqueeScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(100%); }
+    }
+    /* ---------------------------------- */
 
     .bg-glow {  
         position: fixed;  
@@ -170,7 +202,6 @@
 
     .glass-card::-webkit-scrollbar { display: none; }  
 
-    /* --- تعديل السهم الاحترافي للاختفاء الناعم --- */  
     .scroll-indicator {  
         position: sticky;  
         bottom: 15px;  
@@ -182,7 +213,7 @@
         -webkit-backdrop-filter: blur(12px);  
         border: 1px solid rgba(255, 255, 255, 0.15);  
         border-radius: 50%;  
-        display: flex; /* خليناه flex دايماً عشان الأنيميشن يشتغل */  
+        display: flex;  
         align-items: center;  
         justify-content: center;  
         z-index: 99;  
@@ -191,14 +222,11 @@
         margin-top: -40px;  
         box-shadow: 0 8px 16px rgba(0,0,0,0.3);  
         animation: scrollBounce 2s infinite ease-in-out;  
-          
-        /* تأثير الاختفاء التدريجي */  
         opacity: 0;  
         visibility: hidden;  
         transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;  
     }  
 
-    /* كلاس التحكم في الظهور */  
     .scroll-indicator.visible {  
         opacity: 1;  
         visibility: visible;  
@@ -309,7 +337,21 @@
         gap: 12px;  
         transition: 0.4s;  
         cursor: pointer;  
-    }  
+    }
+
+    /* تأثير المربع الذهبي */
+    .gold-edition {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0,0,0,0.2)) !important;
+        border: 1.5px solid var(--gold) !important;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+        position: relative; overflow: hidden;
+    }
+    .gold-edition::after {
+        content: ''; position: absolute; top: -100%; left: -100%;
+        width: 50%; height: 300%; background: rgba(255,255,255,0.2);
+        transform: rotate(45deg); animation: shine 4s infinite;
+    }
+    @keyframes shine { 0% { left: -100%; } 20% { left: 150%; } 100% { left: 150%; } }
 
     .demo-icon {  
         width: 40px; height: 40px;  
@@ -423,21 +465,42 @@
     </button>  
 </header>  
 
+<div class="ramadan-bar">
+    <div class="marquee-text">
+        🌙 عروض مميزة لفترة محدودة بمناسبة شهر رمضان الكريم على كافة خدمات HeartLink.. اطلب هديتك الآن واستمتع بالخصم! ✨ &nbsp;&nbsp;&nbsp;&nbsp; 🌙 عروض مميزة لفترة محدودة بمناسبة شهر رمضان الكريم على كافة خدمات HeartLink.. اطلب هديتك الآن واستمتع بالخصم! ✨
+    </div>
+</div>
+
 <main>  
     <div id="home" class="content-section active">  
         <div class="glass-card animate__animated animate__fadeIn" onscroll="handleScroll(this)">  
-            <h2>حكايتكم تستاهل <br><span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ذكرى تعيش للأبد.. ✨</span></h2>  
-            <div class="feature-grid">  
-                <div class="feature-box"><i class="fa-solid fa-cake-candles"></i><span>أعياد ميلاد</span></div>  
-                <div class="feature-box"><i class="fa-solid fa-user-group"></i><span>أصحاب</span></div>  
-                <div class="feature-box"><i class="fa-solid fa-calendar-check"></i><span>سنة جديدة</span></div>  
-                <div class="feature-box"><i class="fa-solid fa-infinity"></i><span>ذكرى بينكم</span></div>  
-            </div>  
-            <div class="badge-separator">تنفع لجميع المناسبات 🌟</div>  
-            <div class="feature-row" style="background: rgba(99, 102, 241, 0.05); border: 1px dashed var(--primary);">  
-                <div class="icon-circle" style="background: #fff; color: var(--primary);"><i class="fa-solid fa-heart"></i></div>  
-                <span style="font-weight: 800;">حتى لو عايز تصالح حبيبتك</span>  
-            </div>  
+            <h2 style="font-size: 18px; white-space: nowrap;">🎁 قسم الهدايا والذكريات – HeartLink</h2>  
+            <span style="display:block; text-align:center; font-size:12px; color:var(--text-dim); margin-bottom:20px;">Where Emotions Become Experiences</span>
+
+            <div class="feature-row">
+                <div class="icon-circle">🤔</div>
+                <div><b>يعني إيه؟</b><p style="font-size:11px; margin:0;">خدمة تهدف إلى تحويل كل مناسبة لهدية مميزة وذكرى لا تُنسى. الهدايا مش مجرد شيء مادي، إحنا بنصمم لك مشاعر تدوم لكل لحظة.</p></div>
+            </div>
+
+            <div class="feature-row">
+                <div class="icon-circle">🛠️</div>
+                <div><b>بتعمل إيه؟</b><p style="font-size:11px; margin:0;">تصميم هدايا شخصية ومميزة لكل المناسبات 🎂🤝🎉💑❤️ والابتكار في التعبير عن مشاعرك في كل هدية.</p></div>
+            </div>
+
+            <div class="badge-separator">بتستخدم في إيه؟</div>
+            <div class="feature-grid">
+                <div class="feature-box"><span>أعياد الميلاد، السنة الجديدة، الصلح أو الاحتفال بالحب</span></div>
+                <div class="feature-box"><span>مفاجآت للأصدقاء أو العائلة او اخر....</span></div>
+            </div>
+
+            <div class="feature-row" style="border: 1px dashed var(--accent);">
+                <div><b>💡 ملحوظة:</b><p style="font-size:11px; margin:0;">نقدر نعمل لك الخدمة على شكل لينك إلكتروني & تطبيق موبايل جاهز للتشغيل & QR جاهز للمشاركة</p></div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 20px; border: 1px solid var(--glass-border);">
+                <b>📝 نبذة مختصرة</b>
+                <p style="font-size:11px; margin-top:5px;">HeartLink هي أول منصة للهدايا الرقمية في مصر. بنساعدك تحوّل كل مناسبة لتجربة تفاعلية مميزة تعيش للأبد.</p>
+            </div>
             <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>  
         </div>  
     </div>  
@@ -445,6 +508,17 @@
     <div id="demo" class="content-section">  
         <div class="glass-card" onscroll="handleScroll(this)">  
             <h2>نماذج من أعمالنا 📁</h2>  
+            
+            <div onclick="openPreview('https://ramadan-kareem-sooty.vercel.app/')" class="demo-card gold-edition">
+                <div class="demo-icon" style="background:var(--gold);"><i class="fa-solid fa-moon"></i></div>
+                <div class="demo-info"><span class="demo-title">مناسبة رمضان 🌙</span><span class="demo-pass">باسورد الويب: 1</span></div>
+            </div>
+
+            <div onclick="openPreview('https://kkkkkkkk-seven.vercel.app/')" class="demo-card">  
+                <div class="demo-icon" style="background: linear-gradient(135deg, #00f2ea, #ff0050);"><i class="fa-solid fa-star"></i></div>  
+                <div class="demo-info"><span class="demo-title">تجربة مميزة</span><span class="demo-pass">باسورد الويب: 2008/1/1</span></div>  
+            </div>  
+
             <div onclick="openPreview('https://h-sooty-nine.vercel.app/')" class="demo-card">  
                 <div class="demo-icon"><i class="fa-solid fa-eye"></i></div>  
                 <div class="demo-info"><span class="demo-title">تجربة 1</span><span class="demo-pass">باسورد الويب: 20/1/2002</span></div>  
@@ -570,13 +644,11 @@
         }  
     }  
 
-    /* --- تعديل وظيفة السكرول للاختفاء الناعم --- */  
     function handleScroll(element) {  
         const indicator = element.querySelector('.scroll-indicator');  
         if (!indicator) return;  
           
         const isScrollable = element.scrollHeight > element.clientHeight;  
-        // الحسبة بتخلي السهم يختفي تدريجياً قبل النهاية بـ 50 بكسل عشان يكون شكله أشيك  
         const isAtBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 50;  
           
         if (isScrollable && !isAtBottom) {  
