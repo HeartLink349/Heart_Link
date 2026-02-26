@@ -41,10 +41,10 @@
         transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);  
     }  
 
-    /* --- تنسيق الشريط الرمضاني الشفاف (تم تعديله) --- */
+    /* --- تنسيق الشريط الرمضاني الشفاف --- */
     .ramadan-bar {
         width: 100%;
-        background: transparent; /* شيلنا اللون الأحمر هنا */
+        background: transparent; 
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         border-bottom: none;
@@ -63,7 +63,7 @@
         font-size: 13px;
         font-weight: 700;
         color: #fff;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* توهج خفيف بدل الأحمر */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
     }
 
     @keyframes marqueeScroll {
@@ -509,8 +509,13 @@
         <div class="glass-card" onscroll="handleScroll(this)">  
             <h2>نماذج من أعمالنا 📁</h2>  
             
-            <div onclick="openPreview('https://ramadan-kareem-sooty.vercel.app/')" class="demo-card gold-edition">
-                <div class="demo-icon" style="background:var(--gold);"><i class="fa-solid fa-moon"></i></div>
+            <div onclick="openPreview('https://invitation-theta-bice.vercel.app/')" class="demo-card gold-edition">
+                <div class="demo-icon" style="background:var(--gold);"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <div class="demo-info"><span class="demo-title">دعوه فرح 💍</span><span class="demo-pass">تصميم فاخر للمناسبات السعيدة</span></div>
+            </div>
+
+            <div onclick="openPreview('https://ramadan-kareem-sooty.vercel.app/')" class="demo-card">
+                <div class="demo-icon" style="background:var(--primary);"><i class="fa-solid fa-moon"></i></div>
                 <div class="demo-info"><span class="demo-title">مناسبة رمضان 🌙</span><span class="demo-pass">باسورد الويب: 1</span></div>
             </div>
 
