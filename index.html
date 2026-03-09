@@ -498,7 +498,12 @@
             <div class="glass-card" onscroll="handleScroll(this)">
                 <h2>نماذج من أعمالنا 📁</h2>
                 
-                <div onclick="openPreview('https://invitation-theta-bice.vercel.app/')" class="demo-card gold-edition">
+                <div onclick="openPreview('https://mama-five-neon.vercel.app/')" class="demo-card gold-edition">
+                    <div class="demo-icon" style="background:#ff4757;"><i class="fa-solid fa-heart"></i></div>
+                    <div class="demo-info"><span class="demo-title">عيد الأم 💖</span><span class="demo-pass">هدية خاصة ست الحبايب</span></div>
+                </div>
+
+                <div onclick="openPreview('https://invitation-theta-bice.vercel.app/')" class="demo-card">
                     <div class="demo-icon" style="background:var(--gold);"><i class="fa-solid fa-envelope-open-text"></i></div>
                     <div class="demo-info"><span class="demo-title">دعوه فرح 💍</span><span class="demo-pass">تصميم فاخر للمناسبات السعيدة</span></div>
                 </div>
@@ -650,7 +655,6 @@
             icon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        // دالة خاصة لفتح رابط "اطلب" في المعاينة
         function handleOrderTab(evt) {
             openTab(evt, 'new-order');
             openPreview('https://to-request-wine.vercel.app/');
