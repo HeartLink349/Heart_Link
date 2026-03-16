@@ -392,22 +392,31 @@
             line-height: 1.45;
         }
 
+        /* Demo Grid Custom Style */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
         .demo-card {
             background: linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 15px;
-            margin-bottom: 12px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            text-align: center;
+            gap: 8px;
             transition: 0.28s ease;
             cursor: pointer;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
         }
 
         .demo-card:active {
-            transform: scale(0.985);
+            transform: scale(0.95);
         }
 
         .gold-edition {
@@ -437,31 +446,35 @@
         }
 
         .demo-icon {
-            width: 42px;
-            height: 42px;
+            width: 48px;
+            height: 48px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 16px;
+            font-size: 20px;
             box-shadow: 0 6px 16px rgba(99, 102, 241, 0.26);
             flex-shrink: 0;
         }
 
-        .demo-info { flex: 1; min-width: 0; }
+        .demo-info { width: 100%; overflow: hidden; }
         .demo-title {
             display: block;
             font-weight: 800;
-            font-size: 15px;
+            font-size: 13px;
             color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .demo-pass {
             display: block;
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-dim);
+            margin-top: 2px;
         }
 
         .feature-row {
@@ -534,7 +547,7 @@
             bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 96%; /* Made slightly wider to accommodate 6 items better */
+            width: 96%;
             max-width: 500px;
             background: var(--nav-bg);
             backdrop-filter: blur(28px) saturate(160%);
@@ -637,10 +650,9 @@
             background: transparent;
         }
 
-        /* Testimonials Styles Modified for Single Column */
         .reviews-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Changed to 1 column */
+            grid-template-columns: 1fr;
             gap: 20px;
             margin-top: 10px;
         }
@@ -651,7 +663,7 @@
             border-radius: 20px;
             overflow: hidden;
             transition: transform 0.3s ease;
-            width: 100%; /* Full width */
+            width: 100%;
         }
 
         .review-card:active {
@@ -662,7 +674,7 @@
             width: 100%;
             height: auto;
             display: block;
-            object-fit: contain; /* Ensure full image is visible */
+            object-fit: contain;
         }
 
         @keyframes fadeInDown {
@@ -746,50 +758,62 @@
             <div class="glass-card" onscroll="handleScroll(this)">
                 <h2>نماذج من أعمالنا 📁</h2>
                 
-                <div onclick="openPreview('https://mama-five-neon.vercel.app/')" class="demo-card gold-edition">
-                    <div class="demo-icon" style="background:#ff4757;"><i class="fa-solid fa-heart"></i></div>
-                    <div class="demo-info"><span class="demo-title">عيد الأم 💖</span><span class="demo-pass">هدية خاصة ست الحبايب</span></div>
+                <div class="demo-grid">
+                    <div onclick="openPreview('https://eid-fipggj-sage.vercel.app/')" class="demo-card gold-edition">
+                        <div class="demo-icon" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000;"><i class="fa-solid fa-kaaba"></i></div>
+                        <div class="demo-info"><span class="demo-title">تهنئة العيد 🌙</span><span class="demo-pass">الباسورد: 1</span></div>
+                    </div>
+
+                    <div onclick="openPreview('https://mama-five-neon.vercel.app/')" class="demo-card">
+                        <div class="demo-icon" style="background:#ff4757;"><i class="fa-solid fa-heart"></i></div>
+                        <div class="demo-info"><span class="demo-title">عيد الأم 💖</span><span class="demo-pass">هدية ست الحبايب</span></div>
+                    </div>
+
+                    <div onclick="openPreview('https://invitation-theta-bice.vercel.app/')" class="demo-card">
+                        <div class="demo-icon" style="background:var(--gold); color:#000;"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div class="demo-info"><span class="demo-title">دعوة فرح 💍</span><span class="demo-pass">تصميم فاخر</span></div>
+                    </div>
+
+                    <div onclick="openPreview('https://ramadan-kareem-sooty.vercel.app/')" class="demo-card">
+                        <div class="demo-icon" style="background:var(--primary);"><i class="fa-solid fa-moon"></i></div>
+                        <div class="demo-info"><span class="demo-title">رمضان 🌙</span><span class="demo-pass">الباسورد: 1</span></div>
+                    </div>
+
+                    <div onclick="openPreview('https://kkkkkkkk-seven.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon" style="background: linear-gradient(135deg, #00f2ea, #ff0050);"><i class="fa-solid fa-star"></i></div>  
+                        <div class="demo-info"><span class="demo-title">تجربة مميزة</span><span class="demo-pass">2008/1/1</span></div>  
+                    </div>  
+
+                    <div onclick="openPreview('https://h-sooty-nine.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon"><i class="fa-solid fa-eye"></i></div>  
+                        <div class="demo-info"><span class="demo-title">تجربة 1</span><span class="demo-pass">20/1/2002</span></div>  
+                    </div>  
+
+                    <div onclick="openPreview('https://page-beta-jet.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon" style="background: linear-gradient(135deg, var(--accent), var(--primary));"><i class="fa-solid fa-eye"></i></div>  
+                        <div class="demo-info"><span class="demo-title">تجربة 2</span><span class="demo-pass">ملاك</span></div>  
+                    </div>  
+
+                    <div onclick="openPreview('https://heart-link-qq.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon" style="background: linear-gradient(135deg, #ffd700, #ffa500); color:#111;"><i class="fa-solid fa-eye"></i></div>  
+                        <div class="demo-info"><span class="demo-title">تجربة 3</span><span class="demo-pass">27/9/2025</span></div>  
+                    </div>  
+
+                    <div onclick="openPreview('https://lk-ivory.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon" style="background: linear-gradient(135deg, #ff0050, #00f2ea);"><i class="fa-solid fa-eye"></i></div>  
+                        <div class="demo-info"><span class="demo-title">تجربة 4</span><span class="demo-pass">الباسورد: 1</span></div>  
+                    </div>  
+
+                    <div onclick="openPreview('https://ramadan-eg.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon" style="background: linear-gradient(135deg, #22c55e, #10b981);"><i class="fa-solid fa-moon"></i></div>  
+                        <div class="demo-info"><span class="demo-title">هدية رمضان</span><span class="demo-pass">الباسورد: 19/2</span></div>  
+                    </div>  
+
+                    <div onclick="openPreview('https://heartlinkvalentine.vercel.app/')" class="demo-card">  
+                        <div class="demo-icon" style="background: linear-gradient(135deg, #f43f5e, #e11d48);"><i class="fa-solid fa-heart"></i></div>  
+                        <div class="demo-info"><span class="demo-title">عيد الحب</span><span class="demo-pass">الباسورد: 1/10</span></div>  
+                    </div>
                 </div>
-
-                <div onclick="openPreview('https://invitation-theta-bice.vercel.app/')" class="demo-card">
-                    <div class="demo-icon" style="background:var(--gold); color:#000;"><i class="fa-solid fa-envelope-open-text"></i></div>
-                    <div class="demo-info"><span class="demo-title">دعوه فرح 💍</span><span class="demo-pass">تصميم فاخر للمناسبات السعيدة</span></div>
-                </div>
-
-                <div onclick="openPreview('https://ramadan-kareem-sooty.vercel.app/')" class="demo-card">
-                    <div class="demo-icon" style="background:var(--primary);"><i class="fa-solid fa-moon"></i></div>
-                    <div class="demo-info"><span class="demo-title">مناسبة رمضان 🌙</span><span class="demo-pass">باسورد الويب: 1</span></div>
-                </div>
-
-                <div onclick="openPreview('https://kkkkkkkk-seven.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #00f2ea, #ff0050);"><i class="fa-solid fa-star"></i></div>  
-                    <div class="demo-info"><span class="demo-title">تجربة مميزة</span><span class="demo-pass">باسورد الويب: 2008/1/1</span></div>  
-                </div>  
-
-                <div onclick="openPreview('https://h-sooty-nine.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon"><i class="fa-solid fa-eye"></i></div>  
-                    <div class="demo-info"><span class="demo-title">تجربة 1</span><span class="demo-pass">باسورد الويب: 20/1/2002</span></div>  
-                </div>  
-                <div onclick="openPreview('https://page-beta-jet.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon" style="background: linear-gradient(135deg, var(--accent), var(--primary));"><i class="fa-solid fa-eye"></i></div>  
-                    <div class="demo-info"><span class="demo-title">تجربة 2</span><span class="demo-pass">باسورد: ملاك</span></div>  
-                </div>  
-                <div onclick="openPreview('https://heart-link-qq.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #ffd700, #ffa500); color:#111;"><i class="fa-solid fa-eye"></i></div>  
-                    <div class="demo-info"><span class="demo-title">تجربة 3</span><span class="demo-pass">باسورد: 27/9/2025</span></div>  
-                </div>  
-                <div onclick="openPreview('https://lk-ivory.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #ff0050, #00f2ea);"><i class="fa-solid fa-eye"></i></div>  
-                    <div class="demo-info"><span class="demo-title">تجربة 4</span><span class="demo-pass">باسورد: 1</span></div>  
-                </div>  
-                <div onclick="openPreview('https://ramadan-eg.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #22c55e, #10b981);"><i class="fa-solid fa-moon"></i></div>  
-                    <div class="demo-info"><span class="demo-title">هدية رمضان</span><span class="demo-pass">باسورد: 19/2</span></div>  
-                </div>  
-                <div onclick="openPreview('https://heartlinkvalentine.vercel.app/')" class="demo-card">  
-                    <div class="demo-icon" style="background: linear-gradient(135deg, #f43f5e, #e11d48);"><i class="fa-solid fa-heart"></i></div>  
-                    <div class="demo-info"><span class="demo-title">هدية عيد الحب</span><span class="demo-pass">باسورد: 1/10</span></div>  
-                </div>  
 
                 <div class="badge-separator">الدقة هي لعبتنا! 🎨</div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
