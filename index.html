@@ -1539,6 +1539,223 @@
             }
         }
 
+    
+
+        /* =============== FIX: Icon Colors After Firebase / Mobile Render =============== */
+        .icon-circle,
+        .demo-icon,
+        .feature-box,
+        .nav-item,
+        .step-card,
+        .faq-question {
+            color: var(--primary) !important;
+        }
+
+        .icon-circle i,
+        .demo-icon i,
+        .step-card i,
+        .nav-item i,
+        .faq-question i,
+        .feature-row i,
+        .feature-box i,
+        .fa-solid,
+        .fa-brands,
+        .fas,
+        .fab {
+            -webkit-text-fill-color: currentColor !important;
+            text-fill-color: currentColor !important;
+        }
+
+        .icon-circle i,
+        .feature-row i,
+        .step-card i,
+        .nav-item i,
+        .faq-question i {
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+        }
+
+        .icon-circle {
+            background: rgba(111, 134, 255, .15) !important;
+            border: 1px solid rgba(143, 160, 255, .18) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 24px rgba(83,109,255,.10) !important;
+        }
+
+        #details .feature-row:nth-of-type(1) .icon-circle,
+        #details .feature-row:nth-of-type(1) .icon-circle i { color: #6f86ff !important; }
+        #details .feature-row:nth-of-type(2) .icon-circle,
+        #details .feature-row:nth-of-type(2) .icon-circle i { color: #ffd34d !important; }
+        #details .feature-row:nth-of-type(3) .icon-circle,
+        #details .feature-row:nth-of-type(3) .icon-circle i { color: #b36cff !important; }
+
+        #details .feature-box i,
+        #demo .feature-box i {
+            color: #8ea0ff !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            filter: drop-shadow(0 0 10px rgba(111,134,255,.35));
+        }
+
+        #details .feature-box:nth-child(1) i { color:#ff5f8f !important; }
+        #details .feature-box:nth-child(2) i { color:#22e58a !important; }
+        #details .feature-box:nth-child(3) i { color:#44d6ff !important; }
+        #details .feature-box:nth-child(4) i { color:#ffd34d !important; }
+        #details .feature-box:nth-child(5) i { color:#b36cff !important; }
+        #details .feature-box:nth-child(6) i { color:#22e58a !important; }
+        #details .feature-box:nth-child(7) i { color:#ff5f8f !important; }
+
+        .demo-icon { color:#ffffff !important; }
+        .demo-icon i { color: inherit !important; }
+        .demo-icon[style*="color:#000"] i,
+        .demo-icon[style*="color: #000"] i,
+        .demo-icon[style*="color:#111"] i,
+        .demo-icon[style*="color:#111"] i { color: inherit !important; }
+
+        nav .nav-item:nth-child(1) i { color:#57a4ff !important; }
+        nav .nav-item:nth-child(2) i { color:#57a4ff !important; }
+        nav .nav-item:nth-child(3) i { color:#c78bff !important; }
+        nav .nav-item:nth-child(4) i { color:#ffd34d !important; }
+        nav .nav-item:nth-child(5) i { color:#8fa0ff !important; }
+        nav .nav-item:nth-child(6) i { color:#22e58a !important; }
+        nav .nav-item.active i { color:#ffffff !important; filter: drop-shadow(0 0 12px rgba(143,160,255,.65)); }
+
+        body.light-mode .icon-circle i,
+        body.light-mode .feature-box i,
+        body.light-mode .nav-item i,
+        body.light-mode .step-card i,
+        body.light-mode .faq-question i {
+            -webkit-text-fill-color: currentColor !important;
+        }
+
+    
+/* =============== FINAL FIX: Text + Nav + FAQ + Contact Colors =============== */
+/* يمنع أي لون أسود يظهر على الدارك مود بسبب currentColor أو Firebase أو inline styles */
+body:not(.light-mode),
+body:not(.light-mode) .glass-card,
+body:not(.light-mode) .content-section,
+body:not(.light-mode) .feature-row,
+body:not(.light-mode) .feature-box,
+body:not(.light-mode) .step-card,
+body:not(.light-mode) .faq-item,
+body:not(.light-mode) .review-card,
+body:not(.light-mode) .demo-card {
+    color: #f8fbff !important;
+}
+
+/* FAQ */
+body:not(.light-mode) #faq h2,
+body:not(.light-mode) #faq .faq-intro,
+body:not(.light-mode) #faq .faq-question,
+body:not(.light-mode) #faq .faq-question span,
+body:not(.light-mode) #faq .faq-question b,
+body:not(.light-mode) #faq .faq-answer,
+body:not(.light-mode) #faq .faq-answer p,
+body:not(.light-mode) #faq .faq-answer span {
+    color: #f8fbff !important;
+    -webkit-text-fill-color: #f8fbff !important;
+    text-shadow: 0 10px 28px rgba(0,0,0,.20);
+}
+
+body:not(.light-mode) #faq .faq-intro,
+body:not(.light-mode) #faq .faq-answer {
+    color: #c5cfe8 !important;
+    -webkit-text-fill-color: #c5cfe8 !important;
+}
+
+body:not(.light-mode) #faq .faq-question i,
+body:not(.light-mode) #faq .faq-item i {
+    color: #dfe7ff !important;
+    -webkit-text-fill-color: #dfe7ff !important;
+    background: none !important;
+    filter: drop-shadow(0 0 10px rgba(143,160,255,.35));
+}
+
+/* Contact page */
+body:not(.light-mode) #contact,
+body:not(.light-mode) #contact h2,
+body:not(.light-mode) #contact h3,
+body:not(.light-mode) #contact p,
+body:not(.light-mode) #contact span,
+body:not(.light-mode) #contact b,
+body:not(.light-mode) #contact .badge-separator,
+body:not(.light-mode) #contact div {
+    color: #f8fbff !important;
+    -webkit-text-fill-color: #f8fbff !important;
+}
+
+body:not(.light-mode) #contact .badge-separator,
+body:not(.light-mode) #contact .footer-note,
+body:not(.light-mode) #contact [style*="letter-spacing"] {
+    color: rgba(220,230,255,.72) !important;
+    -webkit-text-fill-color: rgba(220,230,255,.72) !important;
+}
+
+body:not(.light-mode) #contact .fa-paper-plane {
+    color: #7f91ff !important;
+    -webkit-text-fill-color: #7f91ff !important;
+    background: none !important;
+    filter: drop-shadow(0 0 16px rgba(127,145,255,.45));
+}
+
+/* Bottom Navigation */
+body:not(.light-mode) nav,
+body:not(.light-mode) .nav-item,
+body:not(.light-mode) .nav-item span {
+    color: #dbe5ff !important;
+    -webkit-text-fill-color: #dbe5ff !important;
+}
+
+body:not(.light-mode) .nav-item.active,
+body:not(.light-mode) .nav-item.active span {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: 0 0 12px rgba(255,255,255,.16);
+}
+
+/* ألوان أيقونات الناف بار بشكل ثابت */
+body:not(.light-mode) nav .nav-item:nth-child(1) i { color:#57a4ff !important; -webkit-text-fill-color:#57a4ff !important; }
+body:not(.light-mode) nav .nav-item:nth-child(2) i { color:#22e58a !important; -webkit-text-fill-color:#22e58a !important; }
+body:not(.light-mode) nav .nav-item:nth-child(3) i { color:#c7d2ff !important; -webkit-text-fill-color:#c7d2ff !important; }
+body:not(.light-mode) nav .nav-item:nth-child(4) i { color:#ffd34d !important; -webkit-text-fill-color:#ffd34d !important; }
+body:not(.light-mode) nav .nav-item:nth-child(5) i { color:#b36cff !important; -webkit-text-fill-color:#b36cff !important; }
+body:not(.light-mode) nav .nav-item:nth-child(6) i { color:#22e58a !important; -webkit-text-fill-color:#22e58a !important; }
+body:not(.light-mode) nav .nav-item:nth-child(7) i { color:#57a4ff !important; -webkit-text-fill-color:#57a4ff !important; }
+
+body:not(.light-mode) nav .nav-item.active i {
+    color:#ffffff !important;
+    -webkit-text-fill-color:#ffffff !important;
+    filter: drop-shadow(0 0 14px rgba(143,160,255,.65));
+}
+
+/* General text safety */
+body:not(.light-mode) h1,
+body:not(.light-mode) h2,
+body:not(.light-mode) h3,
+body:not(.light-mode) p,
+body:not(.light-mode) small,
+body:not(.light-mode) span,
+body:not(.light-mode) b,
+body:not(.light-mode) label {
+    -webkit-text-fill-color: currentColor;
+}
+
+/* Footer */
+body:not(.light-mode) .footer-copyright-tag {
+    color: rgba(220,230,255,.62) !important;
+    -webkit-text-fill-color: rgba(220,230,255,.62) !important;
+}
+
+/* Light mode يحافظ على ألوانه الطبيعية */
+body.light-mode #faq .faq-question,
+body.light-mode #faq .faq-question span,
+body.light-mode #contact h2,
+body.light-mode #contact p,
+body.light-mode .nav-item span {
+    -webkit-text-fill-color: currentColor !important;
+}
+
     </style>
 </head>
 <body>
