@@ -1540,10 +1540,6 @@
         }
 
     </style>
-
-    <!-- Firebase SDK - Realtime Database Sync -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -2031,13 +2027,11 @@
 
     </script>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-/* ================= HeartLink Firebase Live Sync =================
-   Admin Panel -> Firebase Realtime Database -> Website
-   Paths supported:
-   settings, demos, reviews, faq, sections
-=============================================================== */
 (function(){
+
     const firebaseConfig = {
         apiKey: "AIzaSyBiEatzVzp7lsd0J4wkGmxoASqsEsftH_o",
         authDomain: "heart-link-e7e31-74eff.firebaseapp.com",
@@ -2048,221 +2042,121 @@
         appId: "1:1088958523130:web:4047f400ac29fa6b133eb3"
     };
 
-    if (!window.firebase) return;
-    try {
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-        window.heartlinkDB = firebase.database();
-    } catch (err) {
-        console.warn("Firebase init error:", err);
-        return;
-    }
+    const DEFAULT_DEMOS = {"d1": {"title": "تهنئة العيد 🌙", "password": "الباسورد: 1", "url": "https://eid-fipggj-sage.vercel.app/", "icon": "fa-kaaba", "iconStyle": "background: linear-gradient(135deg, #FFD700, #FFA500); color:#000;", "vip": true, "order": 1}, "d2": {"title": "عيد الأم 💖", "password": "هدية ست الحبايب", "url": "https://mama-five-neon.vercel.app/", "icon": "fa-heart", "iconStyle": "background:#ff4757;", "order": 2}, "d3": {"title": "دعوة فرح 💍", "password": "تصميم فاخر", "url": "https://invitation-theta-bice.vercel.app/", "icon": "fa-envelope-open-text", "iconStyle": "background:var(--gold); color:#000;", "order": 3}, "d4": {"title": "رمضان 🌙", "password": "الباسورد: 1", "url": "https://ramadan-kareem-sooty.vercel.app/", "icon": "fa-moon", "iconStyle": "background:var(--primary);", "order": 4}, "d5": {"title": "تجربة مميزة", "password": "2008/1/1", "url": "https://kkkkkkkk-seven.vercel.app/", "icon": "fa-star", "iconStyle": "background: linear-gradient(135deg, #00f2ea, #ff0050);", "order": 5}, "d6": {"title": "تجربة 1", "password": "20/1/2002", "url": "https://h-sooty-nine.vercel.app/", "icon": "fa-eye", "order": 6}, "d7": {"title": "تجربة 2", "password": "ملاك", "url": "https://page-beta-jet.vercel.app/", "icon": "fa-eye", "iconStyle": "background: linear-gradient(135deg, var(--accent), var(--primary));", "order": 7}, "d8": {"title": "تجربة 3", "password": "27/9/2025", "url": "https://heart-link-qq.vercel.app/", "icon": "fa-eye", "iconStyle": "background: linear-gradient(135deg, #ffd700, #ffa500); color:#111;", "order": 8}, "d9": {"title": "تجربة 4", "password": "الباسورد: 1", "url": "https://lk-ivory.vercel.app/", "icon": "fa-eye", "iconStyle": "background: linear-gradient(135deg, #ff0050, #00f2ea);", "order": 9}, "d10": {"title": "هدية رمضان", "password": "الباسورد: 19/2", "url": "https://ramadan-eg.vercel.app/", "icon": "fa-moon", "iconStyle": "background: linear-gradient(135deg, #22c55e, #10b981);", "order": 10}, "d11": {"title": "عيد الحب", "password": "الباسورد: 1/10", "url": "https://heartlinkvalentine.vercel.app/", "icon": "fa-heart", "iconStyle": "background: linear-gradient(135deg, #f43f5e, #e11d48);", "order": 11}, "d12": {"title": "تجربة الفضاء", "password": "الباسورد: 1", "url": "https://ilil-swart.vercel.app/", "icon": "fa-shuttle-space", "iconStyle": "background: radial-gradient(circle, #2d3436, #000000);", "order": 12}, "d13": {"title": "تجربة مميزة", "password": "Premium Link", "url": "https://huawei-ten.vercel.app/", "icon": "fa-wand-magic-sparkles", "iconStyle": "background: linear-gradient(135deg, #6366f1, #a855f7);", "order": 13}};
+    const DEFAULT_REVIEWS = {"r1": {"name": "Review 1", "image": "https://h.top4top.io/p_3726cy0rn1.jpg", "order": 1}, "r2": {"name": "Review 2", "image": "https://i.top4top.io/p_3726rfo8g1.jpg", "order": 2}, "r3": {"name": "Review 3", "image": "https://j.top4top.io/p_3726jkbvq1.jpg", "order": 3}, "r4": {"name": "Review 4", "image": "https://k.top4top.io/p_3726s2mh01.jpg", "order": 4}, "r5": {"name": "Review 5", "image": "https://b.top4top.io/p_3726r31cf1.jpg", "order": 5}, "r6": {"name": "Review 6", "image": "https://c.top4top.io/p_3726e1z001.jpg", "order": 6}, "r7": {"name": "Review 7", "image": "https://l.top4top.io/p_3726d9asd1.jpg", "order": 7}, "r8": {"name": "Review 8", "image": "https://a.top4top.io/p_3726kx4nm1.jpg", "order": 8}, "r9": {"name": "Review 9", "image": "https://d.top4top.io/p_3726hz51x1.jpg", "order": 9}, "r10": {"name": "Review 10", "image": "https://e.top4top.io/p_37260k2rq1.jpg", "order": 10}, "r11": {"name": "Review 11", "image": "https://f.top4top.io/p_3726gxqcd1.jpg", "order": 11}, "r12": {"name": "Review 12", "image": "https://i.top4top.io/p_3726jlypk1.jpg", "order": 12}, "r13": {"name": "Review 13", "image": "https://g.top4top.io/p_3726wikpz1.jpg", "order": 13}, "r14": {"name": "Review 14", "image": "https://h.top4top.io/p_372665hhh1.jpg", "order": 14}, "r15": {"name": "Review 15", "image": "https://k.top4top.io/p_3726cw3bx1.jpg", "order": 15}, "r16": {"name": "Review 16", "image": "https://a.top4top.io/p_372635wht1.jpg", "order": 16}, "r17": {"name": "Review 17", "image": "https://b.top4top.io/p_37268mhq61.jpg", "order": 17}, "r18": {"name": "Review 18", "image": "https://c.top4top.io/p_37260nnhj1.jpg", "order": 18}, "r19": {"name": "Review 19", "image": "https://j.top4top.io/p_3726wn6dx1.jpg", "order": 19}, "r20": {"name": "Review 20", "image": "https://l.top4top.io/p_3726fm6zs1.jpg", "order": 20}, "r21": {"name": "Review 21", "image": "https://d.top4top.io/p_3726na3bl1.jpg", "order": 21}, "r22": {"name": "Review 22", "image": "https://e.top4top.io/p_37265ki8c1.jpg", "order": 22}, "r23": {"name": "Review 23", "image": "https://f.top4top.io/p_37268zmbx1.jpg", "order": 23}, "r24": {"name": "Review 24", "image": "https://g.top4top.io/p_3726f7mn11.jpg", "order": 24}, "r25": {"name": "Review 25", "image": "https://h.top4top.io/p_3726zhgts1.jpg", "order": 25}, "r26": {"name": "Review 26", "image": "https://i.top4top.io/p_37262v9gq1.jpg", "order": 26}, "r27": {"name": "Review 27", "image": "https://j.top4top.io/p_3726l97pu1.jpg", "order": 27}, "r28": {"name": "Review 28", "image": "https://k.top4top.io/p_372679jh11.jpg", "order": 28}, "r29": {"name": "Review 29", "image": "https://l.top4top.io/p_3726im6b21.jpg", "order": 29}, "r30": {"name": "Review 30", "image": "https://a.top4top.io/p_3726nt0oc1.jpg", "order": 30}, "r31": {"name": "Review 31", "image": "https://b.top4top.io/p_3726yca7i1.jpg", "order": 31}, "r32": {"name": "Review 32", "image": "https://c.top4top.io/p_3726j2a8e1.jpg", "order": 32}, "r33": {"name": "Review 33", "image": "https://d.top4top.io/p_37260sflw1.jpg", "order": 33}, "r34": {"name": "Review 34", "image": "https://e.top4top.io/p_3726x61r61.jpg", "order": 34}, "r35": {"name": "Review 35", "image": "https://f.top4top.io/p_3726kfs3u1.jpg", "order": 35}};
+    const DEFAULT_FAQ = {"f1": {"question": "💝 ما هي HeartLink؟", "answer": "HeartLink هي منصة متخصصة في تصميم الهدايا الرقمية التفاعلية وتحويل أي مناسبة إلى تجربة مميزة لا تُنسى.", "order": 1}, "f2": {"question": "🎁 ما هي أشكال الهدايا المتوفرة؟", "answer": "يمكن تنفيذ الهدية كرابط أو تطبيق موبايل أو QR Code حسب طلبك.", "order": 2}, "f3": {"question": "🎉 ما المناسبات التي يمكن تنفيذها؟", "answer": "أعياد الميلاد، عيد الحب، الخطوبة، الزواج، التخرج، الصلح، المفاجآت، المناسبات العائلية أو أي مناسبة خاصة.", "order": 3}, "f4": {"question": "📝 كيف أطلب؟", "answer": "تواصل معنا عبر الواتساب وأرسل فكرتك أو المناسبة المطلوبة وسنقوم بتنفيذها.", "order": 4}, "f5": {"question": "👀 هل يمكن مشاهدة معاينة قبل التسليم؟", "answer": "نعم، يتم إرسال معاينة للتأكد من رضاك قبل التسليم النهائي.", "order": 5}, "f6": {"question": "✏️ هل يمكن التعديل بعد التسليم؟", "answer": "نعم، يوجد تعديلات حسب الباقة المختارة.", "order": 6}, "f7": {"question": "💡 هل يمكن تنفيذ فكرة خاصة غير موجودة بالنماذج؟", "answer": "بالتأكيد، يمكن تنفيذ أي فكرة من الصفر بالكامل.", "order": 7}, "f8": {"question": "📱 هل الهدية تكون تطبيق أم رابط أم QR؟", "answer": "يمكن تنفيذها بأي شكل حسب رغبتك.", "order": 8}, "f9": {"question": "📲 هل يمكن تحويل الهدية إلى تطبيق APK أو iOS؟", "answer": "نعم.", "order": 9}, "f10": {"question": "💻 هل تعمل الهدية على جميع الأجهزة؟", "answer": "نعم، تعمل على الهواتف والكمبيوتر والأجهزة اللوحية.", "order": 10}, "f11": {"question": "🛡️ هل بياناتي وصوري آمنة؟", "answer": "نعم، يتم التعامل مع جميع البيانات بسرية تامة.", "order": 11}, "f12": {"question": "👤 هل يمكن لشخص آخر رؤية الهدية؟", "answer": "لا، الهدية خاصة بكم فقط.", "order": 12}, "f13": {"question": "⚙️ هل يمكن الحصول على لوحة تحكم؟", "answer": "نعم، يمكن توفير لوحة تحكم كاملة.", "order": 13}, "f14": {"question": "🖼️ ماذا يمكنني تعديل من لوحة التحكم؟", "answer": "الصور، الفيديوهات، النصوص، الأغاني، الألوان، كلمة السر، التواريخ وتحكم كامل بالمحتوى.", "order": 14}, "f15": {"question": "👑 هل لوحة التحكم خاصة بي فقط؟", "answer": "نعم، تكون محمية ومخصصة لك وحدك.", "order": 15}, "f16": {"question": "🎁 هل توجد عروض أو خصومات؟", "answer": "يتم تقديم عروض وخصومات بشكل دوري.", "order": 16}, "f17": {"question": "💳 كيف يتم الدفع؟", "answer": "يتم الاتفاق على طريقة الدفع أثناء الطلب.", "order": 17}, "f18": {"question": "🏆 لماذا أختار HeartLink؟", "answer": "لأننا نحول الذكريات والمشاعر إلى تجربة رقمية تفاعلية فريدة ومميزة مصممة خصيصًا لك.", "order": 18}};
+    const DEFAULT_SETTINGS = {
+        logoUrl: "https://d.top4top.io/p_3804fimnq1.jpg",
+        brandName: "HeartLink",
+        heroKicker: "أول منصة للهدايا الرقمية في مصر",
+        heroTitle: "حوّل أي مناسبة إلى تجربة رقمية لا تُنسى",
+        heroSubtitle: "من فكرة بسيطة إلى تجربة رقمية كاملة تخطف الأنظار 🚀",
+        marqueeText: "✨ عروض مميزة لفترة محدودة على كافة خدمات HeartLink.. اطلب هديتك الآن واستمتع بالخصم! ✨",
+        demoBtnText: "مشاهدة النماذج",
+        orderBtnText: "اطلب الآن",
+        whatsapp: "201125674359",
+        tiktok: "https://www.tiktok.com/@ba7bak.28"
+    };
 
-    const db = window.heartlinkDB;
+    if (!window.firebase) { console.warn("Firebase SDK not loaded"); return; }
+    try { if (!firebase.apps.length) firebase.initializeApp(firebaseConfig); } catch(e) { console.warn(e); return; }
+    const db = firebase.database();
+    window.heartlinkDB = db;
 
-    function byOrder(a, b) {
-        return (Number(a.order || 0) - Number(b.order || 0));
+    function safe(v, f="") { return (v===undefined || v===null || v==="") ? f : String(v); }
+    function escapeHtml(x) { return safe(x).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
+    function arr(obj, fallback) {
+        const source = obj && Object.keys(obj).length ? obj : fallback;
+        return Object.keys(source || {}).map(k => ({id:k, ...source[k]})).filter(x => !x.hidden && x.visible !== false).sort((a,b)=>(Number(a.order||0)-Number(b.order||0)));
     }
-
-    function objectToArray(data) {
-        if (!data) return [];
-        return Object.keys(data).map(key => ({ id: key, ...data[key] }));
-    }
-
-    function safeText(value, fallback = "") {
-        return (value === undefined || value === null || value === "") ? fallback : String(value);
-    }
-
-    function makeMarqueeText(txt) {
-        return `${txt} &nbsp;&nbsp;&nbsp;&nbsp; ${txt}`;
-    }
+    function marquee(txt) { return `${txt} &nbsp;&nbsp;&nbsp;&nbsp; ${txt}`; }
+    function setVar(name, value) { if(value) document.documentElement.style.setProperty(name, value); }
 
     function updateSettings(s) {
-        if (!s) return;
+        s = {...DEFAULT_SETTINGS, ...(s||{})};
+        setVar("--primary", s.colorPrimary);
+        setVar("--secondary", s.colorSecondary);
+        setVar("--accent", s.colorAccent);
+        if (s.seoTitle) document.title = s.seoTitle;
+        let desc = document.querySelector('meta[name="description"]');
+        if (!desc) { desc = document.createElement('meta'); desc.name='description'; document.head.appendChild(desc); }
+        if (s.seoDescription) desc.content = s.seoDescription;
+        if (s.faviconUrl) { let ico = document.querySelector('link[rel="icon"]'); if(!ico) { ico=document.createElement('link'); ico.rel='icon'; document.head.appendChild(ico); } ico.href=s.faviconUrl; }
 
-        const logo = document.querySelector(".hero-logo-shell img");
-        if (logo && s.logoUrl) logo.src = s.logoUrl;
-
-        const taglineMain = document.querySelector(".tagline-main");
-        if (taglineMain && s.headerTitle) {
-            taglineMain.innerHTML = `<i class="fa-solid fa-crown"></i>${s.headerTitle}`;
+        const logo = document.querySelector('.hero-logo-shell img'); if(logo && s.logoUrl) logo.src=s.logoUrl;
+        const header = document.querySelector('.tagline-main'); if(header) header.innerHTML = `<i class="fa-solid fa-crown"></i>${escapeHtml(s.heroKicker || s.headerTitle || DEFAULT_SETTINGS.heroKicker)}`;
+        const sub = document.querySelector('.tagline-sub'); if(sub) sub.textContent = s.brandName ? `${s.brandName} Experience` : 'HeartLink Experience';
+        const kicker = document.querySelector('.hero-kicker span:nth-child(2)'); if(kicker) kicker.textContent = s.heroKicker || DEFAULT_SETTINGS.heroKicker;
+        const en = document.querySelector('.hero-en'); if(en) en.textContent = (s.brandName || 'HEARTLINK') + ' EXPERIENCE';
+        const title = document.querySelector('.hero-title-main');
+        if(title) {
+            let t = s.heroTitle || DEFAULT_SETTINGS.heroTitle;
+            if(t.includes('لا تُنسى')) title.innerHTML = escapeHtml(t).replace('لا تُنسى', '<span class="blue-word">لا تُنسى</span>');
+            else title.textContent = t;
         }
+        const hs = document.querySelector('.hero-subtitle'); if(hs) hs.textContent = s.heroSubtitle || DEFAULT_SETTINGS.heroSubtitle;
+        const mq = document.querySelector('.marquee-text'); if(mq) mq.innerHTML = marquee(s.marqueeText || DEFAULT_SETTINGS.marqueeText);
+        document.querySelectorAll('.future-btn.secondary span:not(.arrow)').forEach(x => x.textContent = s.demoBtnText || DEFAULT_SETTINGS.demoBtnText);
+        document.querySelectorAll('.future-btn.primary span:not(.arrow)').forEach(x => x.textContent = s.orderBtnText || DEFAULT_SETTINGS.orderBtnText);
+        const wa = safe(s.whatsapp, DEFAULT_SETTINGS.whatsapp).replace(/\D/g,'');
+        const waBtn = document.querySelector('#contact a[href*="wa.me"]'); if(waBtn) waBtn.href = 'https://wa.me/' + wa;
+        const tkBtn = document.querySelector('#contact a[href*="tiktok"]'); if(tkBtn && s.tiktok) tkBtn.href = s.tiktok;
+        window.HEARTLINK_ORDER_URL = s.orderUrl || 'https://to-request-wine.vercel.app/';
 
-        const taglineSub = document.querySelector(".tagline-sub");
-        if (taglineSub && s.headerSubtitle) taglineSub.textContent = s.headerSubtitle;
-
-        const kicker = document.querySelector(".hero-kicker span:nth-child(2)");
-        if (kicker && s.kickerText) kicker.textContent = s.kickerText;
-
-        const heroEn = document.querySelector(".hero-en");
-        if (heroEn && s.heroEn) heroEn.textContent = s.heroEn;
-
-        const title = document.querySelector(".hero-title-main");
-        if (title && (s.heroTitleLine1 || s.heroTitleLine2 || s.heroHighlight)) {
-            const line1 = safeText(s.heroTitleLine1, "حوّل أي مناسبة إلى");
-            const line2 = safeText(s.heroTitleLine2, "تجربة رقمية");
-            const highlight = safeText(s.heroHighlight, "لا تُنسى");
-            title.innerHTML = `${line1}<br>${line2} <span class="blue-word">${highlight}</span>`;
-        }
-
-        const subtitle = document.querySelector(".hero-subtitle");
-        if (subtitle && s.heroSubtitle) subtitle.textContent = s.heroSubtitle;
-
-        const marquee = document.querySelector(".marquee-text");
-        if (marquee && s.marqueeText) marquee.innerHTML = makeMarqueeText(s.marqueeText);
-
-        if (s.whatsapp) window.HEARTLINK_WHATSAPP = String(s.whatsapp).replace(/\D/g, "");
-        if (s.tiktok) window.HEARTLINK_TIKTOK = s.tiktok;
-        if (s.orderUrl) window.HEARTLINK_ORDER_URL = s.orderUrl;
-
-        const tiktokBtn = document.querySelector('#contact a[href*="tiktok"]');
-        if (tiktokBtn && s.tiktok) tiktokBtn.href = s.tiktok;
-
-        const waBtn = document.querySelector('#contact a[href*="wa.me"]');
-        if (waBtn && s.whatsapp) waBtn.href = "https://wa.me/" + String(s.whatsapp).replace(/\D/g, "");
+        if(s.maintenance) showMaintenance(s.maintenanceMessage || 'الموقع تحت التطوير حاليًا، برجاء العودة لاحقًا.');
     }
 
     function renderDemos(data) {
-        const grid = document.querySelector("#demo .demo-grid");
-        if (!grid) return;
-        const items = objectToArray(data).filter(x => x.visible !== false).sort(byOrder);
-        if (!items.length) return;
-
-        grid.innerHTML = items.map(item => {
-            const title = safeText(item.title, "نموذج");
-            const pass = safeText(item.pass || item.subtitle || item.description, "");
-            const url = safeText(item.url, "#");
-            const icon = safeText(item.icon, "fa-eye");
-            const style = item.iconStyle ? `style="${item.iconStyle}"` : "";
-            const gold = item.vip || item.gold || item.featured ? " gold-edition" : "";
-            return `
-                <div onclick="openPreview('${url}')" class="demo-card${gold}">
-                    ${item.cover ? `<img src="${item.cover}" alt="${title}" style="width:100%;height:90px;object-fit:cover;border-radius:18px;margin-bottom:4px;">` : `<div class="demo-icon" ${style}><i class="fa-solid ${icon}"></i></div>`}
-                    <div class="demo-info">
-                        <span class="demo-title">${title}</span>
-                        <span class="demo-pass">${pass}</span>
-                    </div>
-                </div>
-            `;
-        }).join("");
+        const grid = document.querySelector('#demo .demo-grid'); if(!grid) return;
+        const items = arr(data, DEFAULT_DEMOS);
+        grid.innerHTML = items.map(d => `
+            <div onclick="openPreview('${safe(d.url,'#')}')" class="demo-card ${d.vip ? 'gold-edition' : ''}">
+                ${d.cover ? `<img src="${escapeHtml(d.cover)}" alt="${escapeHtml(d.title)}" style="width:100%;height:92px;object-fit:cover;border-radius:18px;margin-bottom:4px;">` : `<div class="demo-icon" ${d.iconStyle ? `style="${escapeHtml(d.iconStyle)}"` : ''}><i class="fa-solid ${escapeHtml(d.icon||'fa-eye')}"></i></div>`}
+                <div class="demo-info"><span class="demo-title">${escapeHtml(d.title||'نموذج')}</span><span class="demo-pass">${escapeHtml(d.password||d.pass||d.subtitle||'')}</span></div>
+            </div>`).join('');
     }
-
     function renderReviews(data) {
-        const grid = document.querySelector("#reviews .reviews-grid");
-        if (!grid) return;
-        const items = objectToArray(data).filter(x => x.visible !== false).sort(byOrder);
-        if (!items.length) return;
-
-        grid.innerHTML = items.map(item => {
-            const img = item.image || item.imageUrl || item.url;
-            if (!img) return "";
-            const alt = safeText(item.name || item.title, "Review");
-            return `<div class="review-card"><img src="${img}" alt="${alt}"></div>`;
-        }).join("");
+        const grid = document.querySelector('#reviews .reviews-grid'); if(!grid) return;
+        const items = arr(data, DEFAULT_REVIEWS);
+        grid.innerHTML = items.map(r => `<div class="review-card"><img src="${escapeHtml(r.image||r.url||'')}" alt="${escapeHtml(r.name||'Review')}"></div>`).join('');
     }
-
-    function attachFAQEvents() {
-        document.querySelectorAll(".faq-question").forEach(item => {
-            item.onclick = () => {
-                const currentItem = item.parentElement;
-                const faqCard = currentItem.closest(".glass-card");
-                currentItem.classList.toggle("active");
-                if (faqCard) setTimeout(() => handleScroll(faqCard), 120);
-            };
-        });
-    }
-
+    function attachFAQ() { document.querySelectorAll('.faq-question').forEach(btn => btn.onclick = () => btn.parentElement.classList.toggle('active')); }
     function renderFAQ(data) {
-        const list = document.querySelector("#faq .faq-list");
-        if (!list) return;
-        const items = objectToArray(data).filter(x => x.visible !== false).sort(byOrder);
-        if (!items.length) return;
-
-        list.innerHTML = items.map(item => {
-            const q = safeText(item.question || item.q, "سؤال");
-            const a = safeText(item.answer || item.a, "");
-            return `
-                <div class="faq-item">
-                    <button class="faq-question"><span>${q}</span><i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-answer">${a}</div>
-                </div>
-            `;
-        }).join("");
-        attachFAQEvents();
+        const list = document.querySelector('#faq .faq-list'); if(!list) return;
+        const items = arr(data, DEFAULT_FAQ);
+        list.innerHTML = items.map(f => `<div class="faq-item"><button class="faq-question"><span>${escapeHtml(f.question||'سؤال')}</span><i class="fa-solid fa-chevron-down"></i></button><div class="faq-answer">${escapeHtml(f.answer||'')}</div></div>`).join('');
+        attachFAQ();
     }
-
-    function updateSections(data) {
-        if (!data) return;
-        const map = {
-            home: "home",
-            demo: "demo",
-            details: "details",
-            reviews: "reviews",
-            steps: "steps",
-            faq: "faq",
-            order: "new-order",
-            contact: "contact"
-        };
-
-        Object.keys(map).forEach(key => {
-            if (!data[key]) return;
-            const visible = data[key].visible !== false && data[key] !== false;
-            const sectionId = map[key];
-            const section = document.getElementById(sectionId);
-            const navBtn = document.querySelector(`.nav-item[onclick*="'${sectionId}'"], .nav-item[onclick*='"${sectionId}"']`);
-            if (section) section.style.display = visible ? "" : "none";
-            if (navBtn) navBtn.style.display = visible ? "" : "none";
+    function updateSections(sections) {
+        sections = sections || {};
+        const map = {home:'home', demo:'demo', details:'details', reviews:'reviews', steps:'steps', faq:'faq', contact:'contact'};
+        Object.keys(map).forEach(k => {
+            if(!(k in sections)) return;
+            const visible = sections[k] !== false && !(sections[k] && sections[k].visible === false);
+            const id = map[k];
+            const sec = document.getElementById(id); if(sec) sec.style.display = visible ? '' : 'none';
+            const btn = document.querySelector(`.nav-item[onclick*="'${id}'"], .nav-item[onclick*='"${id}"']`); if(btn) btn.style.display = visible ? '' : 'none';
         });
-
-        if (data.marquee) {
-            const bar = document.querySelector(".ramadan-bar");
-            if (bar) bar.style.display = (data.marquee.visible === false || data.marquee === false) ? "none" : "";
-        }
+        if('marquee' in sections) { const bar = document.querySelector('.ramadan-bar'); if(bar) bar.style.display = sections.marquee === false ? 'none' : ''; }
+        if('footer' in sections) { const f = document.querySelector('.footer-copyright-tag'); if(f) f.style.display = sections.footer === false ? 'none' : ''; }
+    }
+    function showMaintenance(msg) {
+        document.body.innerHTML = `<div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:22px;text-align:center;color:#fff;background:#020615;font-family:Segoe UI,system-ui;"><div style="max-width:430px;padding:30px;border-radius:30px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);box-shadow:0 30px 80px rgba(0,0,0,.45);"><div style="font-size:46px;margin-bottom:12px;">🛠️</div><h1 style="margin:0 0 12px;font-size:24px;">الموقع تحت التطوير</h1><p style="color:#aab8d8;line-height:1.8;">${escapeHtml(msg)}</p></div></div>`;
     }
 
-    function updateSEO(seo) {
-        if (!seo) return;
-        if (seo.title) document.title = seo.title;
-        const desc = document.querySelector('meta[name="description"]');
-        if (desc && seo.description) desc.setAttribute("content", seo.description);
-        if (seo.favicon) {
-            let link = document.querySelector('link[rel="icon"]');
-            if (!link) {
-                link = document.createElement("link");
-                link.rel = "icon";
-                document.head.appendChild(link);
-            }
-            link.href = seo.favicon;
-        }
-    }
+    // أول تحميل يظهر البيانات القديمة حتى لو Firebase فاضي
+    renderDemos(null); renderReviews(null); renderFAQ(null);
 
-    function applyMaintenance(data) {
-        if (!data || data.enabled !== true) return;
-        document.body.innerHTML = `
-            <div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;color:#fff;background:#020615;font-family:Segoe UI,system-ui;">
-                <div style="max-width:420px;padding:30px;border-radius:30px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);box-shadow:0 30px 80px rgba(0,0,0,.45);">
-                    <div style="font-size:44px;margin-bottom:14px;">🛠️</div>
-                    <h1 style="margin:0 0 12px;font-size:24px;">${safeText(data.title, "الموقع تحت التطوير")}</h1>
-                    <p style="margin:0;color:#aab8d8;line-height:1.8;">${safeText(data.message, "نقوم ببعض التحسينات الآن، سنعود قريبًا.")}</p>
-                </div>
-            </div>`;
-    }
+    db.ref('settings').on('value', s => updateSettings(s.val()));
+    db.ref('demos').on('value', s => renderDemos(s.val()));
+    db.ref('reviews').on('value', s => renderReviews(s.val()));
+    db.ref('faq').on('value', s => renderFAQ(s.val()));
+    db.ref('sections').on('value', s => updateSections(s.val()));
 
-    // Realtime listeners
-    db.ref("settings").on("value", snap => updateSettings(snap.val()));
-    db.ref("demos").on("value", snap => renderDemos(snap.val()));
-    db.ref("reviews").on("value", snap => renderReviews(snap.val()));
-    db.ref("faq").on("value", snap => renderFAQ(snap.val()));
-    db.ref("sections").on("value", snap => updateSections(snap.val()));
-    db.ref("seo").on("value", snap => updateSEO(snap.val()));
-    db.ref("maintenance").on("value", snap => applyMaintenance(snap.val()));
-
-    // Override order button after original functions load
-    const oldHandleOrderTab = window.handleOrderTab;
     window.handleOrderTab = function(evt) {
-        const url = window.HEARTLINK_ORDER_URL || "https://to-request-wine.vercel.app/";
-        if (typeof openTab === "function") openTab(evt, "new-order");
-        if (typeof openPreview === "function") openPreview(url);
-        else window.open(url, "_blank");
+        if(typeof openTab === 'function') openTab(evt, 'new-order');
+        const url = window.HEARTLINK_ORDER_URL || 'https://to-request-wine.vercel.app/';
+        if(typeof openPreview === 'function') openPreview(url); else window.open(url, '_blank');
     };
 })();
 </script>
