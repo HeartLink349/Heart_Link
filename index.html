@@ -691,7 +691,859 @@
             from { opacity: 0; transform: scale(0.94); }
             to { opacity: 1; transform: scale(1); }
         }
+    
+
+        /* ================= Futuristic Premium Theme - HeartLink ================= */
+        :root {
+            --primary: #536dff;
+            --secondary: #9b4dff;
+            --accent: #44d6ff;
+            --accent-2: #ff335f;
+            --bg: #020615;
+            --bg-secondary: #071126;
+            --glass: rgba(13, 24, 52, 0.58);
+            --glass-strong: rgba(12, 20, 44, 0.82);
+            --glass-border: rgba(149, 177, 255, 0.22);
+            --text: #f8fbff;
+            --text-dim: #aab8d8;
+            --gold: #ffd66b;
+            --card-highlight: rgba(255,255,255,0.055);
+            --nav-bg: rgba(5, 8, 22, 0.78);
+            --shadow: 0 30px 80px rgba(0,0,0,0.55);
+            --shadow-soft: 0 14px 36px rgba(0,0,0,0.28);
+            --title-gradient: linear-gradient(135deg, #ffffff 0%, #eef4ff 45%, #7f91ff 100%);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 50% 7%, rgba(86, 111, 255, 0.34), transparent 27%),
+                radial-gradient(circle at 86% 28%, rgba(49, 116, 255, 0.20), transparent 29%),
+                radial-gradient(circle at 15% 50%, rgba(151, 67, 255, 0.15), transparent 34%),
+                radial-gradient(circle at 50% 92%, rgba(255, 39, 81, 0.17), transparent 20%),
+                linear-gradient(180deg, #07122a 0%, #020615 58%, #030611 100%) !important;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.55) 0 1px, transparent 1px),
+                radial-gradient(circle, rgba(125,155,255,0.55) 0 1px, transparent 1px);
+            background-size: 110px 110px, 170px 170px;
+            background-position: 20px 40px, 80px 130px;
+            opacity: 0.11;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            left: -10%;
+            right: -10%;
+            bottom: -42%;
+            height: 52%;
+            pointer-events: none;
+            z-index: -1;
+            border-radius: 50% 50% 0 0;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255, 74, 117, 0.55), transparent 9%),
+                radial-gradient(ellipse at 50% 0%, rgba(76, 100, 255, 0.55), transparent 36%),
+                linear-gradient(180deg, rgba(16, 20, 57, 0.95), rgba(3, 5, 18, 0.25));
+            border-top: 1px solid rgba(131, 151, 255, 0.48);
+            box-shadow: 0 -18px 90px rgba(73, 97, 255, 0.28);
+        }
+
+        .bg-glow {
+            width: 620px;
+            height: 620px;
+            opacity: 0.20;
+            background: radial-gradient(circle, rgba(82, 107, 255, 0.95) 0%, rgba(151, 72, 255, 0.22) 38%, transparent 72%);
+            filter: blur(110px);
+        }
+
+        header {
+            height: 82px;
+            padding: 14px 22px 8px;
+        }
+
+        .tagline-main {
+            font-size: 16px;
+            font-weight: 900;
+            text-shadow: 0 10px 28px rgba(255,255,255,0.10);
+        }
+
+        .tagline-sub {
+            color: #7e8eff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .theme-toggle {
+            background: rgba(14, 23, 49, 0.64);
+            border: 1px solid rgba(152, 174, 255, 0.18);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 28px rgba(0,0,0,0.35);
+        }
+
+        .ramadan-bar {
+            height: 34px;
+            padding: 0;
+            margin-top: -2px;
+            mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+        }
+
+        .marquee-text {
+            font-size: 13px;
+            color: #dfe7ff;
+            opacity: 0.94;
+            font-weight: 800;
+        }
+
+        main {
+            padding: 0 14px;
+            margin-bottom: 108px;
+        }
+
+        .content-section {
+            max-width: 500px;
+        }
+
+        .glass-card {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.025)),
+                rgba(12, 22, 48, 0.58);
+            border: 1px solid rgba(153, 176, 255, 0.20);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.08),
+                0 30px 80px rgba(0,0,0,0.50);
+            border-radius: 34px;
+        }
+
+        .hero-card {
+            padding: 30px 22px 34px !important;
+            min-height: min(610px, 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-future {
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-future::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            left: 50%;
+            top: -175px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            border: 1px solid rgba(93, 116, 255, 0.22);
+            box-shadow: 0 0 80px rgba(72, 98, 255, 0.15);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-logo-shell {
+            width: 134px;
+            height: 134px;
+            margin: 4px auto 22px;
+            border-radius: 34px;
+            padding: 11px;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.025)),
+                linear-gradient(135deg, rgba(88, 117, 255, 0.30), rgba(255, 255, 255, 0.06));
+            border: 1px solid rgba(145, 169, 255, 0.35);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.17),
+                0 0 0 7px rgba(111, 132, 255, 0.045),
+                0 24px 55px rgba(0,0,0,0.48);
+        }
+
+        .hero-logo-shell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px;
+            display: block;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 auto 8px;
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.2px;
+            text-shadow: 0 0 18px rgba(255, 214, 107, 0.20);
+        }
+
+        .hero-en {
+            color: #7889ff;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero-title-main {
+            margin: 0 auto;
+            max-width: 390px;
+            font-size: clamp(34px, 8.2vw, 54px);
+            line-height: 1.32;
+            font-weight: 950;
+            color: #fff;
+            letter-spacing: -1.5px;
+            text-shadow: 0 10px 34px rgba(255,255,255,0.09);
+        }
+
+        .hero-title-main .blue-word {
+            display: inline-block;
+            color: #8ea0ff;
+            text-shadow: 0 0 20px rgba(92, 113, 255, 0.42), 0 10px 32px rgba(0,0,0,0.35);
+            position: relative;
+        }
+
+        .hero-title-main .blue-word::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 94%;
+            right: 0;
+            bottom: 4px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, transparent, rgba(125, 145, 255, 0.95), transparent);
+            box-shadow: 0 0 18px rgba(96, 116, 255, 0.90);
+        }
+
+        .hero-subtitle {
+            max-width: 390px;
+            margin: 24px auto 30px;
+            color: #c3cce2;
+            font-size: 15px;
+            line-height: 1.85;
+            font-weight: 800;
+        }
+
+        .hero-actions-future {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 0 auto;
+            max-width: 430px;
+        }
+
+        .future-btn {
+            min-height: 64px;
+            border-radius: 20px;
+            border: 1px solid rgba(155, 177, 255, 0.25);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 950;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .25s ease, border-color .25s ease, background .25s ease;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 28px rgba(0,0,0,0.30);
+        }
+
+        .future-btn:active { transform: scale(0.97); }
+
+        .future-btn.primary {
+            background: linear-gradient(135deg, rgba(55, 91, 255, 0.94), rgba(160, 66, 255, 0.92));
+            border-color: rgba(175, 155, 255, 0.42);
+        }
+
+        .future-btn.secondary {
+            background: rgba(12, 19, 41, 0.62);
+            border-color: rgba(160, 177, 255, 0.25);
+        }
+
+        .future-btn i { font-size: 16px; opacity: .95; }
+        .future-btn .arrow {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.07);
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-orbit {
+            position: absolute;
+            inset: auto 0 -170px 0;
+            height: 160px;
+            pointer-events: none;
+            opacity: 0.95;
+        }
+        .hero-orbit::before {
+            content: '';
+            position: absolute;
+            left: -20%;
+            right: -20%;
+            top: 0;
+            height: 260px;
+            border-radius: 50% 50% 0 0;
+            border-top: 1px solid rgba(121, 143, 255, .45);
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255,63,103,.75), transparent 7%),
+                radial-gradient(ellipse at 50% 0%, rgba(85,107,255,.45), transparent 40%);
+            box-shadow: 0 -24px 60px rgba(87, 107, 255, .22);
+        }
+
+        .float-gem {
+            position: absolute;
+            pointer-events: none;
+            opacity: .9;
+            filter: drop-shadow(0 0 16px rgba(116, 130, 255, .6));
+            animation: gemFloat 5s infinite ease-in-out alternate;
+        }
+        .gem-heart { left: 10%; bottom: 115px; font-size: 22px; }
+        .gem-diamond { right: 10%; bottom: 95px; font-size: 20px; animation-delay: 1.2s; }
+        @keyframes gemFloat {
+            from { transform: translateY(0) rotate(-6deg); }
+            to { transform: translateY(-12px) rotate(8deg); }
+        }
+
+        .feature-row, .feature-box, .step-card, .demo-card, .review-card {
+            background: rgba(255,255,255,0.045);
+            border-color: rgba(149, 177, 255, 0.16);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
+        }
+
+        .demo-card, .feature-row, .feature-box, .step-card, .review-card { border-radius: 24px; }
+
+        .demo-icon, .step-number {
+            background: linear-gradient(135deg, #4e6cff, #9d4dff);
+            box-shadow: 0 12px 24px rgba(83, 109, 255, 0.20);
+        }
+
+        nav {
+            bottom: 22px;
+            width: calc(100% - 28px);
+            background: rgba(3, 7, 20, 0.78);
+            border-color: rgba(136, 160, 255, 0.18);
+            box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(83,109,255,.32), rgba(155,77,255,.20));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+        }
+
+        .nav-item.active i { color: #8fa0ff; }
+
+        @media (max-height: 740px) {
+            header { height: 70px; padding-top: 10px; }
+            .ramadan-bar { display: none; }
+            main { margin-bottom: 102px; }
+            .hero-card { padding: 20px 18px 26px !important; }
+            .hero-logo-shell { width: 104px; height: 104px; margin-bottom: 16px; }
+            .hero-en { margin-bottom: 14px; }
+            .hero-title-main { font-size: clamp(29px, 7.3vw, 42px); }
+            .hero-subtitle { margin: 16px auto 22px; font-size: 13px; }
+            .future-btn { min-height: 56px; }
+        }
+
+        @media (max-width: 370px) {
+            .hero-actions-future { grid-template-columns: 1fr; }
+            .hero-title-main { font-size: 31px; }
+        }
+
+
+
+        /* Dark Mode Fix: يحافظ على نفس ستايل النيـون بدل ما يقلب الألوان لفاتح */
+        .deep-dark-mode {
+            --primary: #6f86ff;
+            --secondary: #9b5cff;
+            --accent: #38d8ff;
+            --accent-2: #8af2ff;
+            --bg: #020611;
+            --bg-secondary: #050b1d;
+            --surface: rgba(255,255,255,0.055);
+            --glass: rgba(8, 16, 36, 0.66);
+            --glass-strong: rgba(8, 16, 36, 0.86);
+            --glass-border: rgba(150, 173, 255, 0.18);
+            --text: #f8fbff;
+            --text-dim: #aab7d7;
+            --nav-bg: rgba(4, 8, 22, 0.88);
+            --card-highlight: rgba(255,255,255,0.065);
+            --shadow: 0 24px 70px rgba(0,0,0,0.60);
+            --shadow-soft: 0 12px 34px rgba(0,0,0,0.34);
+            --title-gradient: linear-gradient(135deg, #ffffff 0%, #dce6ff 38%, #8fa2ff 70%, #ffffff 100%);
+        }
+
+        .deep-dark-mode body,
+        body.deep-dark-mode {
+            background:
+                radial-gradient(850px 420px at 50% 0%, rgba(85, 112, 255, 0.22), transparent 62%),
+                radial-gradient(650px 360px at 88% 18%, rgba(139, 92, 246, 0.18), transparent 62%),
+                radial-gradient(500px 260px at 50% 104%, rgba(255, 64, 118, 0.16), transparent 62%),
+                linear-gradient(180deg, #050b1d 0%, #020611 100%);
+        }
+
+        body.deep-dark-mode .glass-card {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.018)),
+                rgba(7, 14, 32, 0.72);
+            border-color: rgba(153, 176, 255, 0.22);
+        }
+
+        body.deep-dark-mode nav,
+        body.deep-dark-mode .theme-toggle {
+            background: rgba(4, 8, 22, 0.82);
+            border-color: rgba(153, 176, 255, 0.18);
+        }
+
+
+
+        /* Light/Dark Theme Upgrade: الافتراضي دارك، والزّر يحوّل لفاتح بشكل احترافي */
+        body.light-mode {
+            --primary: #3b63ff;
+            --secondary: #8b5cf6;
+            --accent: #0ea5e9;
+            --accent-2: #22d3ee;
+            --bg: #eef4ff;
+            --bg-secondary: #f9fbff;
+            --surface: rgba(255,255,255,0.78);
+            --glass: rgba(255,255,255,0.72);
+            --glass-strong: rgba(255,255,255,0.90);
+            --glass-border: rgba(34, 64, 140, 0.12);
+            --text: #0f172a;
+            --text-dim: #607089;
+            --gold: #b88700;
+            --nav-bg: rgba(255,255,255,0.82);
+            --card-highlight: rgba(15,23,42,0.04);
+            --shadow: 0 26px 70px rgba(49, 80, 170, 0.16);
+            --shadow-soft: 0 12px 30px rgba(49, 80, 170, 0.10);
+            --title-gradient: linear-gradient(135deg, #0f172a 0%, #2855ff 52%, #7c3aed 100%);
+            background:
+                radial-gradient(760px 380px at 50% -5%, rgba(59,99,255,0.18), transparent 62%),
+                radial-gradient(620px 320px at 90% 18%, rgba(139,92,246,0.13), transparent 62%),
+                radial-gradient(520px 260px at 50% 106%, rgba(14,165,233,0.12), transparent 62%),
+                linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+            color: var(--text);
+        }
+
+        body.light-mode .bg-glow {
+            opacity: .28;
+            background: radial-gradient(circle, rgba(59,99,255,.45) 0%, rgba(139,92,246,.20) 38%, transparent 72%);
+            filter: blur(95px);
+        }
+
+        body.light-mode header {
+            color: var(--text);
+        }
+
+        body.light-mode .tagline-main {
+            color: #0f172a;
+            text-shadow: none;
+        }
+
+        body.light-mode .tagline-sub,
+        body.light-mode .hero-en {
+            color: #5164d9;
+        }
+
+        body.light-mode .theme-toggle {
+            background: rgba(255,255,255,.82);
+            border-color: rgba(34,64,140,.12);
+            color: #0f172a;
+            box-shadow: 0 12px 28px rgba(49,80,170,.12), inset 0 1px 0 rgba(255,255,255,.9);
+        }
+
+        body.light-mode .marquee-text {
+            color: #334155;
+            text-shadow: none;
+        }
+
+        body.light-mode .glass-card {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.62)),
+                rgba(255,255,255,.72);
+            border-color: rgba(34,64,140,.13);
+            box-shadow: 0 26px 70px rgba(49,80,170,.14), inset 0 1px 0 rgba(255,255,255,.95);
+        }
+
+        body.light-mode .hero-card {
+            background:
+                radial-gradient(420px 240px at 50% 0%, rgba(59,99,255,.13), transparent 68%),
+                linear-gradient(180deg, rgba(255,255,255,.94), rgba(246,249,255,.78));
+        }
+
+        body.light-mode .hero-future::before {
+            border-color: rgba(59,99,255,.16);
+            box-shadow: 0 0 55px rgba(59,99,255,.10);
+        }
+
+        body.light-mode .hero-logo-shell {
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.96), rgba(239,245,255,.75)),
+                linear-gradient(135deg, rgba(59,99,255,.18), rgba(139,92,246,.10));
+            border-color: rgba(59,99,255,.18);
+            box-shadow: 0 20px 48px rgba(49,80,170,.16), inset 0 1px 0 rgba(255,255,255,.95);
+        }
+
+        body.light-mode .hero-kicker {
+            color: #b88700;
+            text-shadow: none;
+        }
+
+        body.light-mode .hero-title-main {
+            color: #0f172a;
+            text-shadow: none;
+        }
+
+        body.light-mode .hero-title-main .blue-word {
+            color: #3b63ff;
+            text-shadow: 0 10px 28px rgba(59,99,255,.15);
+        }
+
+        body.light-mode .hero-title-main .blue-word::after {
+            background: linear-gradient(90deg, transparent, rgba(59,99,255,.55), transparent);
+            box-shadow: 0 0 14px rgba(59,99,255,.25);
+        }
+
+        body.light-mode .hero-subtitle {
+            color: #526176;
+        }
+
+        body.light-mode .future-btn.primary {
+            background: linear-gradient(135deg, #3b63ff, #8b5cf6);
+            border-color: rgba(59,99,255,.24);
+            box-shadow: 0 16px 36px rgba(72,87,255,.22), inset 0 1px 0 rgba(255,255,255,.20);
+        }
+
+        body.light-mode .future-btn.secondary {
+            background: rgba(255,255,255,.72);
+            border-color: rgba(34,64,140,.13);
+            color: #0f172a;
+            box-shadow: 0 14px 32px rgba(49,80,170,.10), inset 0 1px 0 rgba(255,255,255,.9);
+        }
+
+        body.light-mode .future-btn.secondary .arrow {
+            background: rgba(59,99,255,.08);
+            color: #3b63ff;
+        }
+
+        body.light-mode .hero-orbit::before {
+            border-top-color: rgba(59,99,255,.20);
+            background:
+                radial-gradient(circle at 50% 0%, rgba(59,99,255,.22), transparent 7%),
+                radial-gradient(ellipse at 50% 0%, rgba(14,165,233,.14), transparent 42%);
+            box-shadow: 0 -18px 45px rgba(59,99,255,.10);
+        }
+
+        body.light-mode .feature-row,
+        body.light-mode .feature-box,
+        body.light-mode .step-card,
+        body.light-mode .demo-card,
+        body.light-mode .review-card {
+            background: rgba(255,255,255,.68);
+            border-color: rgba(34,64,140,.10);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 10px 25px rgba(49,80,170,.07);
+        }
+
+        body.light-mode nav {
+            background: rgba(255,255,255,.84);
+            border-color: rgba(34,64,140,.12);
+            box-shadow: 0 20px 50px rgba(49,80,170,.14), inset 0 1px 0 rgba(255,255,255,.9);
+        }
+
+        body.light-mode .nav-item {
+            color: #64748b;
+        }
+
+        body.light-mode .nav-item.active {
+            color: #0f172a;
+            background: linear-gradient(135deg, rgba(59,99,255,.14), rgba(139,92,246,.10));
+        }
+
+        body.light-mode .nav-item.active i {
+            color: #3b63ff;
+        }
+
+    
+
+        /* ================= FAQ Accordion - HeartLink ================= */
+        .faq-intro {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            line-height: 1.8;
+            margin: -8px auto 18px;
+            max-width: 360px;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid var(--glass-border);
+            background: var(--card-highlight);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.045);
+            transition: border-color .25s ease, background .25s ease, transform .25s ease;
+        }
+
+        .faq-item:active {
+            transform: scale(.99);
+        }
+
+        .faq-question {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            padding: 17px 16px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .faq-question span {
+            line-height: 1.5;
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            font-size: 12px;
+            transition: transform .28s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            color: var(--text-dim);
+            font-size: 12px;
+            line-height: 1.9;
+            padding: 0 16px;
+            transition: max-height .32s ease, padding .32s ease;
+        }
+
+        .faq-item.active {
+            border-color: color-mix(in srgb, var(--primary) 38%, var(--glass-border));
+            background: color-mix(in srgb, var(--primary) 7%, var(--card-highlight));
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 220px;
+            padding: 0 16px 16px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+
+
+        /* =============== Micro Interactions Upgrade =============== */
+        @keyframes heartlinkFadeUp {
+            from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(6px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        @keyframes heartlinkSoftPop {
+            0% { opacity: 0; transform: translateY(12px) scale(.92); filter: blur(7px); }
+            65% { opacity: 1; transform: translateY(-2px) scale(1.025); filter: blur(0); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        @keyframes heartlinkLineGlow {
+            from { opacity: .35; transform: scaleX(.65); }
+            to { opacity: 1; transform: scaleX(1); }
+        }
+
+        .content-section.active .hero-logo-shell {
+            animation: heartlinkSoftPop .75s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .hero-kicker {
+            animation: heartlinkFadeUp .62s .10s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .hero-en {
+            animation: heartlinkFadeUp .62s .18s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .hero-title-main {
+            animation: heartlinkFadeUp .72s .26s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .hero-title-main .blue-word::after {
+            transform-origin: center;
+            animation: heartlinkLineGlow .9s .8s ease both;
+        }
+
+        .content-section.active .hero-subtitle {
+            animation: heartlinkFadeUp .68s .42s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .hero-actions-future {
+            animation: heartlinkFadeUp .68s .56s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .demo-card,
+        .content-section.active .feature-row,
+        .content-section.active .feature-box,
+        .content-section.active .step-card,
+        .content-section.active .review-card,
+        .content-section.active .faq-item {
+            opacity: 0;
+            animation: heartlinkFadeUp .55s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .content-section.active .demo-card:nth-child(1),
+        .content-section.active .feature-row:nth-child(1),
+        .content-section.active .feature-box:nth-child(1),
+        .content-section.active .step-card:nth-child(1),
+        .content-section.active .review-card:nth-child(1),
+        .content-section.active .faq-item:nth-child(1) { animation-delay: .05s; }
+
+        .content-section.active .demo-card:nth-child(2),
+        .content-section.active .feature-row:nth-child(2),
+        .content-section.active .feature-box:nth-child(2),
+        .content-section.active .step-card:nth-child(2),
+        .content-section.active .review-card:nth-child(2),
+        .content-section.active .faq-item:nth-child(2) { animation-delay: .10s; }
+
+        .content-section.active .demo-card:nth-child(3),
+        .content-section.active .feature-row:nth-child(3),
+        .content-section.active .feature-box:nth-child(3),
+        .content-section.active .step-card:nth-child(3),
+        .content-section.active .review-card:nth-child(3),
+        .content-section.active .faq-item:nth-child(3) { animation-delay: .15s; }
+
+        .content-section.active .demo-card:nth-child(n+4),
+        .content-section.active .feature-row:nth-child(n+4),
+        .content-section.active .feature-box:nth-child(n+4),
+        .content-section.active .step-card:nth-child(n+4),
+        .content-section.active .review-card:nth-child(n+4),
+        .content-section.active .faq-item:nth-child(n+4) { animation-delay: .20s; }
+
+        .demo-card,
+        .feature-box,
+        .feature-row,
+        .step-card,
+        .review-card,
+        .faq-item,
+        .future-btn,
+        .order-btn,
+        .theme-toggle,
+        .nav-item {
+            will-change: transform, box-shadow, border-color, background;
+        }
+
+        .demo-card:hover,
+        .feature-box:hover,
+        .feature-row:hover,
+        .step-card:hover,
+        .review-card:hover,
+        .faq-item:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: color-mix(in srgb, var(--primary) 55%, var(--glass-border));
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.08),
+                0 18px 38px rgba(83, 109, 255, .16),
+                0 8px 22px rgba(0,0,0,.22);
+        }
+
+        .demo-card:active,
+        .feature-box:active,
+        .feature-row:active,
+        .step-card:active,
+        .review-card:active,
+        .faq-item:active {
+            transform: translateY(-2px) scale(.985);
+        }
+
+        .future-btn:hover,
+        .order-btn:hover,
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            border-color: color-mix(in srgb, var(--primary) 45%, var(--glass-border));
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.10),
+                0 18px 38px rgba(0,0,0,.28);
+        }
+
+        .future-btn:active,
+        .order-btn:active,
+        .theme-toggle:active {
+            transform: translateY(0) scale(.97);
+        }
+
+        .faq-question {
+            transition: color .25s ease, transform .25s ease;
+        }
+
+        .faq-item:hover .faq-question {
+            color: color-mix(in srgb, var(--primary) 45%, var(--text));
+        }
+
+        .demo-card:hover .demo-icon,
+        .feature-box:hover i,
+        .step-card:hover .step-number {
+            transform: scale(1.06) rotate(-2deg);
+            transition: transform .28s ease;
+        }
+
+        @media (hover: none) {
+            .demo-card:hover,
+            .feature-box:hover,
+            .feature-row:hover,
+            .step-card:hover,
+            .review-card:hover,
+            .faq-item:hover,
+            .future-btn:hover,
+            .order-btn:hover,
+            .theme-toggle:hover {
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
     </style>
+
+    <!-- Firebase SDK - Realtime Database Sync -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
     <div class="bg-glow"></div>
@@ -722,35 +1574,45 @@
 
     <main>
         <div id="home" class="content-section active">
-            <div class="glass-card animate__animated animate__fadeIn" onscroll="handleScroll(this)">
-                <h2 style="font-size: 18px; white-space: nowrap;">🎁 قسم الهدايا والذكريات – HeartLink</h2>
-                <span style="display:block; text-align:center; font-size:12px; color:var(--text-dim); margin-bottom:20px;">Where Emotions Become Experiences</span>
+            <div class="glass-card hero-card animate__animated animate__fadeIn" onscroll="handleScroll(this)">
+                <div class="hero-future">
+                    <div class="hero-logo-shell">
+                        <img src="https://d.top4top.io/p_3804fimnq1.jpg" alt="HeartLink Logo">
+                    </div>
 
-                <div class="feature-row">
-                    <div class="icon-circle">🤔</div>
-                    <div><b>يعني إيه؟</b><p style="font-size:11px; margin:0; color:var(--text-dim);">خدمة تهدف إلى تحويل كل مناسبة لهدية مميزة وذكرى لا تُنسى. الهدايا مش مجرد شيء مادي، إحنا بنصمم لك مشاعر تدوم لكل لحظة.</p></div>
-                </div>
+                    <div class="hero-kicker">
+                        <span>👑</span>
+                        <span>أول منصة للهدايا الرقمية في مصر</span>
+                        <span>✨</span>
+                    </div>
 
-                <div class="feature-row">
-                    <div class="icon-circle">🛠️</div>
-                    <div><b>بتعمل إيه؟</b><p style="font-size:11px; margin:0; color:var(--text-dim);">تصميم هدايا شخصية ومميزة لكل المناسبات 🎂🤝🎉💑❤️ والابتكار في التعبير عن مشاعرك في كل هدية.</p></div>
-                </div>
+                    <div class="hero-en">HEARTLINK EXPERIENCE</div>
 
-                <div class="badge-separator">بتستخدم في إيه؟</div>
-                <div class="feature-grid">
-                    <div class="feature-box"><span>أعياد الميلاد، السنة الجديدة، الصلح أو الاحتفال بالحب</span></div>
-                    <div class="feature-box"><span>مفاجآت للأصدقاء أو العائلة او اخر....</span></div>
-                </div>
+                    <h1 class="hero-title-main">
+                        حوّل أي مناسبة إلى<br>
+                        تجربة رقمية <span class="blue-word">لا تُنسى</span>
+                    </h1>
 
-                <div class="feature-row" style="border: 1px dashed var(--accent);">
-                    <div><b>💡 ملحوظة:</b><p style="font-size:11px; margin:0; color:var(--text-dim);">نقدر نعمل لك الخدمة على شكل لينك إلكتروني & تطبيق موبايل جاهز للتشغيل & QR جاهز للمشاركة</p></div>
-                </div>
+                    <p class="hero-subtitle">
+                        من فكرة بسيطة إلى تجربة رقمية كاملة تخطف الأنظار 🚀
+                    </p>
 
-                <div style="background: var(--card-highlight); padding: 15px; border-radius: 20px; border: 1px solid var(--glass-border);">
-                    <b>📝 نبذة مختصرة</b>
-                    <p style="font-size:11px; margin-top:5px; color:var(--text-dim);">HeartLink هي أول منصة للهدايا الرقمية في مصر. بنساعدك تحوّل كل مناسبة لتجربة تفاعلية مميزة تعيش للأبد.</p>
+                    <div class="hero-actions-future">
+                        <button class="future-btn secondary" onclick="openTab(event, 'demo')">
+                            <span class="arrow"><i class="fa-solid fa-arrow-left"></i></span>
+                            <span>مشاهدة النماذج</span>
+                            <i class="fa-solid fa-gift"></i>
+                        </button>
+
+                        <button class="future-btn primary" onclick="handleOrderTab(event)">
+                            <span class="arrow"><i class="fa-solid fa-arrow-left"></i></span>
+                            <span>اطلب الآن</span>
+                            <i class="fa-solid fa-rocket"></i>
+                        </button>
+                    </div>
+
+                    <div class="hero-orbit"></div>
                 </div>
-                <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
             </div>
         </div>
 
@@ -951,6 +1813,107 @@
             </div>
         </div>
 
+
+        <div id="faq" class="content-section">
+            <div class="glass-card" onscroll="handleScroll(this)">
+                <h2>❓ الأسئلة الشائعة</h2>
+                <p class="faq-intro">كل الإجابات اللي ممكن تحتاجها قبل ما تطلب هديتك الرقمية من HeartLink.</p>
+
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question"><span>💝 ما هي HeartLink؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">HeartLink هي منصة متخصصة في تصميم الهدايا الرقمية التفاعلية وتحويل أي مناسبة إلى تجربة مميزة لا تُنسى.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>🎁 ما هي أشكال الهدايا المتوفرة؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">يمكن تنفيذ الهدية كرابط أو تطبيق موبايل أو QR كود حسب طلبك.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>🎉 ما المناسبات التي يمكن تنفيذها؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">أعياد الميلاد، عيد الحب، الخطوبة، الزواج، التخرج، الصلح، المفاجآت، المناسبات العائلية، أو أي مناسبة خاصة.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>📝 كيف أطلب؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">تواصل معنا عبر الواتساب وأرسل فكرتك أو المناسبة المطلوبة وسنقوم بتنفيذها.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>👀 هل يمكن مشاهدة معاينة قبل التسليم؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم، يتم إرسال معاينة للتأكد من رضاك قبل التسليم النهائي.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>✏️ هل يمكن التعديل بعد التسليم؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم، يوجد تعديلات حسب الباقة المختارة.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>💡 هل يمكن تنفيذ فكرة خاصة غير موجودة بالنماذج؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">بالتأكيد، يمكن تنفيذ أي فكرة من الصفر بالكامل.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>📱 هل الهدية تكون تطبيق أم رابط أم QR؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">يمكن تنفيذها بأي شكل حسب رغبتك.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>📲 هل يمكن تحويل الهدية إلى تطبيق APK أو iOS؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>💻 هل تعمل الهدية على جميع الأجهزة؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم، تعمل على الهواتف والكمبيوتر والأجهزة اللوحية.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>🛡️ هل بياناتي وصوري آمنة؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم، يتم التعامل مع جميع البيانات بسرية تامة.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>👤 هل يمكن لشخص آخر رؤية الهدية؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">لا، الهدية خاصة بكم فقط.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>⚙️ هل يمكن الحصول على لوحة تحكم؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم، يمكن توفير لوحة تحكم كاملة.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>🖼️ ماذا يمكنني تعديل من لوحة التحكم؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">الصور، الفيديوهات، النصوص، الأغاني، الألوان، كلمة السر، التواريخ، مع تحكم كامل بالمحتوى.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>👑 هل لوحة التحكم خاصة بي فقط؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">نعم، تكون محمية ومخصصة لك وحدك.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>🎁 هل توجد عروض أو خصومات؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">يتم تقديم عروض وخصومات بشكل دوري.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>💳 كيف يتم الدفع؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">يتم الاتفاق على طريقة الدفع أثناء الطلب.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question"><span>🏆 لماذا أختار HeartLink؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer">لأننا نحول الذكريات والمشاعر إلى تجربة رقمية تفاعلية فريدة ومميزة مصممة خصيصًا لك.</div>
+                    </div>
+                </div>
+                <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
+            </div>
+        </div>
+
         <div id="contact" class="content-section">
             <div class="glass-card" style="text-align: center;">
                 <div class="animate__animated animate__pulse animate__infinite">
@@ -973,6 +1936,7 @@
         <button class="nav-item" onclick="openTab(event, 'demo')"><i class="fa-solid fa-circle-play"></i><span>مثال حي</span></button>
         <button class="nav-item" onclick="openTab(event, 'details')"><i class="fa-solid fa-gem"></i><span>المميزات</span></button>
         <button class="nav-item" onclick="openTab(event, 'reviews')"><i class="fa-solid fa-star"></i><span>آراء العملاء</span></button>
+        <button class="nav-item" onclick="openTab(event, 'faq')"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
         <button class="nav-item" onclick="handleOrderTab(event)"><i class="fa-solid fa-cart-shopping"></i><span>اطلب</span></button>
         <button class="nav-item" onclick="openTab(event, 'contact')"><i class="fa-solid fa-comments"></i><span>تواصل</span></button>
     </nav>
@@ -981,10 +1945,28 @@
 
     <script>
         function toggleTheme() {
+            document.body.classList.remove('deep-dark-mode');
             document.body.classList.toggle('light-mode');
             const icon = document.getElementById('theme-icon');
-            icon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            const isLight = document.body.classList.contains('light-mode');
+            icon.className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            localStorage.setItem('heartlinkTheme', isLight ? 'light' : 'dark');
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.remove('deep-dark-mode');
+            const savedTheme = localStorage.getItem('heartlinkTheme');
+            const icon = document.getElementById('theme-icon');
+
+            // الموقع يفتح دارك افتراضيًا، ولو المستخدم اختار الفاتح قبل كده نحفظ اختياره
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                if (icon) icon.className = 'fa-solid fa-sun';
+            } else {
+                document.body.classList.remove('light-mode');
+                if (icon) icon.className = 'fa-solid fa-moon';
+            }
+        });
 
         function handleOrderTab(evt) {
             openTab(evt, 'new-order');
@@ -1034,6 +2016,256 @@
             document.getElementById('preview-modal').classList.remove('active');
             document.getElementById('preview-frame').src = "";
         }
+
+
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const currentItem = item.parentElement;
+                const faqCard = currentItem.closest('.glass-card');
+                currentItem.classList.toggle('active');
+                if (faqCard) {
+                    setTimeout(() => handleScroll(faqCard), 120);
+                }
+            });
+        });
+
     </script>
+
+<script>
+/* ================= HeartLink Firebase Live Sync =================
+   Admin Panel -> Firebase Realtime Database -> Website
+   Paths supported:
+   settings, demos, reviews, faq, sections
+=============================================================== */
+(function(){
+    const firebaseConfig = {
+        apiKey: "AIzaSyBiEatzVzp7lsd0J4wkGmxoASqsEsftH_o",
+        authDomain: "heart-link-e7e31-74eff.firebaseapp.com",
+        databaseURL: "https://heart-link-e7e31-74eff-default-rtdb.firebaseio.com",
+        projectId: "heart-link-e7e31-74eff",
+        storageBucket: "heart-link-e7e31-74eff.firebasestorage.app",
+        messagingSenderId: "1088958523130",
+        appId: "1:1088958523130:web:4047f400ac29fa6b133eb3"
+    };
+
+    if (!window.firebase) return;
+    try {
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        window.heartlinkDB = firebase.database();
+    } catch (err) {
+        console.warn("Firebase init error:", err);
+        return;
+    }
+
+    const db = window.heartlinkDB;
+
+    function byOrder(a, b) {
+        return (Number(a.order || 0) - Number(b.order || 0));
+    }
+
+    function objectToArray(data) {
+        if (!data) return [];
+        return Object.keys(data).map(key => ({ id: key, ...data[key] }));
+    }
+
+    function safeText(value, fallback = "") {
+        return (value === undefined || value === null || value === "") ? fallback : String(value);
+    }
+
+    function makeMarqueeText(txt) {
+        return `${txt} &nbsp;&nbsp;&nbsp;&nbsp; ${txt}`;
+    }
+
+    function updateSettings(s) {
+        if (!s) return;
+
+        const logo = document.querySelector(".hero-logo-shell img");
+        if (logo && s.logoUrl) logo.src = s.logoUrl;
+
+        const taglineMain = document.querySelector(".tagline-main");
+        if (taglineMain && s.headerTitle) {
+            taglineMain.innerHTML = `<i class="fa-solid fa-crown"></i>${s.headerTitle}`;
+        }
+
+        const taglineSub = document.querySelector(".tagline-sub");
+        if (taglineSub && s.headerSubtitle) taglineSub.textContent = s.headerSubtitle;
+
+        const kicker = document.querySelector(".hero-kicker span:nth-child(2)");
+        if (kicker && s.kickerText) kicker.textContent = s.kickerText;
+
+        const heroEn = document.querySelector(".hero-en");
+        if (heroEn && s.heroEn) heroEn.textContent = s.heroEn;
+
+        const title = document.querySelector(".hero-title-main");
+        if (title && (s.heroTitleLine1 || s.heroTitleLine2 || s.heroHighlight)) {
+            const line1 = safeText(s.heroTitleLine1, "حوّل أي مناسبة إلى");
+            const line2 = safeText(s.heroTitleLine2, "تجربة رقمية");
+            const highlight = safeText(s.heroHighlight, "لا تُنسى");
+            title.innerHTML = `${line1}<br>${line2} <span class="blue-word">${highlight}</span>`;
+        }
+
+        const subtitle = document.querySelector(".hero-subtitle");
+        if (subtitle && s.heroSubtitle) subtitle.textContent = s.heroSubtitle;
+
+        const marquee = document.querySelector(".marquee-text");
+        if (marquee && s.marqueeText) marquee.innerHTML = makeMarqueeText(s.marqueeText);
+
+        if (s.whatsapp) window.HEARTLINK_WHATSAPP = String(s.whatsapp).replace(/\D/g, "");
+        if (s.tiktok) window.HEARTLINK_TIKTOK = s.tiktok;
+        if (s.orderUrl) window.HEARTLINK_ORDER_URL = s.orderUrl;
+
+        const tiktokBtn = document.querySelector('#contact a[href*="tiktok"]');
+        if (tiktokBtn && s.tiktok) tiktokBtn.href = s.tiktok;
+
+        const waBtn = document.querySelector('#contact a[href*="wa.me"]');
+        if (waBtn && s.whatsapp) waBtn.href = "https://wa.me/" + String(s.whatsapp).replace(/\D/g, "");
+    }
+
+    function renderDemos(data) {
+        const grid = document.querySelector("#demo .demo-grid");
+        if (!grid) return;
+        const items = objectToArray(data).filter(x => x.visible !== false).sort(byOrder);
+        if (!items.length) return;
+
+        grid.innerHTML = items.map(item => {
+            const title = safeText(item.title, "نموذج");
+            const pass = safeText(item.pass || item.subtitle || item.description, "");
+            const url = safeText(item.url, "#");
+            const icon = safeText(item.icon, "fa-eye");
+            const style = item.iconStyle ? `style="${item.iconStyle}"` : "";
+            const gold = item.vip || item.gold || item.featured ? " gold-edition" : "";
+            return `
+                <div onclick="openPreview('${url}')" class="demo-card${gold}">
+                    ${item.cover ? `<img src="${item.cover}" alt="${title}" style="width:100%;height:90px;object-fit:cover;border-radius:18px;margin-bottom:4px;">` : `<div class="demo-icon" ${style}><i class="fa-solid ${icon}"></i></div>`}
+                    <div class="demo-info">
+                        <span class="demo-title">${title}</span>
+                        <span class="demo-pass">${pass}</span>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function renderReviews(data) {
+        const grid = document.querySelector("#reviews .reviews-grid");
+        if (!grid) return;
+        const items = objectToArray(data).filter(x => x.visible !== false).sort(byOrder);
+        if (!items.length) return;
+
+        grid.innerHTML = items.map(item => {
+            const img = item.image || item.imageUrl || item.url;
+            if (!img) return "";
+            const alt = safeText(item.name || item.title, "Review");
+            return `<div class="review-card"><img src="${img}" alt="${alt}"></div>`;
+        }).join("");
+    }
+
+    function attachFAQEvents() {
+        document.querySelectorAll(".faq-question").forEach(item => {
+            item.onclick = () => {
+                const currentItem = item.parentElement;
+                const faqCard = currentItem.closest(".glass-card");
+                currentItem.classList.toggle("active");
+                if (faqCard) setTimeout(() => handleScroll(faqCard), 120);
+            };
+        });
+    }
+
+    function renderFAQ(data) {
+        const list = document.querySelector("#faq .faq-list");
+        if (!list) return;
+        const items = objectToArray(data).filter(x => x.visible !== false).sort(byOrder);
+        if (!items.length) return;
+
+        list.innerHTML = items.map(item => {
+            const q = safeText(item.question || item.q, "سؤال");
+            const a = safeText(item.answer || item.a, "");
+            return `
+                <div class="faq-item">
+                    <button class="faq-question"><span>${q}</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">${a}</div>
+                </div>
+            `;
+        }).join("");
+        attachFAQEvents();
+    }
+
+    function updateSections(data) {
+        if (!data) return;
+        const map = {
+            home: "home",
+            demo: "demo",
+            details: "details",
+            reviews: "reviews",
+            steps: "steps",
+            faq: "faq",
+            order: "new-order",
+            contact: "contact"
+        };
+
+        Object.keys(map).forEach(key => {
+            if (!data[key]) return;
+            const visible = data[key].visible !== false && data[key] !== false;
+            const sectionId = map[key];
+            const section = document.getElementById(sectionId);
+            const navBtn = document.querySelector(`.nav-item[onclick*="'${sectionId}'"], .nav-item[onclick*='"${sectionId}"']`);
+            if (section) section.style.display = visible ? "" : "none";
+            if (navBtn) navBtn.style.display = visible ? "" : "none";
+        });
+
+        if (data.marquee) {
+            const bar = document.querySelector(".ramadan-bar");
+            if (bar) bar.style.display = (data.marquee.visible === false || data.marquee === false) ? "none" : "";
+        }
+    }
+
+    function updateSEO(seo) {
+        if (!seo) return;
+        if (seo.title) document.title = seo.title;
+        const desc = document.querySelector('meta[name="description"]');
+        if (desc && seo.description) desc.setAttribute("content", seo.description);
+        if (seo.favicon) {
+            let link = document.querySelector('link[rel="icon"]');
+            if (!link) {
+                link = document.createElement("link");
+                link.rel = "icon";
+                document.head.appendChild(link);
+            }
+            link.href = seo.favicon;
+        }
+    }
+
+    function applyMaintenance(data) {
+        if (!data || data.enabled !== true) return;
+        document.body.innerHTML = `
+            <div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;color:#fff;background:#020615;font-family:Segoe UI,system-ui;">
+                <div style="max-width:420px;padding:30px;border-radius:30px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);box-shadow:0 30px 80px rgba(0,0,0,.45);">
+                    <div style="font-size:44px;margin-bottom:14px;">🛠️</div>
+                    <h1 style="margin:0 0 12px;font-size:24px;">${safeText(data.title, "الموقع تحت التطوير")}</h1>
+                    <p style="margin:0;color:#aab8d8;line-height:1.8;">${safeText(data.message, "نقوم ببعض التحسينات الآن، سنعود قريبًا.")}</p>
+                </div>
+            </div>`;
+    }
+
+    // Realtime listeners
+    db.ref("settings").on("value", snap => updateSettings(snap.val()));
+    db.ref("demos").on("value", snap => renderDemos(snap.val()));
+    db.ref("reviews").on("value", snap => renderReviews(snap.val()));
+    db.ref("faq").on("value", snap => renderFAQ(snap.val()));
+    db.ref("sections").on("value", snap => updateSections(snap.val()));
+    db.ref("seo").on("value", snap => updateSEO(snap.val()));
+    db.ref("maintenance").on("value", snap => applyMaintenance(snap.val()));
+
+    // Override order button after original functions load
+    const oldHandleOrderTab = window.handleOrderTab;
+    window.handleOrderTab = function(evt) {
+        const url = window.HEARTLINK_ORDER_URL || "https://to-request-wine.vercel.app/";
+        if (typeof openTab === "function") openTab(evt, "new-order");
+        if (typeof openPreview === "function") openPreview(url);
+        else window.open(url, "_blank");
+    };
+})();
+</script>
+
 </body>
 </html>
