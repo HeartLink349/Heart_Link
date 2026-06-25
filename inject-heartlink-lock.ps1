@@ -38,7 +38,16 @@ function Test-IsExcluded([System.IO.FileInfo]$File) {
   return $false
 }
 
+function Get-RelativePath([string]$BasePath, [string]$TargetPath) {
+  $baseUri = New-Object System.Uri (($BasePath.TrimEnd("\", "/") + "\").Replace("\", "/"))
+  $targetUri = New-Object System.Uri ($TargetPath.Replace("\", "/"))
+  return [System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($targetUri).ToString())
+}
+
 $resolvedRoot = (Resolve-Path -LiteralPath $Root).Path
+$defaultLockMessage = [System.Text.Encoding]::UTF8.GetString(
+  [Convert]::FromBase64String("2LnZgdmI2KfZi9iMINiq2YUg2YLZgdmEINmH2LDZhyDYp9mE2YfYr9mK2Kkg2YbZh9in2KbZitin2Ysg2YXZhiDZgtio2YQg2KfZhNmF2LfZiNixIEhlYXJ0TGluayDZiNmE2Kcg2YrZhdmD2YYg2KfZhNmI2LXZiNmEINil2YTZitmH2Kcg2KPZiCDYp9iz2KrYrtiv2KfZhdmH2Kcg2KjYudivINin2YTYotmGLg==")
+)
 $files = Get-ChildItem -LiteralPath $resolvedRoot -Recurse -File -Filter "*.html" |
   Where-Object { -not (Test-IsExcluded $_) } |
   Sort-Object FullName
@@ -67,14 +76,14 @@ foreach ($file in $files) {
     Set-Content -LiteralPath $file.FullName -Value $updated -Encoding UTF8
   }
 
-  $relative = [System.IO.Path]::GetRelativePath($resolvedRoot, $file.FullName).Replace("\", "/")
+  $relative = Get-RelativePath $resolvedRoot $file.FullName
   $url = if ($BaseUrl) { $BaseUrl.TrimEnd("/") + "/" + $relative } else { $relative }
   $name = Get-HtmlTitle $content ([System.IO.Path]::GetFileNameWithoutExtension($file.Name))
   $gifts[$giftId] = [ordered]@{
     name = $name
     url = $url
     status = "open"
-    lockMessage = "عفواً، تم قفل هذه الهدية نهائياً من قبل المطور HeartLink ولا يمكن الوصول إليها أو استخدامها بعد الآن."
+    lockMessage = $defaultLockMessage
     whatsapp = "201125674359"
     updatedAt = (Get-Date -Format "yyyy-MM-dd")
   }
