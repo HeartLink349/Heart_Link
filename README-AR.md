@@ -8,6 +8,7 @@
 - `admin.html`: لوحة التحكم لإضافة الهدايا وفتحها وقفلها وتعديل رسالة القفل ورقم واتساب.
 - `firebase-rules.json`: قواعد Firebase Realtime Database المقترحة.
 - `gifts-seed.json`: بيانات أولية للهدايا الموجودة داخل صفحة HeartLink الحالية.
+- `inject-heartlink-lock.ps1`: أداة اختيارية لحقن السكربت في ملفات HTML داخل أي نسخة ريبو.
 
 ## تركيب Firebase
 
@@ -41,6 +42,22 @@
 ```
 
 إذا كان ملف `heartlink-lock.js` مستضافًا على دومين آخر، غيّر رابط `src` للرابط الجديد.
+
+## حقن السكربت تلقائيًا داخل ملفات HTML
+
+بعد أخذ Branch أو Backup، شغّل:
+
+```powershell
+.\inject-heartlink-lock.ps1 -Root "C:\path\to\repo" -BaseUrl "https://your-domain.com"
+```
+
+للاختبار بدون تعديل الملفات:
+
+```powershell
+.\inject-heartlink-lock.ps1 -Root "C:\path\to\repo" -DryRun
+```
+
+السكربت يتخطى الملفات التي تحتوي بالفعل على `HEARTLINK_GIFT_ID` أو `heartlink-lock.js`، ويتجنب `admin.html` و`install-snippet.html` افتراضيًا.
 
 ## إضافة هدية جديدة
 
