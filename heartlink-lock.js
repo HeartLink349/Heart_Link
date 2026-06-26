@@ -113,9 +113,7 @@
     var style = document.createElement("style");
     style.id = "hl-lock-style";
     style.textContent = [
-      "#hl-lock-credit,#hl-lock-credit *,.hl-lock-overlay,.hl-lock-overlay *{box-sizing:border-box;letter-spacing:0!important}",
-      "#hl-lock-credit{position:fixed;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:2147483000;display:inline-flex;align-items:center;justify-content:center;max-width:calc(100vw - 24px);padding:7px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(8,8,10,.62);color:#fff;text-decoration:none;font:600 10px/1.2 system-ui,-apple-system,Segoe UI,Arial,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:.78;transition:opacity .2s ease,transform .2s ease}",
-      "#hl-lock-credit:hover,#hl-lock-credit:focus-visible{opacity:1;transform:translateY(-1px);outline:none}",
+      ".hl-lock-overlay,.hl-lock-overlay *{box-sizing:border-box;letter-spacing:0!important}",
       ".hl-lock-overlay{position:fixed;inset:0;z-index:2147483001;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at 50% 0%,rgba(146,16,38,.22),transparent 32%),linear-gradient(180deg,#09090b 0%,#17070a 48%,#050505 100%);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;text-align:center;direction:rtl}",
       ".hl-lock-overlay[hidden]{display:none!important}",
       ".hl-lock-overlay__panel{width:min(460px,100%);border:1px solid rgba(255,255,255,.12);border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));box-shadow:0 24px 80px rgba(0,0,0,.52);padding:30px 22px}",
@@ -124,27 +122,11 @@
       ".hl-lock-overlay__message{margin:0 auto 22px;max-width:360px;color:#e7d8dc;font-size:15px;line-height:1.9}",
       ".hl-lock-overlay__button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:8px;background:#25d366;color:#07130b;text-decoration:none;font-weight:900;font-size:15px;box-shadow:0 12px 26px rgba(37,211,102,.22);transition:transform .2s ease,filter .2s ease}",
       ".hl-lock-overlay__button:hover,.hl-lock-overlay__button:focus-visible{transform:translateY(-1px);filter:brightness(1.04);outline:none}",
-      ".hl-lock-overlay__credit{display:inline-block;margin-top:22px;color:#ffb3c1;text-decoration:none;font-size:12px;font-weight:800}",
       "html.hl-lock-document-closed,html.hl-lock-document-closed body{overflow:hidden!important}",
-      "html.hl-lock-document-closed body>*:not(.hl-lock-overlay):not(#hl-lock-credit){visibility:hidden!important;pointer-events:none!important}",
-      "@media (max-width:520px){.hl-lock-overlay{padding:16px}.hl-lock-overlay__panel{padding:26px 18px}.hl-lock-overlay__title{font-size:25px}.hl-lock-overlay__message{font-size:14px}#hl-lock-credit{right:10px;bottom:max(10px,env(safe-area-inset-bottom));font-size:9px;padding:6px 9px}}"
+      "html.hl-lock-document-closed body>*:not(.hl-lock-overlay){visibility:hidden!important;pointer-events:none!important}",
+      "@media (max-width:520px){.hl-lock-overlay{padding:16px}.hl-lock-overlay__panel{padding:26px 18px}.hl-lock-overlay__title{font-size:25px}.hl-lock-overlay__message{font-size:14px}}"
     ].join("\n");
     (document.head || document.documentElement).appendChild(style);
-  }
-
-  function hlLockRenderCredit(whatsapp) {
-    hlLockApplyStyles();
-    var credit = document.getElementById("hl-lock-credit");
-    if (!credit) {
-      credit = document.createElement("a");
-      credit.id = "hl-lock-credit";
-      credit.className = "hl-lock-credit";
-      credit.target = "_blank";
-      credit.rel = "noopener";
-      credit.textContent = "Made with ❤️ by HeartLink";
-      document.body.appendChild(credit);
-    }
-    credit.href = hlLockWhatsappUrl(whatsapp);
   }
 
   function hlLockRenderOverlay(data) {
@@ -170,7 +152,6 @@
       '<h1 class="hl-lock-overlay__title" id="hl-lock-overlay-title">الهدية مغلقة</h1>' +
       '<p class="hl-lock-overlay__message">' + hlLockEscape(message) + "</p>" +
       '<a class="hl-lock-overlay__button" target="_blank" rel="noopener" href="' + hlLockWhatsappUrl(whatsapp) + '">تواصل مع المطور</a>' +
-      '<br><a class="hl-lock-overlay__credit" target="_blank" rel="noopener" href="' + hlLockWhatsappUrl(whatsapp) + '">Made with ❤️ by HeartLink</a>' +
       "</div>";
 
     document.documentElement.classList.add("hl-lock-document-closed");
@@ -180,7 +161,6 @@
     var overlay = document.getElementById("hl-lock-overlay");
     if (overlay) overlay.hidden = true;
     document.documentElement.classList.remove("hl-lock-document-closed");
-    hlLockRenderCredit(data && data.whatsapp);
   }
 
   function hlLockApplyGift(data) {
@@ -196,8 +176,6 @@
 
   function hlLockStart() {
     hlLockReady(function () {
-      hlLockRenderCredit(HL_LOCK_DEFAULT_WHATSAPP);
-
       if (!hlLockState.giftId) {
         console.warn("[HeartLink Lock] Missing window.HEARTLINK_GIFT_ID.");
         return;
