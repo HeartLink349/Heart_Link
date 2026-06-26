@@ -88,6 +88,21 @@
       padding: 12px;
       margin-bottom: 10px;
       background: var(--hl-lock-admin-panel);
+      color: var(--hl-lock-admin-text);
+      text-align: right;
+      width: 100%;
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .hl-lock-admin-stat:hover {
+      border-color: rgba(56,189,248,.35);
+      background: #16161c;
+      transform: translateY(-1px);
+    }
+
+    .hl-lock-admin-stat.is-active {
+      border-color: rgba(56,189,248,.62);
+      background: rgba(56,189,248,.1);
     }
 
     .hl-lock-admin-stat span {
@@ -147,6 +162,25 @@
       font-size: 24px;
     }
 
+    .hl-lock-admin-login-badge {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--hl-lock-admin-radius);
+      background: linear-gradient(135deg, #e11d48, #6b0f1f);
+      border: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 14px;
+      box-shadow: 0 14px 36px rgba(225,29,72,.22);
+    }
+
+    .hl-lock-admin-login-subtitle {
+      margin: 0 0 18px;
+      color: var(--hl-lock-admin-muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
     .hl-lock-admin-login-box p {
       margin: 0 0 18px;
       color: var(--hl-lock-admin-muted);
@@ -164,9 +198,70 @@
 
     .hl-lock-admin-toolbar {
       display: grid;
-      grid-template-columns: minmax(220px, 1fr) auto auto auto;
+      grid-template-columns: minmax(260px, 1fr) repeat(5, auto);
       gap: 10px;
       align-items: center;
+    }
+
+    .hl-lock-admin-status-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hl-lock-admin-section-title {
+      display: grid;
+      gap: 3px;
+    }
+
+    .hl-lock-admin-section-title span {
+      color: var(--hl-lock-admin-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hl-lock-admin-section-title strong {
+      font-size: 18px;
+    }
+
+    .hl-lock-admin-status-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hl-lock-admin-filter-btn {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border-radius: var(--hl-lock-admin-radius);
+      border: 1px solid var(--hl-lock-admin-line);
+      background: #15151a;
+      color: var(--hl-lock-admin-text);
+      font-weight: 800;
+    }
+
+    .hl-lock-admin-filter-btn b {
+      min-width: 24px;
+      min-height: 22px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .hl-lock-admin-filter-btn.is-active {
+      border-color: rgba(56,189,248,.62);
+      background: rgba(56,189,248,.12);
+      color: #dff7ff;
     }
 
     .hl-lock-admin-field {
@@ -228,6 +323,11 @@
     .hl-lock-admin-btn-amber { background: #7a4b08; border-color: rgba(245,158,11,.4); }
     .hl-lock-admin-btn-blue { background: #075985; border-color: rgba(56,189,248,.45); }
     .hl-lock-admin-btn-danger { background: #7f1026; border-color: rgba(225,29,72,.5); }
+
+    .hl-lock-admin-btn:disabled {
+      cursor: not-allowed;
+      opacity: .58;
+    }
 
     .hl-lock-admin-form-grid {
       display: grid;
@@ -389,6 +489,19 @@
         grid-template-columns: 1fr;
       }
 
+      .hl-lock-admin-status-panel {
+        align-items: stretch;
+      }
+
+      .hl-lock-admin-status-tabs,
+      .hl-lock-admin-filter-btn {
+        width: 100%;
+      }
+
+      .hl-lock-admin-filter-btn {
+        justify-content: space-between;
+      }
+
       .hl-lock-admin-sidebar {
         grid-template-columns: 1fr;
       }
@@ -402,8 +515,9 @@
 <body>
   <section class="hl-lock-admin-login" id="hl-lock-admin-login">
     <form class="hl-lock-admin-login-box" id="hl-lock-admin-login-form">
+      <div class="hl-lock-admin-login-badge"><i data-lucide="heart-lock"></i></div>
       <h1>HeartLink Admin</h1>
-      <p>تسجيل الدخول يتم عبر Firebase Authentication. لا يتم تخزين كلمة مرور الأدمن داخل هذا الملف.</p>
+      <div class="hl-lock-admin-login-subtitle">لوحة تحكم الهدايا الرقمية</div>
       <div class="hl-lock-admin-field">
         <label for="hl-lock-admin-email">البريد الإلكتروني</label>
         <input class="hl-lock-admin-input" id="hl-lock-admin-email" type="email" autocomplete="username" required>
@@ -428,18 +542,18 @@
           <span>Gift Control Center</span>
         </div>
       </div>
-      <div class="hl-lock-admin-stat">
+      <button class="hl-lock-admin-stat" type="button" data-status-filter="all">
         <span>كل الهدايا</span>
         <strong id="hl-lock-admin-count-total">0</strong>
-      </div>
-      <div class="hl-lock-admin-stat">
+      </button>
+      <button class="hl-lock-admin-stat" type="button" data-status-filter="open">
         <span>مفتوحة</span>
         <strong id="hl-lock-admin-count-open">0</strong>
-      </div>
-      <div class="hl-lock-admin-stat">
+      </button>
+      <button class="hl-lock-admin-stat" type="button" data-status-filter="closed">
         <span>مغلقة</span>
         <strong id="hl-lock-admin-count-closed">0</strong>
-      </div>
+      </button>
     </aside>
 
     <main class="hl-lock-admin-main">
@@ -461,6 +575,14 @@
             <i data-lucide="plus"></i>
             هدية جديدة
           </button>
+          <button class="hl-lock-admin-btn hl-lock-admin-btn-danger" id="hl-lock-admin-close-all" type="button">
+            <i data-lucide="lock"></i>
+            قفل الجميع
+          </button>
+          <button class="hl-lock-admin-btn hl-lock-admin-btn-green" id="hl-lock-admin-open-all" type="button">
+            <i data-lucide="unlock"></i>
+            فتح الجميع
+          </button>
           <button class="hl-lock-admin-btn hl-lock-admin-btn-blue" id="hl-lock-admin-export" type="button">
             <i data-lucide="download"></i>
             تصدير JSON
@@ -470,6 +592,24 @@
             استيراد JSON
           </button>
           <input class="hl-lock-admin-hidden" id="hl-lock-admin-import" type="file" accept="application/json,.json">
+        </div>
+      </section>
+
+      <section class="hl-lock-admin-panel hl-lock-admin-status-panel">
+        <div class="hl-lock-admin-section-title">
+          <span>القسم الحالي</span>
+          <strong id="hl-lock-admin-current-view">كل الهدايا</strong>
+        </div>
+        <div class="hl-lock-admin-status-tabs">
+          <button class="hl-lock-admin-filter-btn is-active" type="button" data-status-filter="all">
+            كل الهدايا <b id="hl-lock-admin-filter-all">0</b>
+          </button>
+          <button class="hl-lock-admin-filter-btn" type="button" data-status-filter="open">
+            شغالة <b id="hl-lock-admin-filter-open">0</b>
+          </button>
+          <button class="hl-lock-admin-filter-btn" type="button" data-status-filter="closed">
+            مغلقة <b id="hl-lock-admin-filter-closed">0</b>
+          </button>
         </div>
       </section>
 
@@ -575,6 +715,7 @@
       var hlLockAdminDb = hlLockAdminApp.database();
       var hlLockAdminGifts = {};
       var hlLockAdminEditingId = "";
+      var hlLockAdminStatusFilter = "all";
 
       var el = {
         login: document.getElementById("hl-lock-admin-login"),
@@ -598,6 +739,13 @@
         importBtn: document.getElementById("hl-lock-admin-import-btn"),
         importInput: document.getElementById("hl-lock-admin-import"),
         copySnippet: document.getElementById("hl-lock-admin-copy-snippet"),
+        closeAll: document.getElementById("hl-lock-admin-close-all"),
+        openAll: document.getElementById("hl-lock-admin-open-all"),
+        currentView: document.getElementById("hl-lock-admin-current-view"),
+        filterAll: document.getElementById("hl-lock-admin-filter-all"),
+        filterOpen: document.getElementById("hl-lock-admin-filter-open"),
+        filterClosed: document.getElementById("hl-lock-admin-filter-closed"),
+        filterButtons: document.querySelectorAll("[data-status-filter]"),
         total: document.getElementById("hl-lock-admin-count-total"),
         open: document.getElementById("hl-lock-admin-count-open"),
         closed: document.getElementById("hl-lock-admin-count-closed"),
@@ -649,22 +797,42 @@
         });
       }
 
+      function hlLockAdminGiftStatus(gift) {
+        return String(gift.status || "open") === "closed" ? "closed" : "open";
+      }
+
       function hlLockAdminRender() {
         var query = el.search.value.trim().toLowerCase();
-        var gifts = hlLockAdminSortedGifts().filter(function (gift) {
+        var allGifts = hlLockAdminSortedGifts();
+        var openCount = allGifts.filter(function (gift) { return hlLockAdminGiftStatus(gift) === "open"; }).length;
+        var closedCount = allGifts.length - openCount;
+        var viewTitles = {
+          all: "كل الهدايا",
+          open: "الهدايا الشغالة",
+          closed: "الهدايا المغلقة"
+        };
+
+        var gifts = allGifts.filter(function (gift) {
+          return hlLockAdminStatusFilter === "all" || hlLockAdminGiftStatus(gift) === hlLockAdminStatusFilter;
+        }).filter(function (gift) {
           var text = [gift.id, gift.name, gift.url, gift.status].join(" ").toLowerCase();
           return !query || text.indexOf(query) !== -1;
         });
 
-        var allGifts = hlLockAdminSortedGifts();
-        var openCount = allGifts.filter(function (gift) { return String(gift.status || "open") !== "closed"; }).length;
-        var closedCount = allGifts.length - openCount;
         el.total.textContent = allGifts.length;
         el.open.textContent = openCount;
         el.closed.textContent = closedCount;
+        el.filterAll.textContent = allGifts.length;
+        el.filterOpen.textContent = openCount;
+        el.filterClosed.textContent = closedCount;
+        el.currentView.textContent = viewTitles[hlLockAdminStatusFilter] || viewTitles.all;
+
+        Array.prototype.forEach.call(el.filterButtons, function (button) {
+          button.classList.toggle("is-active", button.getAttribute("data-status-filter") === hlLockAdminStatusFilter);
+        });
 
         el.list.innerHTML = gifts.map(function (gift) {
-          var status = String(gift.status || "open") === "closed" ? "closed" : "open";
+          var status = hlLockAdminGiftStatus(gift);
           var badgeClass = status === "closed" ? "hl-lock-admin-badge-closed" : "hl-lock-admin-badge-open";
           var badgeText = status === "closed" ? "Closed" : "Open";
           return [
@@ -764,6 +932,44 @@
         });
       }
 
+      function hlLockAdminBulkSetStatus(status) {
+        var gifts = hlLockAdminSortedGifts();
+        var target = gifts.filter(function (gift) {
+          return status === "closed" ? hlLockAdminGiftStatus(gift) !== "closed" : hlLockAdminGiftStatus(gift) === "closed";
+        });
+
+        if (!target.length) {
+          hlLockAdminToast(status === "closed" ? "كل الهدايا مغلقة بالفعل." : "كل الهدايا مفتوحة بالفعل.");
+          return;
+        }
+
+        var confirmText = status === "closed"
+          ? "قفل جميع الهدايا؟ سيتم قفل " + target.length + " هدية."
+          : "فتح جميع الهدايا؟ سيتم فتح " + target.length + " هدية.";
+        if (!confirm(confirmText)) return;
+
+        el.closeAll.disabled = true;
+        el.openAll.disabled = true;
+
+        var updates = {};
+        target.forEach(function (gift) {
+          updates["gifts/" + gift.id] = Object.assign({}, gift, {
+            status: status,
+            updatedAt: hlLockAdminNow()
+          });
+          delete updates["gifts/" + gift.id].id;
+        });
+
+        hlLockAdminDb.ref().update(updates).then(function () {
+          hlLockAdminToast(status === "closed" ? "تم قفل جميع الهدايا." : "تم فتح جميع الهدايا.");
+        }).catch(function (error) {
+          hlLockAdminToast(error.message || "تعذر تنفيذ الأمر على كل الهدايا.");
+        }).then(function () {
+          el.closeAll.disabled = false;
+          el.openAll.disabled = false;
+        });
+      }
+
       function hlLockAdminDelete(id) {
         if (!confirm("حذف الهدية من لوحة التحكم فقط؟")) return;
         hlLockAdminDb.ref("gifts/" + id).remove().then(function () {
@@ -843,10 +1049,19 @@
       el.reset.addEventListener("click", hlLockAdminResetForm);
       el.newGift.addEventListener("click", hlLockAdminResetForm);
       el.search.addEventListener("input", hlLockAdminRender);
+      el.closeAll.addEventListener("click", function () { hlLockAdminBulkSetStatus("closed"); });
+      el.openAll.addEventListener("click", function () { hlLockAdminBulkSetStatus("open"); });
       el.exportJson.addEventListener("click", hlLockAdminExport);
       el.importBtn.addEventListener("click", function () { el.importInput.click(); });
       el.importInput.addEventListener("change", function () { hlLockAdminImport(el.importInput.files[0]); });
       el.copySnippet.addEventListener("click", function () { hlLockAdminCopy(hlLockAdminSnippet()); });
+
+      Array.prototype.forEach.call(el.filterButtons, function (button) {
+        button.addEventListener("click", function () {
+          hlLockAdminStatusFilter = button.getAttribute("data-status-filter") || "all";
+          hlLockAdminRender();
+        });
+      });
 
       el.list.addEventListener("click", function (event) {
         var button = event.target.closest("button[data-action]");
