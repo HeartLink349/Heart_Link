@@ -2,7 +2,7 @@ param(
   [Parameter(Mandatory = $true)]
   [string]$Root,
 
-  [string]$ScriptUrl = "https://cdn.jsdelivr.net/gh/HeartLink349/Heart_Link@heartlink-lock-system/heartlink-lock.js",
+  [string]$ScriptUrl = "https://cdn.jsdelivr.net/gh/HeartLink349/Heart_Link@a665165/heartlink-lock.js",
   [string]$BaseUrl = "",
   [int]$StartIndex = 1,
   [string]$OutputSeed = "heartlink-lock-generated-gifts.json",

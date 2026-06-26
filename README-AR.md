@@ -38,7 +38,7 @@
 <script>
   window.HEARTLINK_GIFT_ID = "gift-001";
 </script>
-<script src="https://cdn.jsdelivr.net/gh/HeartLink349/Heart_Link@heartlink-lock-system/heartlink-lock.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HeartLink349/Heart_Link@a665165/heartlink-lock.js"></script>
 ```
 
 إذا كان ملف `heartlink-lock.js` مستضافًا على دومين آخر، غيّر رابط `src` للرابط الجديد.
