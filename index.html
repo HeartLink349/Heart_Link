@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>HeartLink | Premium Experience</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -413,6 +413,42 @@
             transition: 0.28s ease;
             cursor: pointer;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+
+        .demo-cover {
+            width: 100%;
+            height: clamp(118px, 38vw, 180px);
+            border-radius: 18px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08), rgba(255,255,255,0.025) 62%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.08),
+                0 12px 26px rgba(0,0,0,0.18);
+        }
+
+        .demo-card > img {
+            width: 100% !important;
+            height: clamp(118px, 38vw, 180px) !important;
+            display: block;
+            object-fit: contain !important;
+            object-position: center;
+            border-radius: 18px !important;
+            margin-bottom: 4px !important;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08), rgba(255,255,255,0.025) 62%);
+        }
+
+        .demo-cover img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            object-position: center;
         }
 
         .demo-card:active {
@@ -1756,6 +1792,418 @@ body.light-mode .nav-item span {
     -webkit-text-fill-color: currentColor !important;
 }
 
+/* =============== FINAL RESPONSIVE + LIGHT MODE STABILIZER =============== */
+html {
+    min-width: 320px;
+}
+
+body {
+    min-width: 320px;
+}
+
+main {
+    width: 100%;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 0;
+}
+
+.glass-card {
+    max-width: 100%;
+}
+
+img,
+iframe {
+    max-width: 100%;
+}
+
+.hero-title-main,
+.tagline-sub,
+.hero-en,
+.footer-copyright-tag {
+    letter-spacing: 0 !important;
+}
+
+@media (min-width: 768px) {
+    header {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding-inline: 32px;
+    }
+
+    main {
+        padding-inline: 32px;
+        margin-bottom: 118px;
+    }
+
+    .content-section {
+        max-width: min(980px, calc(100vw - 64px));
+    }
+
+    .glass-card {
+        padding: 32px;
+        max-height: min(780px, calc(100dvh - 220px));
+    }
+
+    #home .glass-card {
+        max-width: 760px;
+        margin-inline: auto;
+    }
+
+    #demo .glass-card,
+    #details .glass-card,
+    #reviews .glass-card,
+    #steps .glass-card,
+    #new-order .glass-card,
+    #faq .glass-card,
+    #contact .glass-card {
+        max-width: 980px;
+        margin-inline: auto;
+    }
+
+    .demo-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-row {
+        align-items: flex-start;
+    }
+
+    nav {
+        width: min(calc(100% - 48px), 820px);
+        max-width: 820px;
+        padding: 10px;
+    }
+
+    .nav-item {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+        min-height: 52px;
+        padding: 12px 10px;
+    }
+
+    .nav-item span {
+        font-size: 11px;
+        max-width: 96px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 1120px) {
+    header {
+        max-width: 1280px;
+    }
+
+    main {
+        max-width: 1280px;
+        padding-inline: 48px;
+        margin-bottom: 110px;
+    }
+
+    .content-section {
+        max-width: min(1120px, calc(100vw - 96px));
+    }
+
+    .glass-card {
+        max-height: min(800px, calc(100dvh - 205px));
+    }
+
+    #demo .glass-card,
+    #details .glass-card,
+    #reviews .glass-card,
+    #steps .glass-card,
+    #new-order .glass-card,
+    #faq .glass-card {
+        max-width: 1120px;
+    }
+
+    .demo-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-title-main {
+        font-size: 54px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .content-section {
+        max-width: 1200px;
+    }
+
+    #demo .glass-card,
+    #details .glass-card,
+    #reviews .glass-card,
+    #steps .glass-card,
+    #new-order .glass-card,
+    #faq .glass-card {
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 430px) {
+    main {
+        padding-inline: 14px;
+    }
+
+    .glass-card {
+        border-radius: 30px;
+    }
+
+    .demo-cover,
+    .demo-card > img {
+        height: 132px !important;
+    }
+
+    .nav-item span {
+        max-width: 48px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .glass-card div[style*="grid-template-columns: 1fr 1fr 1fr"],
+    .glass-card div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    .feature-box[style*="grid-column: span 2"] {
+        grid-column: auto !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .demo-grid,
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-item span {
+        display: none;
+    }
+}
+
+body.light-mode {
+    --primary: #3158ff;
+    --secondary: #7c3aed;
+    --accent: #0ea5e9;
+    --accent-2: #22d3ee;
+    --bg: #eef4ff;
+    --bg-secondary: #fbfdff;
+    --glass: rgba(255,255,255,0.78);
+    --glass-strong: rgba(255,255,255,0.94);
+    --glass-border: rgba(27, 49, 104, 0.14);
+    --text: #0f172a;
+    --text-dim: #526176;
+    --gold: #a36d00;
+    --card-highlight: rgba(255,255,255,0.72);
+    --nav-bg: rgba(255,255,255,0.86);
+    --shadow: 0 26px 70px rgba(35, 65, 140, 0.16);
+    --shadow-soft: 0 12px 30px rgba(35, 65, 140, 0.10);
+    background:
+        radial-gradient(760px 390px at 50% -5%, rgba(49,88,255,0.18), transparent 64%),
+        radial-gradient(620px 340px at 90% 16%, rgba(124,58,237,0.12), transparent 64%),
+        radial-gradient(520px 280px at 12% 86%, rgba(14,165,233,0.10), transparent 64%),
+        linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%) !important;
+    color: var(--text) !important;
+}
+
+body.light-mode::before {
+    background-image:
+        radial-gradient(circle, rgba(49,88,255,0.28) 0 1px, transparent 1px),
+        radial-gradient(circle, rgba(14,165,233,0.20) 0 1px, transparent 1px) !important;
+    opacity: 0.18 !important;
+}
+
+body.light-mode::after {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(49,88,255,0.18), transparent 10%),
+        radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.13), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,0.70), rgba(238,244,255,0.14)) !important;
+    border-top-color: rgba(27,49,104,0.10) !important;
+    box-shadow: 0 -18px 70px rgba(35,65,140,0.10) !important;
+    opacity: 0.85;
+}
+
+body.light-mode .bg-glow {
+    background: radial-gradient(circle, rgba(49,88,255,0.34) 0%, rgba(124,58,237,0.16) 42%, transparent 72%) !important;
+    opacity: 0.24 !important;
+}
+
+body.light-mode header,
+body.light-mode .tagline-main,
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode p,
+body.light-mode span,
+body.light-mode b,
+body.light-mode small,
+body.light-mode label {
+    color: var(--text) !important;
+    -webkit-text-fill-color: currentColor !important;
+    text-shadow: none !important;
+}
+
+body.light-mode .tagline-sub,
+body.light-mode .hero-en,
+body.light-mode .hero-subtitle,
+body.light-mode .faq-intro,
+body.light-mode .faq-answer,
+body.light-mode .step-text p,
+body.light-mode .feature-row small,
+body.light-mode .demo-pass,
+body.light-mode .badge-separator {
+    color: var(--text-dim) !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body.light-mode .hero-kicker,
+body.light-mode .hero-kicker span {
+    color: var(--gold) !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body.light-mode .hero-title-main .blue-word {
+    color: var(--primary) !important;
+    -webkit-text-fill-color: var(--primary) !important;
+}
+
+body.light-mode .glass-card {
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.68)),
+        rgba(255,255,255,0.80) !important;
+    border-color: var(--glass-border) !important;
+    box-shadow:
+        0 26px 70px rgba(35,65,140,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.96) !important;
+}
+
+body.light-mode .hero-card {
+    background:
+        radial-gradient(440px 250px at 50% 0%, rgba(49,88,255,0.13), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,249,255,0.82)) !important;
+}
+
+body.light-mode .hero-future::before {
+    border-color: rgba(49,88,255,0.16) !important;
+    box-shadow: 0 0 55px rgba(49,88,255,0.10) !important;
+}
+
+body.light-mode .hero-logo-shell,
+body.light-mode .theme-toggle,
+body.light-mode nav {
+    background: rgba(255,255,255,0.86) !important;
+    border-color: var(--glass-border) !important;
+    box-shadow:
+        0 18px 42px rgba(35,65,140,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.95) !important;
+}
+
+body.light-mode .feature-row,
+body.light-mode .feature-box,
+body.light-mode .step-card,
+body.light-mode .demo-card,
+body.light-mode .review-card,
+body.light-mode .faq-item {
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.58)) !important;
+    border-color: rgba(27,49,104,0.12) !important;
+    color: var(--text) !important;
+    box-shadow:
+        0 10px 25px rgba(35,65,140,0.07),
+        inset 0 1px 0 rgba(255,255,255,0.90) !important;
+}
+
+body.light-mode .demo-cover,
+body.light-mode .demo-card > img {
+    background:
+        radial-gradient(circle at 50% 20%, rgba(49,88,255,0.08), rgba(255,255,255,0.64) 62%) !important;
+    border-color: rgba(27,49,104,0.12) !important;
+}
+
+body.light-mode .future-btn.primary,
+body.light-mode .order-btn {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+body.light-mode .future-btn.primary span,
+body.light-mode .future-btn.primary i,
+body.light-mode .order-btn span,
+body.light-mode .order-btn .fa-whatsapp {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+body.light-mode .future-btn.secondary {
+    background: rgba(255,255,255,0.76) !important;
+    color: var(--text) !important;
+    border-color: var(--glass-border) !important;
+}
+
+body.light-mode .nav-item {
+    color: #64748b !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body.light-mode .nav-item span {
+    color: inherit !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body.light-mode .nav-item i,
+body.light-mode nav .nav-item i {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+    filter: none !important;
+}
+
+body.light-mode .nav-item.active {
+    background: linear-gradient(135deg, rgba(49,88,255,0.14), rgba(124,58,237,0.09)) !important;
+    color: var(--text) !important;
+}
+
+body.light-mode .nav-item.active i,
+body.light-mode nav .nav-item.active i {
+    color: var(--primary) !important;
+    -webkit-text-fill-color: var(--primary) !important;
+    filter: drop-shadow(0 0 10px rgba(49,88,255,0.22)) !important;
+}
+
+body.light-mode #preview-modal {
+    background:
+        radial-gradient(520px 320px at 20% 10%, rgba(49,88,255,0.12), transparent 60%),
+        linear-gradient(180deg, rgba(249,251,255,0.98), rgba(238,244,255,0.99)) !important;
+}
+
+body.light-mode .close-btn {
+    background: rgba(255,255,255,0.92) !important;
+    color: var(--text) !important;
+    border-color: var(--glass-border) !important;
+}
+
+body.light-mode .footer-copyright-tag {
+    color: rgba(15,23,42,0.52) !important;
+    -webkit-text-fill-color: rgba(15,23,42,0.52) !important;
+}
+
     </style>
 </head>
 <body>
@@ -2329,7 +2777,7 @@ body.light-mode .nav-item span {
         const items = arr(data, DEFAULT_DEMOS);
         grid.innerHTML = items.map(d => `
             <div onclick="openPreview('${safe(d.url,'#')}')" class="demo-card ${d.vip ? 'gold-edition' : ''}">
-                ${d.cover ? `<img src="${escapeHtml(d.cover)}" alt="${escapeHtml(d.title)}" style="width:100%;height:92px;object-fit:cover;border-radius:18px;margin-bottom:4px;">` : `<div class="demo-icon" ${d.iconStyle ? `style="${escapeHtml(d.iconStyle)}"` : ''}><i class="fa-solid ${escapeHtml(d.icon||'fa-eye')}"></i></div>`}
+                ${d.cover ? `<div class="demo-cover"><img src="${escapeHtml(d.cover)}" alt="${escapeHtml(d.title||'Demo')}" loading="lazy" decoding="async"></div>` : `<div class="demo-icon" ${d.iconStyle ? `style="${escapeHtml(d.iconStyle)}"` : ''}><i class="fa-solid ${escapeHtml(d.icon||'fa-eye')}"></i></div>`}
                 <div class="demo-info"><span class="demo-title">${escapeHtml(d.title||'نموذج')}</span><span class="demo-pass">${escapeHtml(d.password||d.pass||d.subtitle||'')}</span></div>
             </div>`).join('');
     }
