@@ -2735,6 +2735,253 @@ body.light-mode .footer-copyright-tag {
         const source = obj && Object.keys(obj).length ? obj : fallback;
         return Object.keys(source || {}).map(k => ({id:k, ...source[k]})).filter(x => !x.hidden && x.visible !== false).sort((a,b)=>(Number(a.order||0)-Number(b.order||0)));
     }
+    const HEARTLINK_DEMO_ANALYTICS_MAP = new Map();
+
+    function analyticsDayKey(date = new Date()) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const d = String(date.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+    }
+    function analyticsSafeKey(value) {
+        return safe(value, "unknown").trim().replace(/[.#$/\[\]]/g, "-").replace(/\s+/g, "-").slice(0, 90) || "unknown";
+    }
+    function analyticsNormalizeUrl(url) {
+        return safe(url).trim().replace(/\/+$/, "").toLowerCase();
+    }
+    function analyticsStorageGet(store, key, fallback = "") {
+        try { return store.getItem(key) || fallback; } catch(e) { return fallback; }
+    }
+    function analyticsStorageSet(store, key, value) {
+        try { store.setItem(key, value); } catch(e) {}
+    }
+    function analyticsCreateId(prefix) {
+        const id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+        return `${prefix}-${id}`;
+    }
+    function analyticsBrowser() {
+        const ua = navigator.userAgent || "";
+        if(/Edg\//i.test(ua)) return "Edge";
+        if(/OPR\//i.test(ua) || /Opera/i.test(ua)) return "Opera";
+        if(/Firefox\//i.test(ua)) return "Firefox";
+        if(/Chrome\//i.test(ua) && !/Edg\//i.test(ua)) return "Chrome";
+        if(/Safari\//i.test(ua) && !/Chrome\//i.test(ua)) return "Safari";
+        return "Other";
+    }
+    function analyticsOS() {
+        const ua = navigator.userAgent || "";
+        if(/Android/i.test(ua)) return "Android";
+        if(/iPhone|iPad|iPod/i.test(ua)) return "iPhone";
+        if(/Windows/i.test(ua)) return "Windows";
+        if(/Mac OS|Macintosh/i.test(ua)) return "Mac";
+        if(/Linux/i.test(ua)) return "Linux";
+        return "Other";
+    }
+    function analyticsDevice() {
+        const ua = navigator.userAgent || "";
+        const width = window.innerWidth || screen.width || 0;
+        if(/iPad|Tablet/i.test(ua) || (width >= 768 && width <= 1180 && /Android/i.test(ua))) return "Tablet";
+        if(/Mobi|Android|iPhone|iPod/i.test(ua) || width < 768) return "Mobile";
+        return "Desktop";
+    }
+    function analyticsFlag(code) {
+        const c = safe(code).trim().toUpperCase();
+        if(!/^[A-Z]{2}$/.test(c)) return "";
+        return String.fromCodePoint(...[...c].map(ch => 127397 + ch.charCodeAt(0)));
+    }
+    function analyticsCountryFallback() {
+        const locale = navigator.language || "";
+        const region = locale.includes("-") ? locale.split("-").pop().toUpperCase() : "";
+        return {
+            country: region || "Unknown",
+            countryCode: /^[A-Z]{2}$/.test(region) ? region : "",
+            flag: /^[A-Z]{2}$/.test(region) ? analyticsFlag(region) : ""
+        };
+    }
+    function analyticsMeta() {
+        const fallback = analyticsCountryFallback();
+        const base = {
+            browser: analyticsBrowser(),
+            operatingSystem: analyticsOS(),
+            device: analyticsDevice(),
+            screenWidth: window.innerWidth || screen.width || 0,
+            language: navigator.language || "",
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || ""
+        };
+        if(!window.fetch) return Promise.resolve({...fallback, ...base});
+        return fetch("https://ipapi.co/json/", {cache:"no-store"})
+            .then(res => res.ok ? res.json() : fallback)
+            .then(geo => ({
+                country: geo.country_name || fallback.country || "Unknown",
+                countryCode: geo.country_code || fallback.countryCode || "",
+                flag: geo.country_code ? analyticsFlag(geo.country_code) : fallback.flag,
+                ...base
+            }))
+            .catch(() => ({...fallback, ...base}));
+    }
+    function analyticsIncrement(path, amount = 1) {
+        try { return db.ref(path).transaction(v => (Number(v) || 0) + amount).catch(() => {}); }
+        catch(e) { return Promise.resolve(); }
+    }
+    function analyticsUpdate(path, payload) {
+        try { return db.ref(path).update(payload).catch(() => {}); }
+        catch(e) { return Promise.resolve(); }
+    }
+    function analyticsSet(path, payload) {
+        try { return db.ref(path).set(payload).catch(() => {}); }
+        catch(e) { return Promise.resolve(); }
+    }
+    function analyticsPushLimited(path, payload, limit) {
+        try {
+            return db.ref(path).push(payload).then(() => (
+                db.ref(path).orderByChild("timestamp").once("value").then(snap => {
+                    const rows = [];
+                    snap.forEach(child => rows.push({key: child.key, timestamp: Number(child.val()?.timestamp) || 0}));
+                    if(rows.length <= limit) return;
+                    rows.sort((a,b) => a.timestamp - b.timestamp);
+                    const updates = {};
+                    rows.slice(0, rows.length - limit).forEach(row => updates[row.key] = null);
+                    return db.ref(path).update(updates);
+                })
+            )).catch(() => {});
+        } catch(e) { return Promise.resolve(); }
+    }
+    function analyticsTrackGroup(group, label, extra = {}) {
+        const key = analyticsSafeKey(label);
+        analyticsIncrement(`analytics/${group}/${key}/count`);
+        analyticsUpdate(`analytics/${group}/${key}`, {label: label || "Unknown", ...extra});
+    }
+    function analyticsUpdateToday(today) {
+        try {
+            return db.ref("analytics/todayCounter").transaction(cur => {
+                if(!cur || cur.date !== today) return {date: today, count: 1};
+                return {date: today, count: (Number(cur.count) || 0) + 1};
+            }, (error, committed, snap) => {
+                const val = snap && snap.val();
+                if(!error && committed && val) analyticsSet("analytics/todayVisitors", Number(val.count) || 0);
+            });
+        } catch(e) { return Promise.resolve(); }
+    }
+    function analyticsRefreshOnline(meta, page) {
+        const sessionId = analyticsStorageGet(sessionStorage, "hl_platform_session_id", "") || analyticsCreateId("session");
+        analyticsStorageSet(sessionStorage, "hl_platform_session_id", sessionId);
+        const now = Date.now();
+        const payload = {
+            sessionId,
+            visitorId: analyticsStorageGet(localStorage, "hl_platform_visitor_id", ""),
+            page,
+            country: meta.country,
+            countryCode: meta.countryCode,
+            flag: meta.flag,
+            device: meta.device,
+            browser: meta.browser,
+            operatingSystem: meta.operatingSystem,
+            lastSeen: now
+        };
+        try { db.ref(`analytics/onlineSessions/${sessionId}`).onDisconnect().remove(); } catch(e) {}
+        analyticsSet(`analytics/onlineSessions/${sessionId}`, payload);
+        return db.ref("analytics/onlineSessions").once("value").then(snap => {
+            const updates = {};
+            let active = 0;
+            snap.forEach(child => {
+                const row = child.val() || {};
+                const lastSeen = Number(row.lastSeen) || 0;
+                if(now - lastSeen <= 300000) active += 1;
+                else updates[child.key] = null;
+            });
+            return db.ref("analytics/onlineSessions").update(updates).then(() => analyticsSet("analytics/onlineVisitors", active));
+        }).catch(() => {});
+    }
+    function analyticsBuildDemoMap(data) {
+        HEARTLINK_DEMO_ANALYTICS_MAP.clear();
+        arr(data, DEFAULT_DEMOS).forEach(d => {
+            const url = safe(d.url);
+            if(!url) return;
+            HEARTLINK_DEMO_ANALYTICS_MAP.set(analyticsNormalizeUrl(url), {
+                giftId: d.giftId || d.id || analyticsSafeKey(d.title || url),
+                name: d.title || "Demo Gift",
+                url
+            });
+        });
+    }
+    function analyticsDemoFromUrl(url) {
+        return HEARTLINK_DEMO_ANALYTICS_MAP.get(analyticsNormalizeUrl(url));
+    }
+    function analyticsTrackDemoOpen(url) {
+        const demo = analyticsDemoFromUrl(url);
+        if(!demo) return;
+        analyticsMeta().then(meta => {
+            const now = Date.now();
+            const today = analyticsDayKey();
+            const visitorId = analyticsStorageGet(localStorage, "hl_platform_visitor_id", "") || analyticsCreateId("visitor");
+            const lastVisitDay = analyticsStorageGet(localStorage, "hl_platform_last_visit_day", "");
+            const isNewVisitor = !analyticsStorageGet(localStorage, "hl_platform_visitor_id", "");
+            analyticsStorageSet(localStorage, "hl_platform_visitor_id", visitorId);
+            if(isNewVisitor) analyticsIncrement("analytics/totalVisitors");
+            if(lastVisitDay !== today) {
+                analyticsStorageSet(localStorage, "hl_platform_last_visit_day", today);
+                analyticsUpdateToday(today);
+                analyticsIncrement(`analytics/dailyVisitors/${today}/visitors`);
+                analyticsIncrement(isNewVisitor ? "analytics/newVisitors" : "analytics/returningVisitors");
+            }
+            analyticsIncrement("analytics/pageViews");
+            analyticsIncrement("analytics/giftClicks");
+            analyticsIncrement(`analytics/dailyVisitors/${today}/pageViews`);
+            analyticsIncrement(`analytics/dailyVisitors/${today}/giftClicks`);
+            analyticsTrackGroup("devices", meta.device);
+            analyticsTrackGroup("browsers", meta.browser);
+            analyticsTrackGroup("operatingSystems", meta.operatingSystem);
+            analyticsTrackGroup("countries", meta.country, {countryCode: meta.countryCode, flag: meta.flag});
+            const giftKey = analyticsSafeKey(demo.giftId || demo.url);
+            analyticsIncrement(`analytics/topGifts/${giftKey}/views`);
+            analyticsIncrement(`analytics/topGifts/${giftKey}/opens`);
+            analyticsUpdate(`analytics/topGifts/${giftKey}`, {
+                giftId: demo.giftId,
+                name: demo.name,
+                url: demo.url,
+                lastVisit: firebase.database.ServerValue.TIMESTAMP
+            });
+            const visit = {
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                visitorId,
+                country: meta.country,
+                countryCode: meta.countryCode,
+                flag: meta.flag,
+                device: meta.device,
+                browser: meta.browser,
+                operatingSystem: meta.operatingSystem,
+                screenWidth: meta.screenWidth,
+                language: meta.language,
+                timezone: meta.timezone,
+                page: "demo",
+                giftId: demo.giftId,
+                giftName: demo.name,
+                url: demo.url
+            };
+            analyticsPushLimited("analytics/recentVisitors", visit, 50);
+            analyticsPushLimited("analytics/liveActivity", {
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                type: "gift_view",
+                text: `${demo.name} was opened from demos`,
+                country: meta.country,
+                flag: meta.flag,
+                page: "demo",
+                giftName: demo.name,
+                url: demo.url
+            }, 120);
+            analyticsRefreshOnline(meta, "demo");
+            analyticsSet("analytics/lastUpdated", firebase.database.ServerValue.TIMESTAMP);
+        }).catch(() => {});
+    }
+    analyticsBuildDemoMap(null);
+
+    window.trackDemoPreview = function(url) {
+        analyticsTrackDemoOpen(url);
+        if(typeof window.openPreview === "function") return window.openPreview(url);
+        if(typeof openPreview === "function") return openPreview(url);
+        window.open(url, "_blank");
+    };
+
     function marquee(txt) { return `${txt} &nbsp;&nbsp;&nbsp;&nbsp; ${txt}`; }
     function setVar(name, value) { if(value) document.documentElement.style.setProperty(name, value); }
 
@@ -2775,8 +3022,9 @@ body.light-mode .footer-copyright-tag {
     function renderDemos(data) {
         const grid = document.querySelector('#demo .demo-grid'); if(!grid) return;
         const items = arr(data, DEFAULT_DEMOS);
+        analyticsBuildDemoMap(data);
         grid.innerHTML = items.map(d => `
-            <div onclick="openPreview('${safe(d.url,'#')}')" class="demo-card ${d.vip ? 'gold-edition' : ''}">
+            <div onclick="trackDemoPreview('${safe(d.url,'#')}')" class="demo-card ${d.vip ? 'gold-edition' : ''}">
                 ${d.cover ? `<div class="demo-cover"><img src="${escapeHtml(d.cover)}" alt="${escapeHtml(d.title||'Demo')}" loading="lazy" decoding="async"></div>` : `<div class="demo-icon" ${d.iconStyle ? `style="${escapeHtml(d.iconStyle)}"` : ''}><i class="fa-solid ${escapeHtml(d.icon||'fa-eye')}"></i></div>`}
                 <div class="demo-info"><span class="demo-title">${escapeHtml(d.title||'نموذج')}</span><span class="demo-pass">${escapeHtml(d.password||d.pass||d.subtitle||'')}</span></div>
             </div>`).join('');

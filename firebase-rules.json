@@ -29,6 +29,25 @@
         }
       }
     },
+    "analytics": {
+      ".read": true,
+      ".write": true,
+      "recentVisitors": {
+        ".indexOn": ["timestamp"]
+      },
+      "liveActivity": {
+        ".indexOn": ["timestamp"]
+      },
+      "dailyVisitors": {
+        ".indexOn": ["visitors", "pageViews"]
+      },
+      "topGifts": {
+        ".indexOn": ["views", "opens", "shares", "lastVisit"]
+      },
+      "onlineSessions": {
+        ".indexOn": ["lastSeen"]
+      }
+    },
     "admins": {
       ".read": false,
       ".write": false
