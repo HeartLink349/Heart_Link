@@ -2627,6 +2627,8 @@ body.light-mode .footer-copyright-tag {
                 document.body.classList.remove('light-mode');
                 if (icon) icon.className = 'fa-solid fa-moon';
             }
+
+            analyticsTrackVisit();
         });
 
         function handleOrderTab(evt) {
@@ -2727,7 +2729,108 @@ body.light-mode .footer-copyright-tag {
     if (!window.firebase) { console.warn("Firebase SDK not loaded"); return; }
     try { if (!firebase.apps.length) firebase.initializeApp(firebaseConfig); } catch(e) { console.warn(e); return; }
     const db = firebase.database();
-    window.heartlinkDB = db;
+window.heartlinkDB = db;
+
+    /* ==================== VISITOR TRACKING FIX ==================== */
+    let __analyticsSessionId = "";
+    let __analyticsVisitorId = "";
+    let __analyticsHeartbeatTimer = null;
+
+    function analyticsTrackVisit() {
+        if (window.__analyticsTracked) return;
+        window.__analyticsTracked = true;
+
+        analyticsMeta().then(meta => {
+            const now = Date.now();
+            const today = analyticsDayKey();
+            const sessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            const visitorId = analyticsStorageGet(localStorage, "hl_platform_visitor_id", "") || `visitor-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            const lastVisitDay = analyticsStorageGet(localStorage, "hl_platform_last_visit_day", "");
+            const isNewVisitor = !analyticsStorageGet(localStorage, "hl_platform_visitor_id", "");
+
+            __analyticsSessionId = sessionId;
+            __analyticsVisitorId = visitorId;
+            analyticsStorageSet(localStorage, "hl_platform_visitor_id", visitorId);
+            analyticsStorageSet(sessionStorage, "hl_platform_session_id", sessionId);
+
+            if (isNewVisitor) analyticsIncrement("analytics/totalVisitors");
+
+            if (lastVisitDay !== today) {
+                analyticsStorageSet(localStorage, "hl_platform_last_visit_day", today);
+                analyticsUpdateToday(today);
+                analyticsIncrement(`analytics/dailyVisitors/${today}/visitors`);
+                analyticsIncrement(isNewVisitor ? "analytics/newVisitors" : "analytics/returningVisitors");
+            }
+
+            analyticsIncrement("analytics/pageViews");
+            analyticsIncrement(`analytics/dailyVisitors/${today}/pageViews`);
+
+            analyticsTrackGroup("devices", meta.device);
+            analyticsTrackGroup("browsers", meta.browser);
+            analyticsTrackGroup("operatingSystems", meta.operatingSystem);
+            analyticsTrackGroup("countries", meta.country, {countryCode: meta.countryCode, flag: meta.flag});
+
+            const visit = {
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                visitorId: visitorId,
+                country: meta.country,
+                countryCode: meta.countryCode,
+                flag: meta.flag,
+                device: meta.device,
+                browser: meta.browser,
+                operatingSystem: meta.operatingSystem,
+                screenWidth: meta.screenWidth,
+                language: meta.language,
+                timezone: meta.timezone,
+                page: "home",
+                giftId: "",
+                giftName: ""
+            };
+
+            analyticsPushLimited("analytics/recentVisitors", visit, 50);
+            analyticsPushLimited("analytics/liveActivity", {
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                type: "visitor",
+                text: `Visitor from ${meta.country || "Unknown"}`,
+                country: meta.country,
+                flag: meta.flag,
+                page: "home",
+                giftName: ""
+            }, 120);
+
+            // Online session with onDisconnect cleanup
+            const sessionPayload = {
+                sessionId: sessionId,
+                visitorId: visitorId,
+                page: "home",
+                country: meta.country,
+                countryCode: meta.countryCode,
+                flag: meta.flag,
+                device: meta.device,
+                browser: meta.browser,
+                operatingSystem: meta.operatingSystem,
+                lastSeen: now
+            };
+            try { db.ref(`analytics/onlineSessions/${sessionId}`).onDisconnect().remove(); } catch(e) {}
+            analyticsSet(`analytics/onlineSessions/${sessionId}`, sessionPayload);
+
+            analyticsRefreshOnline(meta, "home");
+            analyticsSet("analytics/lastUpdated", firebase.database.ServerValue.TIMESTAMP);
+
+            // Heartbeat every 30s
+            __analyticsHeartbeatTimer = setInterval(() => {
+                const hbNow = Date.now();
+                const hbPayload = { ...sessionPayload, lastSeen: hbNow };
+                analyticsSet(`analytics/onlineSessions/${sessionId}`, hbPayload);
+                analyticsRefreshOnline(meta, "home");
+            }, 30000);
+
+            window.addEventListener("beforeunload", () => {
+                if (__analyticsHeartbeatTimer) clearInterval(__analyticsHeartbeatTimer);
+            });
+        }).catch(() => {});
+    }
+    /* ==================== END VISITOR TRACKING FIX ==================== */
 
     function safe(v, f="") { return (v===undefined || v===null || v==="") ? f : String(v); }
     function escapeHtml(x) { return safe(x).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
@@ -2924,6 +3027,9 @@ body.light-mode .footer-copyright-tag {
                 analyticsIncrement(`analytics/dailyVisitors/${today}/visitors`);
                 analyticsIncrement(isNewVisitor ? "analytics/newVisitors" : "analytics/returningVisitors");
             }
+            // Ensure visitors count exists even if user skipped home page
+            analyticsIncrement(`analytics/dailyVisitors/${today}/visitors`);
+            analyticsUpdateToday(today);
             analyticsIncrement("analytics/pageViews");
             analyticsIncrement("analytics/giftClicks");
             analyticsIncrement(`analytics/dailyVisitors/${today}/pageViews`);
