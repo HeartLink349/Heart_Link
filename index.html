@@ -3,9 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>HeartLink | Premium Experience</title>
+    <title>أول منصة للهدايا الرقمية في مصر | HeartLink</title>
+    <meta name="description" content="اصنع هديتك الرقمية المميزة وشارك أجمل ذكرياتك في تجربة مختلفة مع HeartLink 🎁">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="language" content="Arabic">
+    <meta name="theme-color" content="#5b7cff">
+    <meta name="application-name" content="HeartLink">
+    <meta name="apple-mobile-web-app-title" content="HeartLink">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="canonical" href="https://heartlink-eg.vercel.app/">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <meta property="og:locale" content="ar_EG">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HeartLink">
+    <meta property="og:title" content="أول منصة للهدايا الرقمية في مصر ❤️">
+    <meta property="og:description" content="اصنع هديتك الرقمية المميزة وشارك أجمل ذكرياتك في تجربة مختلفة مع HeartLink 🎁">
+    <meta property="og:url" content="https://heartlink-eg.vercel.app/">
+    <meta property="og:image" content="https://a.top4top.io/p_3874wudmt1.jpg">
+    <meta property="og:image:secure_url" content="https://a.top4top.io/p_3874wudmt1.jpg">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:image:alt" content="HeartLink - أول منصة للهدايا الرقمية في مصر">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="أول منصة للهدايا الرقمية في مصر ❤️">
+    <meta name="twitter:description" content="اصنع هديتك الرقمية المميزة وشارك أجمل ذكرياتك في تجربة مختلفة مع HeartLink 🎁">
+    <meta name="twitter:image" content="https://a.top4top.io/p_3874wudmt1.jpg">
+    <meta name="twitter:image:alt" content="HeartLink - أول منصة للهدايا الرقمية في مصر">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "HeartLink",
+      "alternateName": "أول منصة للهدايا الرقمية في مصر",
+      "description": "أول منصة للهدايا الرقمية في مصر",
+      "url": "https://heartlink-eg.vercel.app/",
+      "inLanguage": "ar-EG",
+      "image": "https://a.top4top.io/p_3874wudmt1.jpg",
+      "publisher": {
+        "@type": "Organization",
+        "name": "HeartLink",
+        "url": "https://heartlink-eg.vercel.app/",
+        "logo": "https://a.top4top.io/p_3874wudmt1.jpg"
+      }
+    }
+    </script>
     <style>
         :root {
             --primary: #5b7cff;
@@ -2204,6 +2251,149 @@ body.light-mode .footer-copyright-tag {
     -webkit-text-fill-color: rgba(15,23,42,0.52) !important;
 }
 
+.heartlink-install-btn {
+    position: fixed;
+    left: 18px;
+    bottom: 116px;
+    z-index: 1202;
+    border: 1px solid color-mix(in srgb, var(--primary) 42%, var(--glass-border));
+    border-radius: 999px;
+    padding: 11px 14px;
+    color: var(--text);
+    background:
+        linear-gradient(135deg, color-mix(in srgb, var(--primary) 22%, transparent), color-mix(in srgb, var(--accent) 12%, transparent)),
+        var(--glass-strong);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    box-shadow: 0 16px 38px rgba(0,0,0,0.32), 0 0 24px color-mix(in srgb, var(--primary) 20%, transparent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0;
+    transition: transform 0.28s ease, opacity 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.heartlink-install-btn:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--accent) 56%, var(--glass-border));
+    box-shadow: 0 20px 48px rgba(0,0,0,0.38), 0 0 28px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.heartlink-install-btn:active { transform: translateY(-1px) scale(0.97); }
+.heartlink-install-hidden { display: none !important; }
+
+.heartlink-install-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: grid;
+    place-items: center;
+    padding: 22px;
+    background: rgba(0,0,0,0.58);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.heartlink-install-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.heartlink-install-card {
+    width: min(420px, 100%);
+    border-radius: 30px;
+    padding: 22px;
+    background:
+        radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.035)),
+        var(--glass-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.28s ease;
+}
+
+.heartlink-install-modal.active .heartlink-install-card {
+    transform: translateY(0) scale(1);
+}
+
+.heartlink-install-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    box-shadow: 0 16px 34px color-mix(in srgb, var(--primary) 28%, transparent);
+}
+
+.heartlink-install-card h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.heartlink-install-card p,
+.heartlink-install-card li {
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.75;
+}
+
+.heartlink-install-card ol {
+    margin: 12px 0 18px;
+    padding-inline-start: 20px;
+}
+
+.heartlink-install-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.heartlink-install-close {
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 12px 14px;
+    color: var(--text);
+    background: var(--card-highlight);
+    cursor: pointer;
+    font-weight: 900;
+    flex: 1;
+}
+
+body.light-mode .heartlink-install-btn,
+body.light-mode .heartlink-install-card,
+body.light-mode .heartlink-install-close {
+    color: #0f172a;
+}
+
+@media (max-width: 520px) {
+    .heartlink-install-btn {
+        left: 12px;
+        bottom: 104px;
+        max-width: calc(100vw - 24px);
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .heartlink-install-card {
+        border-radius: 26px;
+        padding: 18px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -2604,7 +2794,153 @@ body.light-mode .footer-copyright-tag {
 
     <div class="footer-copyright-tag">© 2026 HEARTLINK EXPERIENCE - ALL RIGHTS RESERVED</div>
 
+    <button class="heartlink-install-btn heartlink-install-hidden" id="heartlink-install-btn" type="button" aria-label="ثبّت HeartLink على هاتفك">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <span>ثبّت HeartLink على هاتفك 📱</span>
+    </button>
+
+    <div class="heartlink-install-modal" id="heartlink-install-modal" aria-hidden="true">
+        <div class="heartlink-install-card" role="dialog" aria-modal="true" aria-labelledby="heartlink-install-title">
+            <div class="heartlink-install-icon"><i class="fa-solid fa-download"></i></div>
+            <h3 id="heartlink-install-title">ثبّت HeartLink على هاتفك</h3>
+            <p>لو زر التثبيت المباشر غير متاح في متصفحك، استخدم طريقة المتصفح لإضافة الموقع للشاشة الرئيسية.</p>
+            <ol>
+                <li>على iPhone: افتح زر المشاركة ثم اختر Add to Home Screen.</li>
+                <li>على Android: افتح قائمة المتصفح ثم اختر Install app أو Add to Home screen.</li>
+            </ol>
+            <div class="heartlink-install-actions">
+                <button class="heartlink-install-close" type="button" id="heartlink-install-close">تمام</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        const HEARTLINK_SITE_META = {
+            baseUrl: "https://heartlink-eg.vercel.app/",
+            defaultTitle: "أول منصة للهدايا الرقمية في مصر | HeartLink",
+            description: "اصنع هديتك الرقمية المميزة وشارك أجمل ذكرياتك في تجربة مختلفة مع HeartLink 🎁",
+            pages: {
+                home: "أول منصة للهدايا الرقمية في مصر | HeartLink",
+                demo: "HeartLink | الهدايا الرقمية",
+                details: "HeartLink | المميزات",
+                reviews: "HeartLink | آراء العملاء",
+                steps: "HeartLink | خطوات الطلب",
+                "new-order": "HeartLink | إنشاء هدية",
+                faq: "HeartLink | الأسئلة الشائعة",
+                contact: "HeartLink | تواصل معنا"
+            }
+        };
+
+        let heartlinkDeferredInstallPrompt = null;
+
+        function heartlinkSetMeta(selector, value, attr = "content") {
+            const el = document.querySelector(selector);
+            if (el && value) el.setAttribute(attr, value);
+        }
+
+        function setHeartLinkPageMeta(pageKey = "home") {
+            const title = HEARTLINK_SITE_META.pages[pageKey] || HEARTLINK_SITE_META.defaultTitle;
+            document.title = title;
+            heartlinkSetMeta('meta[property="og:title"]', pageKey === "home" ? "أول منصة للهدايا الرقمية في مصر ❤️" : title);
+            heartlinkSetMeta('meta[name="twitter:title"]', pageKey === "home" ? "أول منصة للهدايا الرقمية في مصر ❤️" : title);
+            heartlinkSetMeta('meta[name="description"]', HEARTLINK_SITE_META.description);
+            heartlinkSetMeta('meta[property="og:description"]', HEARTLINK_SITE_META.description);
+            heartlinkSetMeta('meta[name="twitter:description"]', HEARTLINK_SITE_META.description);
+        }
+
+        function heartlinkIsStandalone() {
+            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        }
+
+        function heartlinkCanShowManualInstall() {
+            const ua = navigator.userAgent || "";
+            const isAppleMobile = /iphone|ipad|ipod/i.test(ua);
+            const isAndroid = /android/i.test(ua);
+            return !heartlinkIsStandalone() && (isAppleMobile || isAndroid);
+        }
+
+        function heartlinkShowInstallButton() {
+            const btn = document.getElementById("heartlink-install-btn");
+            if (btn && !heartlinkIsStandalone()) btn.classList.remove("heartlink-install-hidden");
+        }
+
+        function heartlinkHideInstallButton() {
+            const btn = document.getElementById("heartlink-install-btn");
+            if (btn) btn.classList.add("heartlink-install-hidden");
+        }
+
+        function heartlinkOpenInstallModal() {
+            const modal = document.getElementById("heartlink-install-modal");
+            if (!modal) return;
+            modal.classList.add("active");
+            modal.setAttribute("aria-hidden", "false");
+        }
+
+        function heartlinkCloseInstallModal() {
+            const modal = document.getElementById("heartlink-install-modal");
+            if (!modal) return;
+            modal.classList.remove("active");
+            modal.setAttribute("aria-hidden", "true");
+        }
+
+        function heartlinkRegisterServiceWorker() {
+            if (!("serviceWorker" in navigator)) return;
+            if (location.protocol !== "https:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") return;
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {});
+            });
+        }
+
+        function heartlinkInitInstallExperience() {
+            const btn = document.getElementById("heartlink-install-btn");
+            const closeBtn = document.getElementById("heartlink-install-close");
+            const modal = document.getElementById("heartlink-install-modal");
+
+            window.addEventListener("beforeinstallprompt", event => {
+                event.preventDefault();
+                heartlinkDeferredInstallPrompt = event;
+                heartlinkShowInstallButton();
+            });
+
+            window.addEventListener("appinstalled", () => {
+                heartlinkDeferredInstallPrompt = null;
+                heartlinkHideInstallButton();
+                heartlinkCloseInstallModal();
+            });
+
+            if (btn) {
+                btn.addEventListener("click", async () => {
+                    if (heartlinkDeferredInstallPrompt) {
+                        heartlinkDeferredInstallPrompt.prompt();
+                        try {
+                            const choice = await heartlinkDeferredInstallPrompt.userChoice;
+                            if (choice && choice.outcome === "accepted") heartlinkHideInstallButton();
+                        } catch(e) {}
+                        heartlinkDeferredInstallPrompt = null;
+                    } else {
+                        heartlinkOpenInstallModal();
+                    }
+                });
+            }
+
+            if (closeBtn) closeBtn.addEventListener("click", heartlinkCloseInstallModal);
+            if (modal) {
+                modal.addEventListener("click", event => {
+                    if (event.target === modal) heartlinkCloseInstallModal();
+                });
+            }
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape") heartlinkCloseInstallModal();
+            });
+
+            setTimeout(() => {
+                if (!heartlinkDeferredInstallPrompt && heartlinkCanShowManualInstall()) heartlinkShowInstallButton();
+            }, 1400);
+        }
+
+        heartlinkRegisterServiceWorker();
+        setHeartLinkPageMeta("home");
+
         function toggleTheme() {
             document.body.classList.remove('deep-dark-mode');
             document.body.classList.toggle('light-mode');
@@ -2628,6 +2964,8 @@ body.light-mode .footer-copyright-tag {
                 if (icon) icon.className = 'fa-solid fa-moon';
             }
 
+            heartlinkInitInstallExperience();
+            setHeartLinkPageMeta("home");
             analyticsTrackVisit();
         });
 
@@ -2644,6 +2982,8 @@ body.light-mode .footer-copyright-tag {
             const selectedSection = document.getElementById(tabName);
             selectedSection.classList.add('active');
             evt.currentTarget.classList.add('active');
+            window.heartlinkCurrentPage = tabName;
+            setHeartLinkPageMeta(tabName);
             
             const card = selectedSection.querySelector('.glass-card');
             if(card) {
@@ -3096,7 +3436,7 @@ window.heartlinkDB = db;
         setVar("--primary", s.colorPrimary);
         setVar("--secondary", s.colorSecondary);
         setVar("--accent", s.colorAccent);
-        if (s.seoTitle) document.title = s.seoTitle;
+        if (typeof setHeartLinkPageMeta === 'function') setHeartLinkPageMeta(window.heartlinkCurrentPage || 'home');
         let desc = document.querySelector('meta[name="description"]');
         if (!desc) { desc = document.createElement('meta'); desc.name='description'; document.head.appendChild(desc); }
         if (s.seoDescription) desc.content = s.seoDescription;
