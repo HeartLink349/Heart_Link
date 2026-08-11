@@ -2252,13 +2252,11 @@ body.light-mode .footer-copyright-tag {
 }
 
 .heartlink-install-btn {
-    position: fixed;
-    left: 18px;
-    bottom: 116px;
-    z-index: 1202;
+    position: static;
     border: 1px solid color-mix(in srgb, var(--primary) 42%, var(--glass-border));
     border-radius: 999px;
-    padding: 11px 14px;
+    height: 44px;
+    padding: 0 13px;
     color: var(--text);
     background:
         linear-gradient(135deg, color-mix(in srgb, var(--primary) 22%, transparent), color-mix(in srgb, var(--accent) 12%, transparent)),
@@ -2381,10 +2379,8 @@ body.light-mode .heartlink-install-close {
 
 @media (max-width: 520px) {
     .heartlink-install-btn {
-        left: 12px;
-        bottom: 104px;
-        max-width: calc(100vw - 24px);
-        padding: 10px 12px;
+        height: 40px;
+        padding: 0 10px;
         font-size: 11px;
     }
 
@@ -2394,32 +2390,46 @@ body.light-mode .heartlink-install-close {
     }
 }
 
-/* =============== INSTALL CTA PLACEMENT ONLY =============== */
+/* =============== HEADER INSTALL CTA =============== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    direction: ltr;
+}
+
 .heartlink-install-btn {
-    left: 50% !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: calc(106px + env(safe-area-inset-bottom)) !important;
-    transform: translateX(-50%);
-    max-width: calc(100vw - 32px);
+    position: static !important;
+    inset: auto !important;
+    transform: none;
+    max-width: none;
     white-space: nowrap;
+    direction: rtl;
 }
 
 .heartlink-install-btn:hover {
-    transform: translateX(-50%) translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .heartlink-install-btn:active {
-    transform: translateX(-50%) translateY(-1px) scale(0.97);
+    transform: translateY(0) scale(0.97);
+}
+
+.heartlink-install-btn i {
+    font-size: 14px;
 }
 
 @media (max-width: 520px) {
+    .header-actions {
+        gap: 6px;
+    }
+
     .heartlink-install-btn {
-        left: 50% !important;
-        bottom: calc(96px + env(safe-area-inset-bottom)) !important;
-        max-width: calc(100vw - 28px);
-        padding: 9px 12px;
+        height: 40px;
+        padding: 0 10px;
         font-size: 11px;
+        gap: 6px;
     }
 }
 
@@ -2441,9 +2451,15 @@ body.light-mode .heartlink-install-close {
             </div>
             <div class="tagline-sub">HeartLink Experience</div>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()">
-            <i id="theme-icon" class="fa-solid fa-moon"></i>
-        </button>
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
+            <button class="heartlink-install-btn heartlink-install-hidden" id="heartlink-install-btn" type="button" aria-label="ثبّت HeartLink على هاتفك">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <span>تثبيت</span>
+            </button>
+        </div>
     </header>
 
     <div class="ramadan-bar">
@@ -2822,11 +2838,6 @@ body.light-mode .heartlink-install-close {
     </nav>
 
     <div class="footer-copyright-tag">© 2026 HEARTLINK EXPERIENCE - ALL RIGHTS RESERVED</div>
-
-    <button class="heartlink-install-btn heartlink-install-hidden" id="heartlink-install-btn" type="button" aria-label="ثبّت HeartLink على هاتفك">
-        <i class="fa-solid fa-mobile-screen-button"></i>
-        <span>ثبّت HeartLink على هاتفك 📱</span>
-    </button>
 
     <div class="heartlink-install-modal" id="heartlink-install-modal" aria-hidden="true">
         <div class="heartlink-install-card" role="dialog" aria-modal="true" aria-labelledby="heartlink-install-title">
