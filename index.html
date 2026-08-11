@@ -2516,6 +2516,201 @@ body.light-mode .heartlink-install-close {
     }
 }
 
+/* =============== FINAL HEADER + NAV LAYOUT FIX =============== */
+header {
+    gap: 12px;
+}
+
+.header-tagline {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.tagline-main {
+    max-width: 100%;
+}
+
+.header-actions {
+    flex: 0 0 auto;
+    margin-inline-start: 12px;
+    margin-top: 4px;
+}
+
+nav {
+    --hl-nav-icon-width: 54px;
+    --hl-nav-active-width: 132px;
+    --hl-nav-active-min: 110px;
+    --hl-nav-active-max: 150px;
+    --hl-nav-label-width: 92px;
+    --hl-nav-height: 52px;
+    gap: 6px;
+    overflow: hidden;
+}
+
+.nav-item {
+    position: relative;
+    flex: 0 0 var(--hl-nav-icon-width) !important;
+    width: var(--hl-nav-icon-width);
+    min-width: var(--hl-nav-icon-width);
+    max-width: var(--hl-nav-icon-width);
+    height: var(--hl-nav-height);
+    padding: 0 !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0;
+    overflow: hidden;
+    will-change: flex-basis, max-width, transform;
+    transition:
+        flex-basis 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        min-width 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        max-width 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        gap 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.28s ease,
+        transform 0.28s ease,
+        box-shadow 0.28s ease;
+}
+
+.nav-item i {
+    flex: 0 0 auto;
+}
+
+.nav-item span {
+    display: inline-block !important;
+    max-width: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transform: translateX(8px);
+    transition:
+        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.22s ease,
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item.active {
+    flex: 1 1 var(--hl-nav-active-width) !important;
+    width: var(--hl-nav-active-width);
+    min-width: var(--hl-nav-active-min);
+    max-width: var(--hl-nav-active-max);
+    padding: 0 14px !important;
+    gap: 8px;
+}
+
+.nav-item.active span {
+    max-width: var(--hl-nav-label-width) !important;
+    opacity: 1 !important;
+    transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+    nav {
+        --hl-nav-icon-width: 58px;
+        --hl-nav-active-width: 142px;
+        --hl-nav-active-min: 124px;
+        --hl-nav-active-max: 160px;
+        --hl-nav-label-width: 100px;
+        --hl-nav-height: 52px;
+        gap: 8px;
+    }
+}
+
+@media (min-width: 1120px) {
+    nav {
+        --hl-nav-icon-width: 64px;
+        --hl-nav-active-width: 154px;
+        --hl-nav-active-min: 132px;
+        --hl-nav-active-max: 176px;
+        --hl-nav-label-width: 112px;
+        --hl-nav-height: 54px;
+    }
+}
+
+@media (max-width: 520px) {
+    header {
+        padding-inline: 14px;
+        gap: 8px;
+    }
+
+    .header-actions {
+        gap: 6px;
+        margin-inline-start: 8px;
+        margin-top: 5px;
+    }
+
+    .tagline-main {
+        font-size: 12px;
+        max-width: 100%;
+    }
+
+    .tagline-main i {
+        font-size: 12px;
+    }
+
+    .tagline-sub {
+        font-size: 8px;
+    }
+
+    .heartlink-install-btn {
+        width: auto;
+        height: 34px;
+        min-width: 58px;
+        padding: 0 8px;
+        gap: 5px;
+        border-radius: 999px;
+        font-size: 9.5px;
+    }
+
+    .heartlink-install-btn i {
+        font-size: 13px;
+    }
+
+    nav {
+        --hl-nav-icon-width: 34px;
+        --hl-nav-active-width: 98px;
+        --hl-nav-active-min: 92px;
+        --hl-nav-active-max: 120px;
+        --hl-nav-label-width: 68px;
+        --hl-nav-height: 48px;
+        gap: 3px;
+    }
+
+    .nav-item.active {
+        padding: 0 10px !important;
+        gap: 6px;
+    }
+
+    .nav-item span {
+        font-size: 8px !important;
+    }
+}
+
+@media (max-width: 370px) {
+    header {
+        padding-inline: 10px;
+        gap: 6px;
+    }
+
+    .header-actions {
+        margin-inline-start: 6px;
+    }
+
+    .tagline-main {
+        font-size: 11px;
+    }
+
+    .heartlink-install-btn {
+        min-width: 54px;
+        height: 32px;
+        padding: 0 7px;
+        font-size: 9px;
+    }
+}
+
     </style>
 </head>
 <body>
