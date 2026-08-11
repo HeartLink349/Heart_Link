@@ -2544,6 +2544,10 @@ nav {
     --hl-nav-active-max: 150px;
     --hl-nav-label-width: 92px;
     --hl-nav-height: 52px;
+    width: fit-content;
+    max-width: calc(100% - 28px);
+    box-sizing: border-box;
+    justify-content: center;
     gap: 6px;
     overflow: hidden;
 }
@@ -2676,6 +2680,8 @@ nav {
         --hl-nav-active-max: 120px;
         --hl-nav-label-width: 68px;
         --hl-nav-height: 48px;
+        width: fit-content;
+        max-width: calc(100% - 18px);
         gap: 3px;
     }
 
@@ -2708,6 +2714,16 @@ nav {
         height: 32px;
         padding: 0 7px;
         font-size: 9px;
+    }
+
+    nav {
+        --hl-nav-icon-width: 31px;
+        --hl-nav-active-width: 90px;
+        --hl-nav-active-min: 84px;
+        --hl-nav-active-max: 104px;
+        --hl-nav-label-width: 58px;
+        gap: 2px;
+        padding: 7px;
     }
 }
 
