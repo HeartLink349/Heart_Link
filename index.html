@@ -2049,44 +2049,62 @@ iframe {
 
 @media (max-width: 520px) {
     nav {
-        overflow: visible;
+        gap: 3px;
+        overflow: hidden;
     }
 
     .nav-item {
         position: relative;
+        flex: 0 0 34px;
+        min-width: 34px;
+        height: 48px;
+        padding: 0;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0;
+        overflow: hidden;
+        transition:
+            flex-basis 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            min-width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            padding 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            gap 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            background 0.28s ease,
+            transform 0.28s ease,
+            box-shadow 0.28s ease;
     }
 
-    .nav-item::after {
-        content: attr(aria-label);
-        position: absolute;
-        left: 50%;
-        bottom: calc(100% + 10px);
-        transform: translateX(-50%) translateY(5px) scale(0.96);
-        padding: 6px 10px;
-        border-radius: 999px;
-        color: var(--text);
-        background: var(--glass-strong);
-        border: 1px solid var(--glass-border);
-        box-shadow: var(--shadow-soft);
-        backdrop-filter: blur(16px) saturate(150%);
-        -webkit-backdrop-filter: blur(16px) saturate(150%);
-        font-size: 10px;
-        font-weight: 900;
-        line-height: 1;
-        white-space: nowrap;
+    .nav-item i {
+        flex: 0 0 auto;
+        font-size: 1.02rem;
+    }
+
+    .nav-item span {
+        display: inline-block;
+        max-width: 0 !important;
         opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        z-index: 1205;
-        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 8px !important;
+        transform: translateX(8px);
+        transition:
+            max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.22s ease,
+            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nav-item:active::after,
-    .nav-item:focus::after,
-    .nav-item.nav-label-pop::after {
+    .nav-item.active {
+        flex: 1 1 98px;
+        min-width: 92px;
+        max-width: 120px;
+        padding: 0 10px;
+        gap: 6px;
+    }
+
+    .nav-item.active span {
+        max-width: 68px !important;
         opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(0) scale(1);
+        transform: translateX(0);
     }
 }
 
@@ -2474,44 +2492,27 @@ body.light-mode .heartlink-install-close {
         margin-top: 6px;
     }
 
+    .tagline-main {
+        font-size: 13px;
+        max-width: calc(100vw - 138px);
+    }
+
+    .tagline-main i {
+        font-size: 12px;
+    }
+
     .heartlink-install-btn {
-        width: 36px;
+        width: auto;
         height: 36px;
-        min-width: 36px;
-        padding: 0;
-        gap: 0;
+        min-width: 64px;
+        padding: 0 10px;
+        gap: 6px;
         border-radius: 15px;
+        font-size: 10px;
     }
 
     .heartlink-install-btn span {
-        display: none;
-    }
-
-    .heartlink-install-btn::after {
-        content: "تثبيت";
-        position: absolute;
-        top: calc(100% + 7px);
-        left: 50%;
-        transform: translateX(-50%) translateY(-4px);
-        padding: 5px 8px;
-        border-radius: 999px;
-        color: var(--text);
-        background: var(--glass-strong);
-        border: 1px solid var(--glass-border);
-        box-shadow: var(--shadow-soft);
-        font-size: 10px;
-        font-weight: 900;
-        z-index: 1201;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.18s ease, transform 0.18s ease;
-    }
-
-    .heartlink-install-btn:active::after,
-    .heartlink-install-btn:focus::after,
-    .heartlink-install-btn:focus-visible::after {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        display: inline;
     }
 }
 
@@ -3093,15 +3094,6 @@ body.light-mode .heartlink-install-close {
             openPreview('https://to-request-wine.vercel.app/');
         }
 
-        function flashNavLabel(button) {
-            if (!button) return;
-            button.classList.add('nav-label-pop');
-            clearTimeout(button._heartlinkNavLabelTimer);
-            button._heartlinkNavLabelTimer = setTimeout(() => {
-                button.classList.remove('nav-label-pop');
-            }, 950);
-        }
-
         function openTab(evt, tabName) {
             const sections = document.querySelectorAll('.content-section');
             const navItems = document.querySelectorAll('.nav-item');
@@ -3110,7 +3102,6 @@ body.light-mode .heartlink-install-close {
             const selectedSection = document.getElementById(tabName);
             selectedSection.classList.add('active');
             evt.currentTarget.classList.add('active');
-            flashNavLabel(evt.currentTarget);
             window.heartlinkCurrentPage = tabName;
             setHeartLinkPageMeta(tabName);
             
@@ -3159,12 +3150,6 @@ body.light-mode .heartlink-install-close {
                     setTimeout(() => handleScroll(faqCard), 120);
                 }
             });
-        });
-
-        document.querySelectorAll('.nav-item').forEach(item => {
-            const label = item.getAttribute('aria-label') || item.querySelector('span')?.textContent?.trim();
-            if (label) item.setAttribute('aria-label', label);
-            item.addEventListener('pointerdown', () => flashNavLabel(item));
         });
 
     </script>
