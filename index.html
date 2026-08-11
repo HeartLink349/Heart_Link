@@ -2047,6 +2047,49 @@ iframe {
     }
 }
 
+@media (max-width: 520px) {
+    nav {
+        overflow: visible;
+    }
+
+    .nav-item {
+        position: relative;
+    }
+
+    .nav-item::after {
+        content: attr(aria-label);
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 10px);
+        transform: translateX(-50%) translateY(5px) scale(0.96);
+        padding: 6px 10px;
+        border-radius: 999px;
+        color: var(--text);
+        background: var(--glass-strong);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(16px) saturate(150%);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        font-size: 10px;
+        font-weight: 900;
+        line-height: 1;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: 1205;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    }
+
+    .nav-item:active::after,
+    .nav-item:focus::after,
+    .nav-item.nav-label-pop::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
 body.light-mode {
     --primary: #3158ff;
     --secondary: #7c3aed;
@@ -2867,13 +2910,13 @@ body.light-mode .heartlink-install-close {
     </main>
 
     <nav>
-        <button class="nav-item active" onclick="openTab(event, 'home')"><i class="fa-solid fa-house"></i><span>الرئيسية</span></button>
-        <button class="nav-item" onclick="openTab(event, 'demo')"><i class="fa-solid fa-circle-play"></i><span>مثال حي</span></button>
-        <button class="nav-item" onclick="openTab(event, 'details')"><i class="fa-solid fa-gem"></i><span>المميزات</span></button>
-        <button class="nav-item" onclick="openTab(event, 'reviews')"><i class="fa-solid fa-star"></i><span>آراء العملاء</span></button>
-        <button class="nav-item" onclick="openTab(event, 'faq')"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
-        <button class="nav-item" onclick="handleOrderTab(event)"><i class="fa-solid fa-cart-shopping"></i><span>اطلب</span></button>
-        <button class="nav-item" onclick="openTab(event, 'contact')"><i class="fa-solid fa-comments"></i><span>تواصل</span></button>
+        <button class="nav-item active" aria-label="الرئيسية" onclick="openTab(event, 'home')"><i class="fa-solid fa-house"></i><span>الرئيسية</span></button>
+        <button class="nav-item" aria-label="مثال حي" onclick="openTab(event, 'demo')"><i class="fa-solid fa-circle-play"></i><span>مثال حي</span></button>
+        <button class="nav-item" aria-label="المميزات" onclick="openTab(event, 'details')"><i class="fa-solid fa-gem"></i><span>المميزات</span></button>
+        <button class="nav-item" aria-label="آراء العملاء" onclick="openTab(event, 'reviews')"><i class="fa-solid fa-star"></i><span>آراء العملاء</span></button>
+        <button class="nav-item" aria-label="FAQ" onclick="openTab(event, 'faq')"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
+        <button class="nav-item" aria-label="اطلب" onclick="handleOrderTab(event)"><i class="fa-solid fa-cart-shopping"></i><span>اطلب</span></button>
+        <button class="nav-item" aria-label="تواصل" onclick="openTab(event, 'contact')"><i class="fa-solid fa-comments"></i><span>تواصل</span></button>
     </nav>
 
     <div class="footer-copyright-tag">© 2026 HEARTLINK EXPERIENCE - ALL RIGHTS RESERVED</div>
@@ -3050,6 +3093,15 @@ body.light-mode .heartlink-install-close {
             openPreview('https://to-request-wine.vercel.app/');
         }
 
+        function flashNavLabel(button) {
+            if (!button) return;
+            button.classList.add('nav-label-pop');
+            clearTimeout(button._heartlinkNavLabelTimer);
+            button._heartlinkNavLabelTimer = setTimeout(() => {
+                button.classList.remove('nav-label-pop');
+            }, 950);
+        }
+
         function openTab(evt, tabName) {
             const sections = document.querySelectorAll('.content-section');
             const navItems = document.querySelectorAll('.nav-item');
@@ -3058,6 +3110,7 @@ body.light-mode .heartlink-install-close {
             const selectedSection = document.getElementById(tabName);
             selectedSection.classList.add('active');
             evt.currentTarget.classList.add('active');
+            flashNavLabel(evt.currentTarget);
             window.heartlinkCurrentPage = tabName;
             setHeartLinkPageMeta(tabName);
             
@@ -3106,6 +3159,12 @@ body.light-mode .heartlink-install-close {
                     setTimeout(() => handleScroll(faqCard), 120);
                 }
             });
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            const label = item.getAttribute('aria-label') || item.querySelector('span')?.textContent?.trim();
+            if (label) item.setAttribute('aria-label', label);
+            item.addEventListener('pointerdown', () => flashNavLabel(item));
         });
 
     </script>
