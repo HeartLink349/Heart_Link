@@ -1136,7 +1136,8 @@
 
         @media (max-height: 740px) {
             header { height: 70px; padding-top: 10px; }
-            .ramadan-bar { display: none; }
+            .ramadan-bar { display: flex; min-height: 28px; padding: 2px 0 4px; }
+            .marquee-text { font-size: 11px; }
             main { margin-bottom: 102px; }
             .hero-card { padding: 20px 18px 26px !important; }
             .hero-logo-shell { width: 104px; height: 104px; margin-bottom: 16px; }
@@ -2255,8 +2256,8 @@ body.light-mode .footer-copyright-tag {
     position: static;
     border: 1px solid color-mix(in srgb, var(--primary) 42%, var(--glass-border));
     border-radius: 999px;
-    height: 44px;
-    padding: 0 13px;
+    height: 40px;
+    padding: 0 11px;
     color: var(--text);
     background:
         linear-gradient(135deg, color-mix(in srgb, var(--primary) 22%, transparent), color-mix(in srgb, var(--accent) 12%, transparent)),
@@ -2269,7 +2270,7 @@ body.light-mode .footer-copyright-tag {
     justify-content: center;
     gap: 8px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 900;
     letter-spacing: 0;
     transition: transform 0.28s ease, opacity 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
@@ -2379,9 +2380,10 @@ body.light-mode .heartlink-install-close {
 
 @media (max-width: 520px) {
     .heartlink-install-btn {
-        height: 40px;
-        padding: 0 10px;
-        font-size: 11px;
+        height: 36px;
+        min-width: 36px;
+        padding: 0 8px;
+        font-size: 10px;
     }
 
     .heartlink-install-card {
@@ -2397,6 +2399,7 @@ body.light-mode .heartlink-install-close {
     gap: 8px;
     flex: 0 0 auto;
     direction: ltr;
+    margin-top: 4px;
 }
 
 .heartlink-install-btn {
@@ -2406,6 +2409,8 @@ body.light-mode .heartlink-install-close {
     max-width: none;
     white-space: nowrap;
     direction: rtl;
+    overflow: visible;
+    position: relative !important;
 }
 
 .heartlink-install-btn:hover {
@@ -2423,13 +2428,47 @@ body.light-mode .heartlink-install-close {
 @media (max-width: 520px) {
     .header-actions {
         gap: 6px;
+        margin-top: 6px;
     }
 
     .heartlink-install-btn {
-        height: 40px;
-        padding: 0 10px;
-        font-size: 11px;
-        gap: 6px;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        padding: 0;
+        gap: 0;
+        border-radius: 15px;
+    }
+
+    .heartlink-install-btn span {
+        display: none;
+    }
+
+    .heartlink-install-btn::after {
+        content: "تثبيت";
+        position: absolute;
+        top: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-4px);
+        padding: 5px 8px;
+        border-radius: 999px;
+        color: var(--text);
+        background: var(--glass-strong);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-soft);
+        font-size: 10px;
+        font-weight: 900;
+        z-index: 1201;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .heartlink-install-btn:active::after,
+    .heartlink-install-btn:focus::after,
+    .heartlink-install-btn:focus-visible::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
     }
 }
 
@@ -2455,7 +2494,7 @@ body.light-mode .heartlink-install-close {
             <button class="theme-toggle" onclick="toggleTheme()">
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
-            <button class="heartlink-install-btn heartlink-install-hidden" id="heartlink-install-btn" type="button" aria-label="ثبّت HeartLink على هاتفك">
+            <button class="heartlink-install-btn heartlink-install-hidden" id="heartlink-install-btn" type="button" aria-label="ثبّت HeartLink على هاتفك" title="ثبّت HeartLink">
                 <i class="fa-solid fa-mobile-screen-button"></i>
                 <span>تثبيت</span>
             </button>
@@ -2893,10 +2932,7 @@ body.light-mode .heartlink-install-close {
         }
 
         function heartlinkCanShowManualInstall() {
-            const ua = navigator.userAgent || "";
-            const isAppleMobile = /iphone|ipad|ipod/i.test(ua);
-            const isAndroid = /android/i.test(ua);
-            return !heartlinkIsStandalone() && (isAppleMobile || isAndroid);
+            return !heartlinkIsStandalone();
         }
 
         function heartlinkShowInstallButton() {
