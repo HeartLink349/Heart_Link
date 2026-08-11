@@ -3311,8 +3311,15 @@ nav {
             sections.forEach(s => s.classList.remove('active'));
             navItems.forEach(n => n.classList.remove('active'));
             const selectedSection = document.getElementById(tabName);
+            if (!selectedSection) return;
             selectedSection.classList.add('active');
-            evt.currentTarget.classList.add('active');
+            const clickedNavItem = evt && evt.currentTarget && evt.currentTarget.classList && evt.currentTarget.classList.contains('nav-item') ? evt.currentTarget : null;
+            const matchingNavItem = Array.from(navItems).find(item => {
+                const action = item.getAttribute('onclick') || '';
+                return action.includes(`'${tabName}'`) || action.includes(`"${tabName}"`) || (tabName === 'new-order' && action.includes('handleOrderTab'));
+            });
+            const activeNavItem = clickedNavItem || matchingNavItem;
+            if (activeNavItem) activeNavItem.classList.add('active');
             window.heartlinkCurrentPage = tabName;
             setHeartLinkPageMeta(tabName);
             
